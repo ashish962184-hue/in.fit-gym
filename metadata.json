@@ -1,0 +1,8 @@
+{
+  "name": "Remix: in.fit GYM",
+  "description": "An Elite Performance Center equipped with cutting-edge Real Leader USA machinery, offering personalized training, premium classes, custom packages, and interactive tools for athletes.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
