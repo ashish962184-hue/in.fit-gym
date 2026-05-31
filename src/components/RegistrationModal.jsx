@@ -7,6 +7,7 @@ export default function RegistrationModal({ isOpen, onClose, selectedPlan, allPl
   const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
+  const [fitnessGoal, setFitnessGoal] = useState("General Fitness");
   const [formErrors, setFormErrors] = useState("");
   const [selectedPlanId, setSelectedPlanId] = useState("");
   const [whatsappDirectUrl, setWhatsappDirectUrl] = useState("");
@@ -19,6 +20,7 @@ export default function RegistrationModal({ isOpen, onClose, selectedPlan, allPl
       setFullName("");
       setEmail("");
       setPhone("");
+      setFitnessGoal("General Fitness");
       setFormErrors("");
       setWhatsappDirectUrl("");
       
@@ -134,6 +136,7 @@ export default function RegistrationModal({ isOpen, onClose, selectedPlan, allPl
           full_name: fullName.trim(),
           email: email.trim().toLowerCase(),
           phone: phone.trim(),
+          fitness_goal: fitnessGoal,
           selected_plan: activePlan.name,
           plan_price: activePlan.price,
           status: "PENDING"
@@ -333,6 +336,25 @@ export default function RegistrationModal({ isOpen, onClose, selectedPlan, allPl
                     placeholder="Enter your Mobile Number"
                     className="w-full bg-[#0B0B0C] border border-white/15 focus:border-[#EF4444] rounded-sm px-3 py-2.5 text-xs text-[#EEEEF0] outline-none transition-all placeholder-zinc-500/50 font-sans"
                   />
+                </div>
+
+                <div>
+                  <label className="block text-[9px] font-bold text-[#EEEEF0]/70 uppercase tracking-widest mb-1 font-sans">
+                    Fitness Goal *
+                  </label>
+                  <select
+                    disabled={loading}
+                    value={fitnessGoal}
+                    onChange={(e) => setFitnessGoal(e.target.value)}
+                    className="w-full bg-[#0B0B0C] border border-white/15 focus:border-[#EF4444] rounded-sm px-3 py-2.5 text-xs text-[#EEEEF0] outline-none transition-all cursor-pointer font-sans"
+                  >
+                    <option value="General Fitness">General Fitness</option>
+                    <option value="Muscle Building">Muscle Building</option>
+                    <option value="Weight Loss">Weight Loss</option>
+                    <option value="Powerlifting">Powerlifting</option>
+                    <option value="Cardio Conditioning">Cardio Conditioning</option>
+                    <option value="Functional Strength">Functional Strength</option>
+                  </select>
                 </div>
               </div>
 

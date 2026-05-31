@@ -1,19 +1,47 @@
 import { INITIAL_PLANS, INITIAL_CLASSES, TRAINERS, GALLERY_ITEMS } from './data';
 
 export const DEFAULT_PAGE_CONTENT = {
-  heroTagline: 'LIMITED ACCESS SPECIALLY PRICED ENROLLMENT ACTIVE',
-  heroHeadingLine1: 'BUILT FOR ',
-  heroHeadingHighlight: 'UNSTOPPABLE STRENGTH',
-  heroHeadingLine2: 'ENGINEERED FOR ',
-  heroHeadingHighlight2: 'REAL CHROMIUM RESULTS',
-  heroDescription: 'Join Hyderabad’s elite training sanctuary at NTPC X Road. Powered by premier Real Leader USA biomechanic cages, high-oxygen temperature-regulated AC floors, and certified pro coaches committed to your athletic mastery.',
-  facilityTitlePrefix: 'architectural ',
-  facilityTitleHighlight: 'powerhouse',
-  facilityTitleSuffix: '',
-  facilityDescription: 'BUILT TO CONQUER ATHLETIC GOALS',
-  testimonialQuote: 'Joining in.fit was a total game-changer for my fitness. The heavy plate-loaded biomechanic equipment, amazing ventilation, and helpful coach support pushed my absolute lifts by a milestone while keeping my joint health perfect.',
-  testimonialAuthor: 'AMIT K., VERIFIED ATHLETE',
-  testimonialCategory: 'ANNUAL ELITE MEMBERSHIP'
+  heroTagline: '2 FLOORS A/C GYM | STRENGTH & CARDIO CENTER',
+  heroHeadingLine1: 'WELCOME TO ',
+  heroHeadingHighlight: 'IN.FIT GYM',
+  heroHeadingLine2: 'BUILT FOR ',
+  heroHeadingHighlight2: 'MASTER PHYSICAL TRANSFORMATIONS',
+  heroDescription: 'Hyderabad’s premier strength sanctuary at NTPC X Road. Engineered with professional Real Leader USA plate-loaded biomechanic cages, centralized temperature-regulated AC floors, and certified expert coaches committed to your power.',
+  heroBgUrl: 'https://lh3.googleusercontent.com/aida-public/AB6AXuCjr0WZYB2WIx9gR6BF1xHDKvgpcNQEWOGA5jp72grreuNi_5sDoOob994albOIdTtjPnWqrRdDt87SHr8XOt01A-l74VuSnUn7__DjlzXo1OOCbhAIyIUbvU9rpXX9VvC7oZnVA3R-QPBARDPtJQzHLurbp88UzrxZGbLn4XNntV-ujRhCFUZIXwSziGPgFly7En4dWUmhyZ8s-853MFzGBtfuIPYX0QlRoN_-L-oxsDyN3qbmEg_6nrl1zjZ8uxzp0Ecc3m3LdQM',
+  heroCtaText: 'JOIN MEMBERSHIP',
+  heroCtaLink: '#packages',
+  heroMemberCount: 700,
+  heroTrainerCount: 10,
+  heroYearsExperience: 5,
+  heroSatisfaction: 95,
+  
+  aboutTitle: 'WELCOME TO IN.FIT GYM',
+  aboutDescription: 'At IN.FIT GYM, we deliver real, hardcore physical transformation programs. Spanning two fully air-conditioned levels, our facility is engineered with precision plate-loaded cages, customized compound lifting decks, and dedicated coaches ready to guide you to peak performance.',
+  aboutMission: 'To provide absolute biomechanical lifting precision, elite conditioning layouts, and highly practical coaching structures that allow athletes of all levels to unlock unstoppable raw power safety.',
+  aboutVision: 'To be the ultimate benchmark fitness and personal training brand in Hyderabad, fostering a hardcore community of serious athletes built on integrity and physical execution.',
+  aboutImages: [
+    'https://lh3.googleusercontent.com/aida-public/AB6AXuCjr0WZYB2WIx9gR6BF1xHDKvgpcNQEWOGA5jp72grreuNi_5sDoOob994albOIdTtjPnWqrRdDt87SHr8XOt01A-l74VuSnUn7__DjlzXo1OOCbhAIyIUbvU9rpXX9VvC7oZnVA3R-QPBARDPtJQzHLurbp88UzrxZGbLn4XNntV-ujRhCFUZIXwSziGPgFly7En4dWUmhyZ8s-853MFzGBtfuIPYX0QlRoN_-L-oxsDyN3qbmEg_6nrl1zjZ8uxzp0Ecc3m3LdQM'
+  ],
+  
+  contactPhone1: '99666 83776',
+  contactPhone2: '83091 34004',
+  contactWhatsapp: '9966683776',
+  contactEmail: 'support@infitgym.in',
+  contactAddress: 'NTPC X Road, Annojiguda, Hyderabad',
+  contactMapUrl: 'https://www.google.com/maps/dir/?api=1&destination=in.fit+GYM+Annojiguda+Hyderabad',
+  contactHours: 'Mon - Sat: 5:00 AM - 10:00 PM, Sun: 6:00 AM - 12:00 PM',
+  contactEmergency: '83091 34004',
+  
+  socialInstagram: 'https://www.instagram.com/infit_gym/',
+  socialFacebook: 'https://www.facebook.com/infitgym/',
+  socialYoutube: 'https://www.youtube.com/@infitgym',
+  socialLinkedin: 'https://www.linkedin.com/company/infit-gym',
+  
+  seoMetaTitle: 'in.fit GYM | Hyderabad’s Elite 2-Floors AC Strength & Cardio Transformation Center',
+  seoMetaDescription: 'Train with premier Real Leader USA plate-loaded machines, Olympic platforms, cardio decks, and certified personal trainers. Memberships start from ₹1299/mo.',
+  seoKeywords: 'gym, hyderabad, strength training, personal trainer, plate loaded, fitness, crossfit, annojiguda',
+  seoOgImage: 'https://lh3.googleusercontent.com/aida-public/AB6AXuCjr0WZYB2WIx9gR6BF1xHDKvgpcNQEWOGA5jp72grreuNi_5sDoOob994albOIdTtjPnWqrRdDt87SHr8XOt01A-l74VuSnUn7__DjlzXo1OOCbhAIyIUbvU9rpXX9VvC7oZnVA3R-QPBARDPtJQzHLurbp88UzrxZGbLn4XNntV-ujRhCFUZIXwSziGPgFly7En4dWUmhyZ8s-853MFzGBtfuIPYX0QlRoN_-L-oxsDyN3qbmEg_6nrl1zjZ8uxzp0Ecc3m3LdQM',
+  seoGoogleAnalyticsId: 'G-XXXXXXXXXX'
 };
 
 // Pure client password structure logic check (Min 6 chars, containing a letter and numerical digit)
@@ -34,7 +62,9 @@ export function getStoredPageContent() {
   const saved = localStorage.getItem('infit_cms_text');
   if (saved) {
     try {
-      return JSON.parse(saved);
+      const parsed = JSON.parse(saved);
+      // Merge with default page content to ensure newly added keys are present
+      return { ...DEFAULT_PAGE_CONTENT, ...parsed };
     } catch {
       return DEFAULT_PAGE_CONTENT;
     }

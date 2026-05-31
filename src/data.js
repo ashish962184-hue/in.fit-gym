@@ -1,5 +1,23 @@
 export const INITIAL_PLANS = [
   {
+    id: "student-offer",
+    name: "Student Offer",
+    category: "Foundation",
+    price: 1299,
+    period: "month",
+    features: [
+      "Full Gym Access",
+      "Cardio Zone Access",
+      "Locker Access",
+      "Strength Floor Access",
+      "Valid Student ID Required"
+    ],
+    disabledFeatures: [
+      "Personal Coach Sessions",
+      "Custom Diet Architecture"
+    ]
+  },
+  {
     id: "1-month",
     name: "1 Month",
     category: "Foundation",
@@ -7,28 +25,30 @@ export const INITIAL_PLANS = [
     period: "month",
     features: [
       "Full Gym Access",
+      "Cardio Zone Access",
       "Locker Access",
-      "Strength & Cardio Equipment"
+      "Strength Floor Access"
     ],
     disabledFeatures: [
-      "Personal Training Coach",
-      "Customized Diet Plan"
+      "Personal Coach Sessions",
+      "Custom Diet Architecture"
     ]
   },
   {
     id: "3-months",
     name: "3 Months",
     category: "Performance",
-    price: 3999,
+    price: 3499,
     period: "3 months",
     features: [
       "Full Gym Access",
+      "Cardio Zone Access",
       "Locker Access",
-      "Strength & Cardio Equipment",
+      "Strength Floor Access",
       "General Trainer Support"
     ],
     disabledFeatures: [
-      "Personal Training Coach"
+      "Personal Coach Sessions"
     ],
     mostPopular: true
   },
@@ -36,17 +56,18 @@ export const INITIAL_PLANS = [
     id: "6-months",
     name: "6 Months",
     category: "Elite",
-    price: 6999,
+    price: 6499,
     period: "6 months",
     features: [
       "Full Gym Access",
+      "Cardio Zone Access",
       "Locker Access",
-      "Strength & Cardio Equipment",
+      "Strength Floor Access",
       "General Trainer Support",
-      "Body Assessment Sessions"
+      "Biometric Body Scans"
     ],
     disabledFeatures: [
-      "Personal Training Coach"
+      "Personal Coach Sessions"
     ]
   },
   {
@@ -57,33 +78,52 @@ export const INITIAL_PLANS = [
     period: "year",
     features: [
       "Full Gym Access",
+      "Cardio Zone Access",
       "Locker Access",
-      "Strength & Cardio Equipment",
+      "Strength Floor Access",
       "General Trainer Support",
-      "Body Assessment Sessions",
+      "Biometric Body Scans",
       "Free in.fit Shaker Bottle"
     ],
     disabledFeatures: []
   },
   {
+    id: "couple-3-months",
+    name: "3 Month Couple Package",
+    category: "Couple",
+    price: 5999,
+    period: "3 months",
+    features: [
+      "Full Gym Access for 2 Athletes",
+      "Cardio Zone Access",
+      "Locker Access",
+      "Strength Floor Access",
+      "General Trainer Support"
+    ],
+    disabledFeatures: [
+      "Personal Coach Sessions"
+    ]
+  },
+  {
     id: "personal-training",
     name: "Personal Training",
-    category: "1-on-1",
-    price: 5999,
+    category: "1-on-1 Coaching",
+    price: 4999,
     period: "month",
     features: [
-      "Certified Elite Coach Gym Session",
-      "Customized Workout Architecture",
-      "Daily Progress Tracking & Motivation",
-      "Strength & Cardio Equipment Included"
+      "Certified Elite Trainer Coaching",
+      "Custom Workout Architecture",
+      "Nutritional Periodization Plan",
+      "Daily Bracing & Lifting Audits"
     ],
     disabledFeatures: []
   }
 ];
+
 export const INITIAL_CLASSES = [
   {
     id: "class-1",
-    name: "Elite Core Strength",
+    name: "Elite Strength Metcon",
     category: "Strength",
     time: "06:00 AM - 07:00 AM",
     duration: "60 mins",
@@ -105,28 +145,6 @@ export const INITIAL_CLASSES = [
   },
   {
     id: "class-3",
-    name: "Kinetic Mobility Flow",
-    category: "Yoga",
-    time: "10:00 AM - 11:00 AM",
-    duration: "60 mins",
-    trainer: "Meera Deshmukh",
-    spots: 15,
-    bookedSpots: 8,
-    description: "A deep active stretching flow class dedicated to joint health, spinal decompression, and athletic recovery."
-  },
-  {
-    id: "class-4",
-    name: "Power CrossFit Metcon",
-    category: "CrossFit",
-    time: "05:30 PM - 06:45 PM",
-    duration: "75 mins",
-    trainer: "Karan Kundra",
-    spots: 18,
-    bookedSpots: 15,
-    description: "A high-energy metropolitan workout of the day incorporating poly-metrics, gymnastics, and fast lifting."
-  },
-  {
-    id: "class-5",
     name: "Iron Mastery Powerlifting",
     category: "Strength",
     time: "07:00 PM - 08:30 PM",
@@ -137,12 +155,13 @@ export const INITIAL_CLASSES = [
     description: "Learn raw powerlifting setups, low bar positioning, deadlift bracing patterns, and heavy bench press arches."
   }
 ];
+
 export const TRAINERS = [
   {
     id: "trainer-rohit",
     name: "Rohit Sharma",
-    specialty: "Powerlifting & Biomechanics",
-    experience: "8+ Years Competitive lifting",
+    specialty: "Powerlifting & Biomechanics Specialist",
+    experience: "8+ Years lifting",
     certifications: ["NASM-PES", "Squat University Specialist", "ISSA Strength"],
     bio: "Champion powerlifter specializing in joint-friendly ergonomic strength setups and heavy bar acceleration mechanics.",
     image: "https://lh3.googleusercontent.com/aida-public/AB6AXuDqULpIpNiDmzC1x3IQUokQW8tElAiISsxvngnk5ksQpkIPFOq-_qiBba-uQOXq-bz5q3UhG6snqMFEAvlNMNXwhsSk5xxDxQDJ0SqADZ-0JSCRuqoXxX5zSADr6JltVipfDDGV4qTDj8bCZySJAK6GF22w4aBWhIuerl03s3w62wdGX-sLeuSiXggl9rVl9ld996liTZ4vN16JNR6IrRHqBUacTiRhX4ETWgdrr4ajKZi7r0BoyZuTv3XkQWNNTInzWk0fcnd7CDw",
@@ -151,8 +170,8 @@ export const TRAINERS = [
   {
     id: "trainer-aditi",
     name: "Aditi Rao",
-    specialty: "High Intensity Conditioning",
-    experience: "6+ Years Athletic Training",
+    specialty: "High Intensity Heart-Rate Conditioning",
+    experience: "6+ Years Training",
     certifications: ["ACE-CPT", "TRX Suspension Master Coach"],
     bio: "Aditi designs rapid weight loss programs emphasizing metabolic conditioning rhythms and zone heart-rate optimizations.",
     image: "https://lh3.googleusercontent.com/aida-public/AB6AXuAt_HOMvpotaxRSrV_HWr0lblzQAnHfSHn1P_dDrpPFQFqzeFtpc5irUxz7GTfNjfX_VgeE7Bgl4af96mLJO1D_yiRpkhy3j7epmWiqLc1ks3jxeye3D-rY1L846YS5aZp5Y_-JY9DOjKXr6h1aFHeoEIa0zNcUTUmiLpC7OzVJ8q8kze8yaJTpGQHIaaOJQ0j4mTnGn6LWgpOk5uefPmJ1babR7uSg9v-HMn0Q0KbLqObWfsXxI2doSqdXuhEfTr9_lxKNtkeFFOw",
@@ -169,19 +188,20 @@ export const TRAINERS = [
     instagram: "karan_cf_metcon"
   }
 ];
+
 export const GALLERY_ITEMS = [
   {
     id: "gallery-1",
     title: "Elite Strength Floor",
     description: "Equipped with custom matte coated plates, specialized power cages, and official Real Leader USA pin-selected racks.",
-    category: "Floor",
+    category: "Gym",
     image: "https://lh3.googleusercontent.com/aida-public/AB6AXuCjr0WZYB2WIx9gR6BF1xHDKvgpcNQEWOGA5jp72grreuNi_5sDoOob994albOIdTtjPnWqrRdDt87SHr8XOt01A-l74VuSnUn7__DjlzXo1OOCbhAIyIUbvU9rpXX9VvC7oZnVA3R-QPBARDPtJQzHLurbp88UzrxZGbLn4XNntV-ujRhCFUZIXwSziGPgFly7En4dWUmhyZ8s-853MFzGBtfuIPYX0QlRoN_-L-oxsDyN3qbmEg_6nrl1zjZ8uxzp0Ecc3m3LdQM"
   },
   {
     id: "gallery-2",
     title: "Metcon CrossFit Rig",
     description: "Features a 30-foot central pull-up rig, gymnastics wall-balls, rogue concept-2 rowers and skiergs.",
-    category: "CrossFit",
+    category: "Equipment",
     image: "https://lh3.googleusercontent.com/aida-public/AB6AXuDAVs1hC75ipnjlGbmNO2F3ltwsFsm2dAugqfpgylqtFONh8tVgVMzJTy5HDc9AWVsOZoQJgxscmpbpDpDef2X4qiGFqfGjSbV2_vODb_gjBYYlwp31pKdGG5cjw7yI7d5g0K4lvAAk7iBKzoL1GCT4Hh3_4aRAv5BmPpbnhiDQx1WuwDBeqpFQEOFGpuQHZnfjgMXuPKMtTklRHeO4JkRPm3wPh9ZFkho4TBi2U4lYgpnG3RiJOS91NHx6pvwjUynwZng-pdsnfXI"
   }
 ];

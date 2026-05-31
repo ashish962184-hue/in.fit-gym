@@ -1,9 +1,11 @@
 import { useState, useEffect, useRef } from "react";
 import { 
+  DEFAULT_PAGE_CONTENT,
   getStoredPageContent, 
   getStoredPlans, 
   getStoredClasses, 
-  getStoredTrainers 
+  getStoredTrainers,
+  getStoredGallery
 } from "./cmsDefaults";
 import AuthModal from "./components/AuthModal";
 import AdminCMSModal from "./components/AdminCMSModal";
@@ -22,7 +24,8 @@ import {
   Circle, 
   Instagram, 
   Sparkles,
-  Settings
+  Settings,
+  AlertCircle
 } from "lucide-react";
 import Navbar from "./components/Navbar";
 import RegistrationModal from "./components/RegistrationModal";
@@ -43,11 +46,14 @@ export default function App() {
   const [isAuthOpen, setIsAuthOpen] = useState(false);
   const [isAdminCmsOpen, setIsAdminCmsOpen] = useState(false);
 
-  // Dynamic live CMS parameters
-  const [pageContent, setPageContent] = useState(getStoredPageContent);
-  const [plans, setPlans] = useState(getStoredPlans);
-  const [classesList, setClassesList] = useState(getStoredClasses);
-  const [trainersList, setTrainersList] = useState(getStoredTrainers);
+  // Dynamic live CMS parameters loaded from Supabase
+  const [pageContent, setPageContent] = useState(DEFAULT_PAGE_CONTENT);
+  const [plans, setPlans] = useState([]);
+  const [classesList, setClassesList] = useState([]);
+  const [trainersList, setTrainersList] = useState([]);
+  const [servicesList, setServicesList] = useState([]);
+  const [galleryList, setGalleryList] = useState([]);
+  const [testimonialsList, setTestimonialsList] = useState([]);
 
   // Modal States
   const [isRegOpen, setIsRegOpen] = useState(false);
@@ -64,6 +70,177 @@ export default function App() {
   const facilityRef = useRef(null);
   const packagesRef = useRef(null);
   const communityRef = useRef(null);
+
+  // Member Profile self-management states
+  const [profilePhone, setProfilePhone] = useState("");
+  const [profileEmergency, setProfileEmergency] = useState("");
+  const [profileAvatar, setProfileAvatar] = useState("");
+  const [profileGoal, setProfileGoal] = useState("");
+  const [isEditingProfile, setIsEditingProfile] = useState(false);
+  const [profileSaveSuccess, setProfileSaveSuccess] = useState("");
+
+  useEffect(() => {
+    if (currentUser) {
+      setProfilePhone(currentUser.phone || "");
+      setProfileEmergency(currentUser.emergencyContact || "");
+      setProfileAvatar(currentUser.avatarUrl || "");
+      setProfileGoal(currentUser.fitnessGoal || "General Fitness");
+    }
+  }, [currentUser]);
+
+  const handleSaveProfile = async (e) => {
+    e.preventDefault();
+    setProfileSaveSuccess("");
+    try {
+      const { data: { user } } = await supabase.auth.getUser();
+      if (!user) throw new Error("No authenticated user session.");
+
+      // Upsert profiles table
+      const { error } = await supabase
+        .from("profiles")
+        .upsert({
+          id: user.id,
+          phone: profilePhone,
+          avatar_url: profileAvatar,
+          emergency_contact: profileEmergency,
+          fitness_goal: profileGoal,
+          updated_at: new Date().toISOString()
+         });
+
+      if (error) throw error;
+      
+      setProfileSaveSuccess("Profile details updated successfully!");
+      // Trigger sync
+      syncSupabaseProfile(user);
+      setTimeout(() => setProfileSaveSuccess(""), 3000);
+      setIsEditingProfile(false);
+    } catch (err) {
+      alert("Failed to save profile: " + err.message);
+    }
+  };
+
+  // Fetch all Website Settings and Core listings from Supabase tables
+  const fetchGlobalCMSData = async () => {
+    try {
+      // 1. Fetch website_settings
+      const { data: settings } = await supabase
+        .from("website_settings")
+        .select("*");
+      
+      let mergedContent = { ...DEFAULT_PAGE_CONTENT };
+      if (settings && settings.length > 0) {
+        settings.forEach((s) => {
+          if (s.key === "hero") mergedContent = { ...mergedContent, ...s.value };
+          if (s.key === "about") mergedContent = { ...mergedContent, ...s.value };
+          if (s.key === "contact") mergedContent = { ...mergedContent, ...s.value };
+          if (s.key === "social") mergedContent = { ...mergedContent, ...s.value };
+          if (s.key === "seo") mergedContent = { ...mergedContent, ...s.value };
+        });
+      }
+      setPageContent(mergedContent);
+
+      // 2. Fetch membership plans
+      const { data: plansData } = await supabase
+        .from("membership_plans")
+        .select("*")
+        .eq("is_enabled", true)
+        .order("price", { ascending: true });
+      
+      if (plansData && plansData.length > 0) {
+        setPlans(plansData.map(p => ({
+          id: p.plan_id,
+          name: p.name,
+          category: p.category,
+          price: Number(p.price),
+          period: p.period,
+          features: p.features,
+          disabledFeatures: p.disabled_features,
+          mostPopular: p.most_popular
+        })));
+      } else {
+        setPlans(getStoredPlans());
+      }
+
+      // 3. Fetch services
+      const { data: servicesData } = await supabase
+        .from("services")
+        .select("*")
+        .eq("is_enabled", true)
+        .order("created_at", { ascending: true });
+      
+      if (servicesData && servicesData.length > 0) {
+        setServicesList(servicesData);
+      } else {
+        setServicesList([
+          { id: "s1", name: "Strength Training", description: "Unleash absolute raw power on our dedicated biomechanic plates floor, complete with barbell deadlifting racks and professional cages.", image_url: "https://images.unsplash.com/photo-1517838277536-f5f99be501cd?w=600&auto=format&fit=crop&q=60", category: "Strength" },
+          { id: "s2", name: "Cardio Training", description: "Improve metabolic output and stamina on our high-performance temperature-regulated treadmill cardio suites.", image_url: "https://images.unsplash.com/photo-1538805060514-97d9cc17730c?w=600&auto=format&fit=crop&q=60", category: "Conditioning" },
+          { id: "s3", name: "Functional Training", description: "Dynamic cross-functional circuits targeting joint stability, kinetic balance, and high anaerobic recovery.", image_url: "https://images.unsplash.com/photo-1434682881908-b43d0467b798?w=600&auto=format&fit=crop&q=60", category: "Functional" },
+          { id: "s4", name: "Personal Training", description: "One-on-one biometric masterclasses with certified elite coaches focused entirely on your lifting form.", image_url: "https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?w=600&auto=format&fit=crop&q=60", category: "Coaching" },
+          { id: "s5", name: "Diet Planning", description: "Highly tailored periodization macro structures designed to fuel hardcore lifting recoveries and weight management goals.", image_url: "https://images.unsplash.com/photo-1490645935967-10de6ba17061?w=600&auto=format&fit=crop&q=60", category: "Nutrition" }
+        ]);
+      }
+
+      // 4. Fetch trainers
+      const { data: trainersData } = await supabase
+        .from("trainers")
+        .select("*")
+        .order("created_at", { ascending: true });
+      
+      if (trainersData && trainersData.length > 0) {
+        setTrainersList(trainersData.map(t => ({
+          id: t.id,
+          name: t.name,
+          specialty: t.specialization,
+          experience: t.experience,
+          certifications: t.certificates,
+          image: t.photo_url,
+          instagram: t.instagram,
+          facebook: t.facebook
+        })));
+      } else {
+        setTrainersList(getStoredTrainers());
+      }
+
+      // 5. Fetch gallery
+      const { data: galleryData } = await supabase
+        .from("gallery")
+        .select("*")
+        .order("created_at", { ascending: true });
+      
+      if (galleryData && galleryData.length > 0) {
+        setGalleryList(galleryData.map(g => ({
+          id: g.id,
+          title: g.title,
+          description: g.description,
+          category: g.category,
+          image: g.photo_url
+        })));
+      } else {
+        setGalleryList(getStoredGallery());
+      }
+
+      // 6. Fetch testimonials
+      const { data: testimonialsData } = await supabase
+        .from("testimonials")
+        .select("*")
+        .order("created_at", { ascending: true });
+      
+      if (testimonialsData && testimonialsData.length > 0) {
+        setTestimonialsList(testimonialsData);
+      } else {
+        setTestimonialsList([
+          { id: "t1", member_name: "Vikram Reddy", rating: 5, review_text: "Best compound lifting cages in Hyderabad. The deadlifting platforms are world-class and always maintained properly. Highly recommend for serious powerlifters.", category: "Strength Training" },
+          { id: "t2", member_name: "Anjali Sharma", rating: 4, review_text: "Elite atmosphere with excellent ventilation. The high-performance treadmills keep up with intensive sprinting series. Extremely clean lockers as well!", category: "Cardio Suite" },
+          { id: "t3", member_name: "Karthik Rao", rating: 5, review_text: "Unlocking massive strength milestones here. Sandeep’s customized coaching on form checks and periodization completely level-up your training protocol.", category: "Personal Training" }
+        ]);
+      }
+
+      // 7. Load classes list for scheduler fallback
+      setClassesList(getStoredClasses());
+    } catch (err) {
+      console.error("CMS central database sync failure:", err.message);
+    }
+  };
 
   // Synchronize dynamic profiles from Supabase based on current authenticated session
   const syncSupabaseProfile = async (sessionUser) => {
@@ -97,8 +274,7 @@ export default function App() {
           .from("membership_requests")
           .select("*")
           .eq("user_id", sessionUser.id)
-          .order("created_at", { ascending: false })
-          .limit(1);
+          .order("created_at", { ascending: false });
 
         const { data: memberships } = await supabase
           .from("memberships")
@@ -112,26 +288,47 @@ export default function App() {
           .eq("user_id", sessionUser.id);
         const card = cards && cards.length > 0 ? cards[0] : null;
 
+        const { data: profileMeta } = await supabase
+          .from("profiles")
+          .select("*")
+          .eq("id", sessionUser.id)
+          .single();
+
         const activeRequest = requests && requests.length > 0 ? requests[0] : null;
 
         let calculatedStatus = "NONE";
+        let daysRemaining = 0;
+        let expiryWarning = null; // 'WARNING' (7-day notice) | 'URGENT' (3-day notice)
+
         if (membership) {
-          const today = new Date().toISOString().split("T")[0];
-          if (membership.expiry_date < today || !membership.is_active) {
+          const today = new Date();
+          const expiry = new Date(membership.expiry_date);
+          const diffMs = expiry - today;
+          daysRemaining = Math.ceil(diffMs / (1000 * 60 * 60 * 24));
+
+          if (daysRemaining <= 0 || !membership.is_active) {
             calculatedStatus = "EXPIRED";
           } else {
             calculatedStatus = "ACTIVE";
+            if (daysRemaining <= 3) {
+              expiryWarning = "URGENT";
+            } else if (daysRemaining <= 7) {
+              expiryWarning = "WARNING";
+            }
           }
         } else if (activeRequest) {
-          calculatedStatus = activeRequest.status; // 'PENDING', 'CONTACTED', 'APPROVED', 'REJECTED'
+          calculatedStatus = activeRequest.status;
         }
 
         const activeMemberProfile = {
           fullName: profile.full_name,
           email: profile.email,
-          phone: profile.phone,
-          selectedPlanId: activeRequest ? activeRequest.selected_plan : (membership ? membership.plan_name : "quarterly-pro"),
-          price: activeRequest ? activeRequest.plan_price : (membership ? membership.plan_price : 9999),
+          phone: profileMeta?.phone || profile.phone,
+          avatarUrl: profileMeta?.avatar_url || null,
+          emergencyContact: profileMeta?.emergency_contact || "",
+          fitnessGoal: profileMeta?.fitness_goal || (activeRequest ? activeRequest.fitness_goal : "General Fitness"),
+          selectedPlanId: activeRequest ? activeRequest.selected_plan : (membership ? membership.plan_name : "3-months"),
+          price: activeRequest ? activeRequest.plan_price : (membership ? membership.plan_price : 3499),
           parqAnswers: {
             heartCondition: false, chestPain: false, dizziness: false,
             boneJoint: false, bloodPressureDrugs: false, otherReason: false
@@ -141,12 +338,15 @@ export default function App() {
           memberId: card ? card.card_number : (activeRequest ? activeRequest.id : "REQ-PENDING"),
           joinedDate: membership ? new Date(membership.start_date).toLocaleDateString("en-IN") : (activeRequest ? new Date(activeRequest.created_at).toLocaleDateString("en-IN") : "PENDING"),
           status: calculatedStatus,
+          daysRemaining: daysRemaining > 0 ? daysRemaining : 0,
+          expiryWarning,
           membershipDetails: membership ? {
             planName: membership.plan_name,
             startDate: new Date(membership.start_date).toLocaleDateString("en-IN"),
             expiryDate: new Date(membership.expiry_date).toLocaleDateString("en-IN"),
             isActive: membership.is_active
-          } : null
+          } : null,
+          requestHistory: requests || []
         };
 
         setCurrentUser(activeMemberProfile);
@@ -158,6 +358,8 @@ export default function App() {
 
   // Sync profile details on start and hook session state listeners
   useEffect(() => {
+    fetchGlobalCMSData();
+
     const initSession = async () => {
       const { data: { session } } = await supabase.auth.getSession();
       if (session && session.user) {
@@ -182,11 +384,7 @@ export default function App() {
   }, []);
 
   const reloadCmsContent = () => {
-    setPageContent(getStoredPageContent());
-    setPlans(getStoredPlans());
-    setClassesList(getStoredClasses());
-    setTrainersList(getStoredTrainers());
-
+    fetchGlobalCMSData();
     // Re-sync current logged user profiles
     supabase.auth.getUser().then(({ data: { user } }) => {
       if (user) syncSupabaseProfile(user);
@@ -418,89 +616,53 @@ export default function App() {
             </div>
           </div>
 
-          {/* Cards Deck */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            
-            {/* 1. Book PT Card */}
-            <div 
-              onClick={() => setIsPtOpen(true)}
-              className="group bg-[#121215] p-8 border border-white/5 hover:border-[#EF4444]/40 transition-all relative overflow-hidden text-left rounded-sm cursor-pointer min-h-[250px] flex flex-col justify-between shadow-sm hover:shadow-md"
-            >
-              <div className="absolute top-0 left-0 w-[2px] h-0 bg-[#EF4444] group-hover:h-full transition-all duration-300" />
-              <div>
-                <Award className="w-8 h-8 text-[#EF4444] mb-6" />
-                <h4 className="font-display text-xl font-bold uppercase tracking-tight text-[#EEEEF0]">
-                  BOOK PT
-                </h4>
-                <p className="text-[#EEEEF0]/70 text-xs leading-relaxed mt-2">
-                  One-on-one custom sessions with certified elite performance coaches.
-                </p>
-              </div>
-              <span className="text-[9px] font-sans font-bold uppercase tracking-[0.25em] text-[#EEEEF0]/60 group-hover:text-[#EF4444] group-hover:line-through transition-colors mt-6 block">
-                START TRAINING →
-              </span>
-            </div>
+          {/* Dynamic Services Cards Deck */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {servicesList.map((service, index) => (
+              <div 
+                key={service.id || index}
+                className="group bg-[#121215] border border-white/5 hover:border-[#EF4444]/40 transition-all relative overflow-hidden text-left rounded-sm min-h-[350px] flex flex-col justify-between shadow-sm hover:shadow-lg duration-300"
+              >
+                {/* Image Background Header with Dark Gradient Overlay */}
+                <div className="h-44 w-full overflow-hidden relative">
+                  <img 
+                    src={service.image_url} 
+                    alt={service.name} 
+                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500 filter grayscale group-hover:grayscale-0" 
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#121215] via-[#121215]/30 to-transparent" />
+                  
+                  {/* Floating Red Accent Strip */}
+                  <div className="absolute top-0 left-0 w-[3px] h-0 bg-[#EF4444] group-hover:h-full transition-all duration-300" />
+                </div>
 
-            {/* 2. Group Class Card */}
-            <div 
-              onClick={() => setIsClassesOpen(true)}
-              className="group bg-[#121215] p-8 border border-white/5 hover:border-[#EF4444]/40 transition-all relative overflow-hidden text-left rounded-sm cursor-pointer min-h-[250px] flex flex-col justify-between shadow-sm hover:shadow-md"
-            >
-              <div className="absolute top-0 left-0 w-[2px] h-0 bg-[#EF4444] group-hover:h-full transition-all duration-300" />
-              <div>
-                <Users className="w-8 h-8 text-[#EF4444] mb-6" />
-                <h4 className="font-display text-xl font-bold uppercase tracking-tight text-[#EEEEF0]">
-                  GROUP CLASS
-                </h4>
-                <p className="text-[#EEEEF0]/70 text-xs leading-relaxed mt-2">
-                  High-energy regional sessions that push collective absolute performance boundaries.
-                </p>
-              </div>
-              <span className="text-[9px] font-sans font-bold uppercase tracking-[0.25em] text-[#EEEEF0]/60 group-hover:text-[#EF4444] group-hover:line-through transition-colors mt-6 block">
-                BOOK SESSION →
-              </span>
-            </div>
+                <div className="p-6 flex-1 flex flex-col justify-between space-y-4">
+                  <div className="space-y-2">
+                    <span className="text-[#EF4444] font-mono text-[9px] font-bold uppercase tracking-[0.2em]">
+                      {service.category || "TRAINING"} PROGRAM
+                    </span>
+                    <h4 className="font-serif italic font-extrabold text-lg uppercase tracking-tight text-[#EEEEF0]">
+                      {service.name}
+                    </h4>
+                    <p className="text-[#EEEEF0]/70 text-xs leading-relaxed">
+                      {service.description}
+                    </p>
+                  </div>
 
-            {/* 3. Gallery Card */}
-            <div 
-              onClick={() => setIsGalleryOpen(true)}
-              className="group bg-[#121215] p-8 border border-white/5 hover:border-[#EF4444]/40 transition-all relative overflow-hidden text-left rounded-sm cursor-pointer min-h-[250px] flex flex-col justify-between shadow-sm hover:shadow-md"
-            >
-              <div className="absolute top-0 left-0 w-[2px] h-0 bg-[#EF4444] group-hover:h-full transition-all duration-300" />
-              <div>
-                <Sparkles className="w-8 h-8 text-[#EF4444] mb-6" />
-                <h4 className="font-display text-xl font-bold uppercase tracking-tight text-[#EEEEF0]">
-                  GALLERY
-                </h4>
-                <p className="text-[#EEEEF0]/70 text-xs leading-relaxed mt-2">
-                  Take a widescreen virtual exploration of our precision strength hardware spaces.
-                </p>
+                  <button 
+                    onClick={() => {
+                      const packSec = document.getElementById("packages");
+                      if (packSec) {
+                        packSec.scrollIntoView({ behavior: "smooth" });
+                      }
+                    }}
+                    className="text-[9px] font-sans font-bold uppercase tracking-[0.25em] text-[#EEEEF0]/60 group-hover:text-[#EF4444] group-hover:line-through transition-colors text-left flex items-center gap-1.5 cursor-pointer outline-none mt-2"
+                  >
+                    CHOOSE PLAN <ArrowRight className="w-3.5 h-3.5 text-[#EF4444]" />
+                  </button>
+                </div>
               </div>
-              <span className="text-[9px] font-sans font-bold uppercase tracking-[0.25em] text-[#EEEEF0]/60 group-hover:text-[#EF4444] group-hover:line-through transition-colors mt-6 block">
-                EXPLORE SPACE →
-              </span>
-            </div>
-
-            {/* 4. Trainers Card */}
-            <div 
-              onClick={() => setIsPtOpen(true)}
-              className="group bg-[#121215] p-8 border border-white/5 hover:border-[#EF4444]/40 transition-all relative overflow-hidden text-left rounded-sm cursor-pointer min-h-[250px] flex flex-col justify-between shadow-sm hover:shadow-md"
-            >
-              <div className="absolute top-0 left-0 w-[2px] h-0 bg-[#EF4444] group-hover:h-full transition-all duration-300" />
-              <div>
-                <CheckCircle2 className="w-8 h-8 text-[#EF4444] mb-6" />
-                <h4 className="font-display text-xl font-bold uppercase tracking-tight text-[#EEEEF0]">
-                  TRAINERS
-                </h4>
-                <p className="text-[#EEEEF0]/70 text-xs leading-relaxed mt-2">
-                  Meet the licensed, certified architects of your biometric lifting transformation.
-                </p>
-              </div>
-              <span className="text-[9px] font-sans font-bold uppercase tracking-[0.25em] text-[#EEEEF0]/60 group-hover:text-[#EF4444] group-hover:line-through transition-colors mt-6 block">
-                MEET ELITE →
-              </span>
-            </div>
-
+            ))}
           </div>
 
         </div>
@@ -570,7 +732,7 @@ export default function App() {
                 </div>
               </div>
             ) : currentUser && currentUser.status === "ACTIVE" && !isRenewing ? (
-              <div className="col-span-1 md:col-span-3 bg-[#121215] border-2 border-[#EF4444] p-8 sm:p-12 rounded-sm max-w-2xl mx-auto shadow-2xl relative overflow-hidden text-left space-y-6 w-full">
+              <div className="col-span-1 md:col-span-3 bg-[#121215] border-2 border-[#EF4444] p-6 sm:p-10 rounded-sm max-w-3xl mx-auto shadow-2xl relative overflow-hidden text-left space-y-6 w-full">
                 <div className="absolute top-0 right-0 w-32 h-32 bg-[#EF4444]/5 rounded-full blur-3xl pointer-events-none" />
                 
                 <div className="border-b border-white/10 pb-4 flex justify-between items-center">
@@ -587,7 +749,148 @@ export default function App() {
                   </span>
                 </div>
 
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 font-sans text-xs">
+                {/* Expiry Alert Warning Banners */}
+                {currentUser.expiryWarning && (
+                  <div className={`p-4 rounded-sm border flex items-start gap-3.5 animate-pulse ${
+                    currentUser.expiryWarning === "URGENT" 
+                      ? "bg-red-950/45 border-red-500 text-red-400" 
+                      : "bg-amber-950/45 border-amber-500 text-amber-400"
+                  }`}>
+                    <AlertCircle className="w-5 h-5 shrink-0 mt-0.5" />
+                    <div className="text-left">
+                      <span className="font-bold uppercase tracking-widest text-[9px] block">
+                        {currentUser.expiryWarning === "URGENT" ? "🚨 Urgent Renewal Notice" : "⚠️ Membership Expiring Soon"}
+                      </span>
+                      <p className="text-[11px] font-sans leading-relaxed mt-0.5">
+                        Your membership expires in <strong className="font-mono text-xs">{currentUser.daysRemaining} days</strong>. 
+                        {currentUser.expiryWarning === "URGENT" 
+                          ? " Please renew immediately to avoid lockouts and keep your active digital passcard open."
+                          : " Keep up your training momentum! Renew today to stay consistent."
+                        }
+                      </p>
+                    </div>
+                  </div>
+                )}
+
+                {/* Athlete Identity Row */}
+                <div className="flex flex-col sm:flex-row items-center gap-5 p-4 bg-[#0B0B0C] border border-white/5 rounded-sm">
+                  <div className="relative w-16 h-16 rounded-full overflow-hidden border border-white/10 bg-[#121215] flex-shrink-0 flex items-center justify-center">
+                    {currentUser.avatarUrl ? (
+                      <img src={currentUser.avatarUrl} alt={currentUser.fullName} className="w-full h-full object-cover" />
+                    ) : (
+                      <span className="text-[#EF4444] font-serif italic text-lg font-black uppercase">
+                        {currentUser.fullName ? currentUser.fullName.split(" ").map(n => n[0]).join("") : "FIT"}
+                      </span>
+                    )}
+                  </div>
+                  <div className="flex-1 text-center sm:text-left space-y-1">
+                    <span className="text-[9px] text-[#EF4444] font-mono uppercase tracking-[0.2em] font-bold block">REGISTERED ATHLETE</span>
+                    <h4 className="font-serif italic font-extrabold text-lg text-white uppercase tracking-tight leading-none">{currentUser.fullName}</h4>
+                    <p className="text-[11px] text-zinc-400 font-sans">
+                      Phone: <span className="font-mono text-zinc-200">{currentUser.phone || "Not Set"}</span> | Emergency: <span className="font-mono text-zinc-200">{currentUser.emergencyContact || "Not Set"}</span>
+                    </p>
+                    <p className="text-[11px] text-zinc-400 font-sans">
+                      Performance Goal: <span className="text-[#EF4444] font-semibold">{currentUser.fitnessGoal}</span>
+                    </p>
+                  </div>
+                  <button 
+                    onClick={() => {
+                      setIsEditingProfile(!isEditingProfile);
+                      setProfilePhone(currentUser.phone || "");
+                      setProfileEmergency(currentUser.emergencyContact || "");
+                      setProfileAvatar(currentUser.avatarUrl || "");
+                      setProfileGoal(currentUser.fitnessGoal || "General Fitness");
+                      setProfileSaveSuccess("");
+                    }}
+                    className="w-full sm:w-auto border border-white/15 hover:border-[#EF4444] hover:text-[#EF4444] text-zinc-300 text-[9px] tracking-wider font-bold uppercase py-2 px-4 rounded-sm transition-all"
+                  >
+                    {isEditingProfile ? "Cancel" : "Edit Profile"}
+                  </button>
+                </div>
+
+                {/* Profile Edit Form */}
+                {isEditingProfile && (
+                  <form onSubmit={handleSaveProfile} className="space-y-4 p-5 bg-[#0B0B0C] border border-white/10 rounded-sm font-sans text-xs">
+                    <span className="text-[10px] text-[#EF4444] font-bold uppercase tracking-widest block border-b border-white/5 pb-1">Update Personal Metrics</span>
+                    
+                    {profileSaveSuccess && (
+                      <div className="p-2.5 bg-emerald-950/40 text-emerald-400 border border-emerald-900/50 rounded-sm mb-3">
+                        {profileSaveSuccess}
+                      </div>
+                    )}
+
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                      <div>
+                        <label className="block text-[8px] font-bold text-zinc-200/50 uppercase tracking-widest mb-1 font-sans">Profile Photo URL</label>
+                        <input 
+                          type="text" 
+                          placeholder="e.g. https://images.unsplash.com/..." 
+                          value={profileAvatar}
+                          onChange={(e) => setProfileAvatar(e.target.value)}
+                          className="w-full bg-[#121215] border border-white/15 focus:border-[#EF4444] rounded-sm p-2.5 text-white outline-none"
+                        />
+                      </div>
+                      <div>
+                        <label className="block text-[8px] font-bold text-zinc-200/50 uppercase tracking-widest mb-1 font-sans">Mobile Phone *</label>
+                        <input 
+                          type="tel" 
+                          required
+                          value={profilePhone}
+                          onChange={(e) => setProfilePhone(e.target.value)}
+                          className="w-full bg-[#121215] border border-white/15 focus:border-[#EF4444] rounded-sm p-2.5 text-white outline-none"
+                        />
+                      </div>
+                    </div>
+
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                      <div>
+                        <label className="block text-[8px] font-bold text-zinc-200/50 uppercase tracking-widest mb-1 font-sans">Emergency Contact *</label>
+                        <input 
+                          type="text" 
+                          required
+                          placeholder="Name & Number"
+                          value={profileEmergency}
+                          onChange={(e) => setProfileEmergency(e.target.value)}
+                          className="w-full bg-[#121215] border border-white/15 focus:border-[#EF4444] rounded-sm p-2.5 text-white outline-none"
+                        />
+                      </div>
+                      <div>
+                        <label className="block text-[8px] font-bold text-zinc-200/50 uppercase tracking-widest mb-1 font-sans">Fitness Goal Interest</label>
+                        <select 
+                          value={profileGoal}
+                          onChange={(e) => setProfileGoal(e.target.value)}
+                          className="w-full bg-[#121215] border border-white/15 focus:border-[#EF4444] rounded-sm p-2.5 text-white outline-none cursor-pointer font-sans"
+                        >
+                          <option value="General Fitness">General Fitness</option>
+                          <option value="Muscle Building">Muscle Building</option>
+                          <option value="Weight Loss">Weight Loss</option>
+                          <option value="Powerlifting">Powerlifting</option>
+                          <option value="Cardio Conditioning">Cardio Conditioning</option>
+                          <option value="Functional Strength">Functional Strength</option>
+                        </select>
+                      </div>
+                    </div>
+
+                    <div className="pt-2 flex gap-3">
+                      <button 
+                        type="submit" 
+                        className="bg-[#EF4444] hover:bg-white text-white hover:text-black text-[9px] font-bold uppercase tracking-widest py-2 px-5 rounded-sm transition-all"
+                      >
+                        Save Info
+                      </button>
+                      <button 
+                        type="button" 
+                        onClick={() => setIsEditingProfile(false)}
+                        className="border border-white/20 text-white text-[9px] font-bold uppercase py-2 px-5 rounded-sm transition-all"
+                      >
+                        Cancel
+                      </button>
+                    </div>
+                  </form>
+                )}
+
+                {/* Membership Metadata Grid */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 font-sans text-xs">
                   <div className="p-4 bg-[#0B0B0C] border border-white/5 rounded-sm">
                     <span className="text-zinc-400 uppercase tracking-wider text-[9px] font-bold block mb-1">PLAN NAME</span>
                     <span className="text-sm font-serif italic font-bold text-white uppercase">{currentUser.membershipDetails?.planName || "Quarterly Pro"}</span>
@@ -608,6 +911,31 @@ export default function App() {
                     <span className="text-sm font-mono font-bold text-[#EF4444]">{currentUser.membershipDetails?.expiryDate || "N/A"}</span>
                   </div>
                 </div>
+
+                {/* Membership Requests History Logs */}
+                {currentUser.requestHistory && currentUser.requestHistory.length > 0 && (
+                  <div className="p-4 bg-[#0B0B0C] border border-white/5 rounded-sm font-sans text-xs space-y-2">
+                    <span className="text-[9px] text-zinc-400 font-bold uppercase tracking-widest block">Requests History Logs ({currentUser.requestHistory.length})</span>
+                    <div className="max-h-28 overflow-y-auto space-y-2 pr-2 scrollbar-thin scrollbar-thumb-zinc-800">
+                      {currentUser.requestHistory.map((req) => (
+                        <div key={req.id} className="flex justify-between items-center py-1.5 border-b border-white/5 text-[10px]">
+                          <div>
+                            <span className="font-bold text-white uppercase">{req.selected_plan}</span>
+                            <span className="text-zinc-500 font-mono block text-[8px] mt-0.5">Submitted: {new Date(req.created_at).toLocaleDateString("en-IN")}</span>
+                          </div>
+                          <span className={`px-2 py-0.5 rounded-sm font-bold uppercase tracking-widest text-[8px] border ${
+                            req.status === "APPROVED" ? "bg-emerald-600/10 border-emerald-500/30 text-emerald-400" :
+                            req.status === "CONTACTED" ? "bg-blue-600/10 border-blue-500/30 text-blue-400" :
+                            req.status === "REJECTED" ? "bg-red-600/10 border-red-500/30 text-red-500" :
+                            "bg-amber-600/10 border-amber-500/30 text-amber-400"
+                          }`}>
+                            {req.status}
+                          </span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
 
                 <div className="pt-4 border-t border-white/10">
                   <button 
