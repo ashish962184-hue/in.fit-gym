@@ -1,15 +1,15 @@
 @import "tailwindcss";
 
 @theme {
-  --font-sans: "Inter", system-ui, -apple-system, sans-serif;
-  --font-display: "Cormorant Garamond", "Playfair Display", Georgia, serif;
-  --font-serif: "Playfair Display", Georgia, serif;
+  --font-sans: "Montserrat", "Inter", system-ui, sans-serif;
+  --font-display: "Bebas Neue", "Montserrat", "Impact", sans-serif;
+  --font-serif: "Montserrat", "Inter", sans-serif;
 
-  --color-brand-red: #EF4444;
-  --color-brand-cyan: #06B6D4;
-  --color-brand-lime: #84CC16;
-  --color-surface-obsidian: #08080A;
-  --color-surface-card: #121216;
+  --color-brand-red: #E50914; /* Pure aggressive Red */
+  --color-brand-cyan: #EF4444;
+  --color-brand-lime: #DC2626;
+  --color-surface-obsidian: #000000; /* Absolute deep pitch black background */
+  --color-surface-card: #111111;     /* Hardcore dark gray surfaces */
 }
 
 @utility neon-glow-red {

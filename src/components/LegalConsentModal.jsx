@@ -38,8 +38,8 @@ export default function LegalConsentModal({ isOpen, onClose, documentType }) {
   }
         <div className="p-6 border-b border-white/10 flex justify-between items-center bg-[#0B0B0C]">
           <div className="flex items-center gap-2.5">
-            <FileText className="w-5 h-5 text-[#EF4444]" />
-            <h3 className="font-serif italic text-lg font-bold text-[#EEEEF0] tracking-tight text-left">
+            <FileText className="w-5 h-5 text-[#E50914]" />
+            <h3 className="font-display text-lg font-black text-white tracking-widest text-left uppercase">
               {documentType === "parq" && "PAR-Q Formal Questionnaire Form"}
               {documentType === "contract" && "PT Athlete Performance Contract"}
               {documentType === "waiver" && "Gym Access & Personal Liability Waiver"}
@@ -52,7 +52,7 @@ export default function LegalConsentModal({ isOpen, onClose, documentType }) {
       setSignedStamp(null);
       onClose();
     }}
-    className="text-zinc-200/60 hover:text-[#EF4444] p-1.5 hover:bg-black/5 rounded-full transition-colors cursor-pointer"
+    className="text-zinc-200/60 hover:text-[#E50914] p-1.5 hover:bg-black/5 rounded-full transition-colors cursor-pointer text-white"
   >
             <X className="w-5 h-5" />
           </button>
@@ -116,23 +116,23 @@ export default function LegalConsentModal({ isOpen, onClose, documentType }) {
 
           </div>
 
-          {signedStamp ? <div className="p-5 bg-emerald-50 border border-emerald-300 text-center rounded-sm space-y-3.5 max-w-md mx-auto shadow-sm">
-              <div className="w-10 h-10 bg-[#EF4444] rounded-full flex items-center justify-center mx-auto">
+          {signedStamp ? <div className="p-5 bg-zinc-900 border-2 border-[#E50914] text-center rounded-sm space-y-3.5 max-w-md mx-auto shadow-xl">
+              <div className="w-10 h-10 bg-[#E50914] rounded-full flex items-center justify-center mx-auto shadow-md">
                 <ShieldCheck className="w-6 h-6 text-white" />
               </div>
               <div>
-                <h4 className="font-serif italic text-base font-bold text-emerald-950 uppercase">DOCUMENT SIGNED SECURELY</h4>
-                <p className="text-[11px] text-emerald-900 mt-1 font-sans font-medium">
-                  Verified Signature: <span className="text-emerald-950 font-bold uppercase underline decoration-emerald-600 decoration-2">{signer}</span>
+                <h4 className="font-display text-base font-black text-white tracking-widest uppercase">DOCUMENT SIGNED SECURELY</h4>
+                <p className="text-[11px] text-zinc-300 mt-1 font-sans font-semibold uppercase tracking-wide">
+                  Verified Signature: <span className="text-[#E50914] font-black uppercase underline decoration-[#E50914] decoration-2">{signer}</span>
                 </p>
-                <p className="text-[10px] text-emerald-800/80 font-mono">
+                <p className="text-[10px] text-zinc-400 font-mono">
                   Token Clearance: {signedStamp} • {(/* @__PURE__ */ new Date()).toLocaleString("en-IN")}
                 </p>
               </div>
               <div className="pt-2 flex gap-3 justify-center">
                 <button
     onClick={handlePrint}
-    className="bg-[#121215] text-[#EEEEF0] border border-white hover:bg-[#1A1A1E] hover:text-white py-1.5 px-3 rounded-sm text-[10px] tracking-wider font-bold font-sans uppercase flex items-center gap-1.5 transition-colors cursor-pointer"
+    className="bg-[#121215] text-[#EEEEF0] border border-white/10 hover:border-white py-1.5 px-3 rounded-sm text-[10px] tracking-widest font-bold font-sans uppercase flex items-center gap-1.5 transition-colors cursor-pointer bg-black"
   >
                   <Printer className="w-3.5 h-3.5" /> PRINT FILE
                 </button>
@@ -143,18 +143,18 @@ export default function LegalConsentModal({ isOpen, onClose, documentType }) {
       setSignedStamp(null);
       onClose();
     }}
-    className="bg-[#EF4444] hover:bg-black text-white py-1.5 px-4.5 rounded-sm text-[10px] tracking-widest font-semibold font-sans uppercase transition-all cursor-pointer"
+    className="bg-[#E50914] hover:bg-black text-white py-1.5 px-4.5 rounded-sm text-[10px] tracking-widest font-bold font-sans uppercase transition-all cursor-pointer border border-[#E50914]"
   >
                   CLOSE SHEETS
                 </button>
               </div>
             </div> : <form onSubmit={handleSign} className="space-y-4 max-w-md mx-auto">
-              <label className="flex gap-2.5 p-3 bg-[#0B0B0C]/70 hover:bg-[#E5E2DC] rounded-sm border border-white/5 cursor-pointer select-none transition-all items-center text-left">
+              <label className="flex gap-2.5 p-3 bg-[#0B0B0C]/70 hover:bg-zinc-800 rounded-sm border border-white/5 cursor-pointer select-none transition-all items-center text-left">
                 <input
     type="checkbox"
     checked={agreementChecked}
     onChange={(e) => setAgreementChecked(e.target.checked)}
-    className="h-4 w-4 rounded bg-[#121215] border-white/30 text-[#EF4444] focus:ring-[#EF4444]"
+    className="h-4 w-4 rounded bg-[#121215] border-white/30 text-[#E50914] focus:ring-[#E50914]"
   />
                 <span className="text-xs text-[#EEEEF0] font-semibold font-sans leading-tight">I certify that I have thoroughly read, understood, and agreed to all detailed clauses</span>
               </label>
@@ -170,12 +170,12 @@ export default function LegalConsentModal({ isOpen, onClose, documentType }) {
     value={signer}
     onChange={(e) => setSigner(e.target.value)}
     placeholder="e.g. Aditi Rao"
-    className="w-full bg-[#121215] border border-white/20 rounded-sm px-2.5 py-2 text-xs text-[#EEEEF0] outline-none focus:border-[#EF4444]"
+    className="w-full bg-[#121215] border border-white/20 rounded-sm px-2.5 py-2 text-xs text-[#EEEEF0] outline-none focus:border-[#E50914]"
   />
                 </div>
                 <button
     type="submit"
-    className="w-full bg-[#1A1A1E] hover:bg-[#EF4444] text-white text-[10px] font-semibold uppercase tracking-wider py-2.5 px-2 rounded-sm transition-all shadow-sm cursor-pointer"
+    className="w-full bg-[#1A1A1E] hover:bg-[#E50914] text-white text-[10px] font-bold uppercase tracking-widest py-2.5 px-2 rounded-sm transition-all shadow-sm cursor-pointer border border-white/10"
   >
                   SIGN DOCUMENT
                 </button>

@@ -33,10 +33,10 @@ export default function Navbar({
               className="w-9 h-9 rounded-full object-cover border border-white/10 shadow-[0_0_15px_rgba(0,0,0,0.4)] transition-transform group-hover:scale-105" 
             />
             <div className="flex items-baseline gap-1.5">
-              <h1 className="font-serif italic font-black text-xl tracking-tight text-[#EEEEF0] group-hover:text-[#EF4444] transition-all leading-none">
+              <h1 className="font-display font-black text-2xl tracking-tighter text-white group-hover:text-[#E50914] transition-all leading-none uppercase">
                 in.fit
               </h1>
-              <span className="font-sans text-xs font-bold tracking-[0.15em] uppercase text-[#06B6D4] block leading-none">
+              <span className="font-sans text-xs font-black tracking-[0.15em] uppercase text-[#E50914] block leading-none">
                 GYM
               </span>
             </div>
@@ -100,17 +100,17 @@ export default function Navbar({
             {loggedInUser ? <div className="relative">
                 <div
     onClick={() => setShowDropdown(!showDropdown)}
-    className="bg-[#E5E2DC] border border-white/15 rounded-sm py-1.5 px-3 flex items-center gap-2.5 cursor-pointer transition-all hover:border-[#EF4444] group select-none animate-fade-in"
+    className="bg-[#111111] border border-white/15 rounded-sm py-1.5 px-3 flex items-center gap-2.5 cursor-pointer transition-all hover:border-[#E50914] group select-none animate-fade-in text-white"
   >
                   <div className="text-right">
-                    <span className="text-[8px] uppercase tracking-[0.15em] text-[#1A1A1A]/70 block font-bold">
+                    <span className="text-[8px] uppercase tracking-[0.15em] text-zinc-400 block font-bold">
                       {loggedInUser.role === "admin" ? "CMS ADMIN" : "ATHLETE PASS"}
                     </span>
-                    <span className="font-serif italic text-xs font-black text-[#1A1A1A] tracking-tight block group-hover:text-[#EF4444] transition-colors">
+                    <span className="font-display text-xs font-black text-white tracking-widest block uppercase group-hover:text-[#E50914] transition-colors">
                       {loggedInUser.fullName.split(" ")[0]}
                     </span>
                   </div>
-                  <div className={`w-7 h-7 rounded-full flex items-center justify-center border transition-all ${loggedInUser.role === "admin" ? "bg-[#EF4444]/15 border-[#EF4444]/40 text-[#EF4444]" : "bg-black/10 border-black/10 text-zinc-800"}`}>
+                  <div className={`w-7 h-7 rounded-full flex items-center justify-center border transition-all ${loggedInUser.role === "admin" ? "bg-[#E50914]/15 border-[#E50914]/40 text-[#E50914]" : "bg-white/10 border-white/10 text-zinc-200"}`}>
                     {loggedInUser.role === "admin" ? <Settings className="w-3.5 h-3.5" /> : <Award className="w-3.5 h-3.5" />}
                   </div>
                 </div>
@@ -136,7 +136,7 @@ export default function Navbar({
                         {userStatus === "CONTACTED" && <div className="flex items-center gap-1.5 text-[10px] text-blue-400 font-bold bg-blue-500/10 px-2 py-1 rounded-sm border border-blue-500/25">
                             <Phone className="w-3 h-3 font-bold" /> CONTACTED/STAGING
                           </div>}
-                        {userStatus === "APPROVED" && <div className="flex items-center gap-1.5 text-[10px] text-emerald-400 font-bold bg-emerald-500/10 px-2 py-1 rounded-sm border border-emerald-500/25">
+                        {userStatus === "APPROVED" && <div className="flex items-center gap-1.5 text-[10px] text-[#E50914] font-bold bg-[#E50914]/10 px-2 py-1 rounded-sm border border-[#E50914]/25">
                             <Sparkles className="w-3 h-3" /> PASS ACTIVATED
                           </div>}
                         {userStatus === "REJECTED" && <div className="flex items-center gap-1.5 text-[10px] text-red-400 font-bold bg-red-500/15 px-2 py-1 rounded-sm border border-red-500/25">
@@ -153,9 +153,9 @@ export default function Navbar({
       setShowDropdown(false);
       setShowPassModal(true);
     }}
-    className="w-full text-left px-2.5 py-2 text-xs text-[#EEEEF0] hover:bg-emerald-600 hover:text-white rounded-sm flex items-center gap-2 font-bold transition-all cursor-pointer bg-emerald-600/10 border border-emerald-500/15"
+    className="w-full text-left px-2.5 py-2 text-xs text-[#EEEEF0] hover:bg-[#E50914] hover:text-white rounded-sm flex items-center gap-2 font-bold transition-all cursor-pointer bg-[#E50914]/10 border border-[#E50914]/15"
   >
-                            <Award className="w-4 h-4 text-emerald-400 shrink-0" /> 🎫 VIEW ATHLETE CARD
+                            <Award className="w-4 h-4 text-[#E50914] shrink-0" /> 🎫 VIEW ATHLETE CARD
                           </button> : <div className="p-2 text-[10.5px] text-zinc-400 bg-white/5 rounded-sm italic">
                             Pass generation is pending owner review and validation.
                           </div>}
@@ -168,7 +168,7 @@ export default function Navbar({
     }}
     className="w-full text-left px-3.5 py-2 text-xs text-[#EEEEF0] hover:bg-zinc-800 flex items-center gap-2 font-semibold cursor-pointer transition-colors"
   >
-                        <Settings className="w-4 h-4 text-[#EF4444] shrink-0" /> Dashboard CMS
+                        <Settings className="w-4 h-4 text-[#E50914] shrink-0" /> Dashboard CMS
                       </button>}
 
                     <button
@@ -228,16 +228,16 @@ export default function Navbar({
           {
     /* Card Frame */
   }
-          <div className="relative w-full max-w-sm bg-[#121215] border-2 border-emerald-500 rounded-sm overflow-hidden shadow-2xl z-10 font-sans p-6 text-left space-y-6">
+          <div className="relative w-full max-w-sm bg-[#121215] border-2 border-[#E50914] rounded-sm overflow-hidden shadow-2xl z-10 font-sans p-6 text-left space-y-6">
             
             <div className="flex justify-between items-start">
               <div className="flex items-center gap-2">
-                <div className="w-8 h-8 rounded-full bg-emerald-500 text-white flex items-center justify-center font-bold text-sm italic">
+                <div className="w-8 h-8 rounded-full bg-[#E50914] text-white flex items-center justify-center font-bold text-sm">
                   IN
                 </div>
                 <div>
-                  <h5 className="font-serif italic font-extrabold text-white text-md tracking-tight leading-none uppercase">in.fit GYM</h5>
-                  <span className="text-[7.5px] text-emerald-400 font-bold uppercase tracking-widest block mt-0.5">
+                  <h5 className="font-display font-black text-white text-md tracking-tight leading-none uppercase">in.fit GYM</h5>
+                  <span className="text-[7.5px] text-[#E50914] font-bold uppercase tracking-widest block mt-0.5">
                     APPROVED ATHLETE MEMBER
                   </span>
                 </div>
@@ -245,7 +245,7 @@ export default function Navbar({
               
               <button
     onClick={() => setShowPassModal(false)}
-    className="text-zinc-400 hover:text-red-500 transition-colors p-1"
+    className="text-zinc-400 hover:text-red-500 transition-colors p-1 cursor-pointer"
   >
                 <X className="w-5 h-5" />
               </button>
@@ -254,7 +254,7 @@ export default function Navbar({
             <div className="space-y-4 pt-2">
               <div>
                 <span className="text-[8px] uppercase tracking-wider text-[#EEEEF0]/50 block font-bold font-sans">MEMBER NAME</span>
-                <span className="font-serif italic text-2xl text-[#EEEEF0] font-black tracking-wide uppercase leading-tight">
+                <span className="font-display text-2xl text-white font-black tracking-wide uppercase leading-tight">
                   {currentUser.fullName}
                 </span>
               </div>
@@ -269,7 +269,7 @@ export default function Navbar({
                 <div>
                   <span className="text-[8px] uppercase tracking-wider text-[#EEEEF0]/50 block font-bold">APPROVED SINCE</span>
                   <div className="flex items-center gap-1.5 text-[11px] text-[#EEEEF0]/80 font-medium font-sans mt-0.5">
-                    <Calendar className="w-3.5 h-3.5 text-emerald-400" />
+                    <Calendar className="w-3.5 h-3.5 text-[#E50914]" />
                     {currentUser.joinedDate}
                   </div>
                 </div>
@@ -301,7 +301,7 @@ export default function Navbar({
       alert("Pass card image downloaded successfully to local storage cache.");
       setShowPassModal(false);
     }}
-    className="w-full bg-[#1A1A1E] border border-white/10 hover:border-emerald-500 hover:bg-emerald-600 h text-white font-sans text-[10px] tracking-[0.2em] font-bold uppercase py-3 rounded-sm transition-all text-center cursor-pointer"
+    className="w-full bg-[#1A1A1E] border border-white/10 hover:border-[#E50914] hover:bg-[#E50914] text-white font-sans text-[10px] tracking-[0.2em] font-bold uppercase py-3 rounded-sm transition-all text-center cursor-pointer"
   >
                 DOWNLOAD DIGITAL ACCREDITATION
               </button>

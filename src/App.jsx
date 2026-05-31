@@ -424,7 +424,7 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen bg-[#0B0B0C] text-[#EEEEF0] overflow-x-hidden selection:bg-[#EF4444] selection:text-white font-sans pt-20">
+    <div className="min-h-screen bg-[#000000] text-[#EEEEF0] overflow-x-hidden selection:bg-[#E50914] selection:text-white font-sans pt-20">
       
       {/* Navigation Header */}
       <Navbar 
@@ -442,48 +442,53 @@ export default function App() {
 
       {/* Hero Section */}
       <section 
-        className="relative min-h-[85vh] flex items-center bg-cover bg-center py-20 px-5 md:px-20 overflow-hidden border-b border-white/10"
+        className="relative min-h-[90vh] flex items-center bg-cover bg-center py-24 px-5 md:px-20 overflow-hidden border-b-2 border-[#E50914]"
         style={{
-          backgroundImage: `linear-gradient(rgba(11, 11, 12, 0.85), rgba(11, 11, 12, 0.96)), url('https://lh3.googleusercontent.com/aida-public/AB6AXuCjr0WZYB2WIx9gR6BF1xHDKvgpcNQEWOGA5jp72grreuNi_5sDoOob994albOIdTtjPnWqrRdDt87SHr8XOt01A-l74VuSnUn7__DjlzXo1OOCbhAIyIUbvU9rpXX9VvC7oZnVA3R-QPBARDPtJQzHLurbp88UzrxZGbLn4XNntV-ujRhCFUZIXwSziGPgFly7En4dWUmhyZ8s-853MFzGBtfuIPYX0QlRoN_-L-oxsDyN3qbmEg_6nrl1zjZ8uxzp0Ecc3m3LdQM')`
+          backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.95)), url('https://images.unsplash.com/photo-1517838277536-f5f99be501cd?w=1600&auto=format&fit=crop&q=80')`
         }}
       >
-        <div className="absolute inset-0 bg-gradient-to-t from-[#0B0B0C] via-transparent to-transparent pointer-events-none" />
+        <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent pointer-events-none" />
 
-        <div className="max-w-7xl mx-auto w-full relative z-10 flex flex-col items-start gap-6 text-left">
+        <div className="max-w-7xl mx-auto w-full relative z-10 flex flex-col items-start gap-8 text-left">
           
-          <span className="inline-flex items-center gap-1.5 text-[9px] font-bold text-[#EF4444] border border-[#EF4444]/30 bg-[#EF4444]/5 py-1 px-4 uppercase tracking-[0.25em] rounded-sm animate-pulse">
-            <Sparkles className="w-3.5 h-3.5" /> {pageContent.heroTagline}
-          </span>
+          <div className="flex flex-wrap gap-2.5">
+            <span className="inline-flex items-center gap-1.5 text-[10px] font-black text-white bg-[#E50914] py-1 px-4 uppercase tracking-[0.2em] rounded-sm select-none">
+              💪 HARDCORE BODYBUILDING
+            </span>
+            <span className="inline-flex items-center gap-1.5 text-[10px] font-black text-white bg-zinc-900 border border-zinc-700 py-1 px-4 uppercase tracking-[0.2em] rounded-sm select-none">
+              ⚡ MEMBERSHIPS FROM ₹1299/MO
+            </span>
+          </div>
 
-          <h1 className="font-display text-4xl sm:text-6xl md:text-8xl tracking-tight text-[#EEEEF0] font-light leading-none">
-            {pageContent.heroHeadingLine1} <span className="font-bold italic text-[#EF4444]">{pageContent.heroHeadingHighlight}</span> <br />
-            {pageContent.heroHeadingLine2} <span className="font-bold italic">{pageContent.heroHeadingHighlight2}</span>
+          <h1 className="font-display text-6xl sm:text-8xl md:text-9xl tracking-tight text-white font-black leading-[0.85] uppercase tracking-tighter">
+            {pageContent.heroHeadingLine1} <span className="text-[#E50914]">{pageContent.heroHeadingHighlight}</span> <br />
+            {pageContent.heroHeadingLine2} <span className="text-zinc-400">{pageContent.heroHeadingHighlight2}</span>
           </h1>
 
-          <p className="text-[#EEEEF0]/80 text-sm sm:text-base max-w-xl leading-relaxed mt-2 font-serif italic">
+          <p className="text-zinc-300 text-sm sm:text-base max-w-2xl leading-relaxed mt-2 font-sans font-semibold uppercase tracking-wider text-left">
             {pageContent.heroDescription}
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto pt-4 font-sans">
             <button 
               onClick={() => scrollToRef(packagesRef)}
-              className="bg-[#EF4444] hover:bg-white text-white hover:text-black border border-[#EF4444] hover:border-white font-sans text-[10px] tracking-[0.25em] font-bold px-8 py-4 uppercase rounded-sm transition-all shadow-lg shadow-[#EF4444]/20 cursor-pointer text-center"
+              className="bg-[#E50914] hover:bg-white text-white hover:text-black border border-[#E50914] hover:border-white font-sans text-[11px] tracking-[0.25em] font-black px-10 py-5 uppercase rounded-sm transition-all shadow-lg shadow-[#E50914]/20 cursor-pointer text-center"
             >
-              Explore Packages
+              JOIN MEMBERSHIP NOW
             </button>
             {loggedInUser?.role === "ADMIN" ? (
               <button 
                 onClick={() => setIsAdminCmsOpen(true)}
-                className="border border-[#EF4444]/60 text-[#EF4444] hover:text-white hover:bg-[#EF4444] font-sans text-[10px] tracking-[0.25em] font-bold px-8 py-4 rounded-sm transition-all cursor-pointer flex items-center justify-center gap-2"
+                className="border-2 border-[#E50914] text-[#E50914] hover:text-white hover:bg-[#E50914] font-sans text-[11px] tracking-[0.25em] font-black px-10 py-5 uppercase rounded-sm transition-all cursor-pointer flex items-center justify-center gap-2"
               >
                 <Settings className="w-3.5 h-3.5 animate-spin" /> Open Admin CMS Dashboard
               </button>
             ) : (
               <button 
                 onClick={() => handleTriggerSignUp("quarterly-pro")}
-                className="border border-white/20 hover:border-[#06B6D4] text-[#EEEEF0] hover:text-[#06B6D4] hover:bg-[#06B6D4]/5 font-sans text-[10px] tracking-[0.25em] font-bold px-8 py-4 rounded-sm transition-all cursor-pointer text-center"
+                className="border-2 border-white/20 hover:border-white text-white hover:bg-white/5 font-sans text-[11px] tracking-[0.25em] font-black px-10 py-5 uppercase rounded-sm transition-all cursor-pointer text-center"
               >
-                Get Started
+                Explore Offers
               </button>
             )}
           </div>
@@ -491,8 +496,8 @@ export default function App() {
         </div>
 
         {/* Ambient Decorative Graphic */}
-        <div className="absolute right-12 bottom-12 w-64 h-64 border border-white/5 rounded-full pointer-events-none flex items-center justify-center opacity-30">
-          <div className="w-48 h-48 border border-dashed border-white/10 rounded-full" />
+        <div className="absolute right-12 bottom-12 w-80 h-80 border-2 border-white/5 rounded-full pointer-events-none flex items-center justify-center opacity-30">
+          <div className="w-60 h-60 border border-dashed border-white/10 rounded-full" />
         </div>
       </section>
 
@@ -503,8 +508,8 @@ export default function App() {
         className="py-24 px-5 md:px-20 max-w-7xl mx-auto scroll-mt-10"
       >
         <div className="flex justify-between items-end mb-16 border-b border-white/10 pb-4">
-          <h2 className="font-display text-3xl sm:text-4xl md:text-5xl font-light text-[#EEEEF0] tracking-tight">
-            facility <span className="font-bold italic text-[#EF4444]">highlights</span>
+          <h2 className="font-display text-4xl sm:text-5xl md:text-6xl font-black text-white tracking-tighter uppercase">
+            FACILITY <span className="text-[#E50914] italic">HIGHLIGHTS</span>
           </h2>
           <span className="text-[10px] text-[#EEEEF0]/60 font-sans tracking-[0.2em] uppercase hidden sm:block font-bold">
             AUTHENTIC QUALITY RACKS
@@ -523,8 +528,8 @@ export default function App() {
               <span className="text-[#EF4444] font-sans text-[10px] font-bold uppercase tracking-[0.25em] block">
                 WORLD CLASS GEAR
               </span>
-              <h3 className="font-display text-2xl sm:text-3xl font-light text-[#EEEEF0] tracking-tight">
-                REAL LEADER USA <span className="font-bold italic">EQUIPMENT</span>
+              <h3 className="font-display text-2xl sm:text-3xl font-black text-white tracking-tighter uppercase">
+                REAL LEADER USA <span className="text-[#E50914] italic">EQUIPMENT</span>
               </h3>
               <p className="text-[#EEEEF0]/70 text-xs sm:text-sm max-w-md leading-relaxed">
                 Trusted worldwide for extreme durability and biomechanical ergonomic precision. Our floor features the latest professional series of selectorized and heavy plate-loaded gym machines.
@@ -537,8 +542,8 @@ export default function App() {
             <div className="w-16 h-16 bg-[#EF4444]/5 border border-[#EF4444]/10 rounded-full flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
               <Wind className="w-8 h-8 text-[#EF4444]" />
             </div>
-            <h3 className="font-display text-xl sm:text-2xl font-light text-[#EEEEF0] tracking-tight mb-2">
-              AC <span className="font-bold italic">FACILITY</span>
+            <h3 className="font-display text-xl sm:text-2xl font-black text-white tracking-tighter uppercase mb-2">
+              AC <span className="text-[#E50914] italic">FACILITY</span>
             </h3>
             <p className="text-[#EEEEF0]/70 text-xs leading-relaxed max-w-xs">
               Train in peak oxygenated comfort with our fully centralized climate-controlled strength and cardio floors.
@@ -551,8 +556,8 @@ export default function App() {
               <ShieldCheck className="w-6 h-6 text-[#EF4444]" />
             </div>
             <div className="space-y-2 mt-auto">
-              <h3 className="font-display text-xl sm:text-2xl font-light text-[#EEEEF0] tracking-tight">
-                HIGH-QUALITY <span className="font-bold italic">TRAINING</span>
+              <h3 className="font-display text-xl sm:text-2xl font-black text-white tracking-tighter uppercase">
+                HIGH-QUALITY <span className="text-[#E50914] italic">TRAINING</span>
               </h3>
               <p className="text-[#EEEEF0]/70 text-xs leading-relaxed">
                 Expert direct guidance tailored entirely to your physiology and dynamic power goals. Precision and safety in every rep.
@@ -572,8 +577,8 @@ export default function App() {
               <span className="text-[#EF4444] font-sans text-[10px] font-bold uppercase tracking-[0.25em] block">
                 LOCATION HUB
               </span>
-              <h3 className="font-display text-2xl sm:text-3xl font-light text-[#EEEEF0] tracking-tight">
-                LOCATION: NTPC <span className="font-bold italic">X ROAD</span>
+              <h3 className="font-display text-2xl sm:text-3xl font-black text-white tracking-tighter uppercase">
+                LOCATION: NTPC <span className="text-[#E50914] italic">X ROAD</span>
               </h3>
               <p className="text-[#EEEEF0]/70 text-xs sm:text-sm leading-relaxed">
                 Conveniently situated at Annojiguda, providing easy highway access and secure parking spaces for the twin-cities' elite fitness community.
@@ -607,10 +612,10 @@ export default function App() {
           
           <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-16 gap-6 text-left border-b border-white/10 pb-4">
             <div>
-              <h2 className="font-display text-3xl sm:text-4xl md:text-5xl font-light text-[#EEEEF0] tracking-tight mb-2">
-                our <span className="font-bold italic text-[#EF4444]">services</span>
+              <h2 className="font-display text-4xl sm:text-5xl md:text-6xl font-black text-white tracking-tighter mb-2 uppercase">
+                OUR <span className="text-[#E50914]">SERVICES</span>
               </h2>
-              <p className="text-[#EEEEF0]/70 text-sm italic font-serif">
+              <p className="text-zinc-400 text-xs font-bold uppercase tracking-widest">
                 Specialized athletic programs and tools for every fitness milestone.
               </p>
             </div>
@@ -641,7 +646,7 @@ export default function App() {
                     <span className="text-[#EF4444] font-mono text-[9px] font-bold uppercase tracking-[0.2em]">
                       {service.category || "TRAINING"} PROGRAM
                     </span>
-                    <h4 className="font-serif italic font-extrabold text-lg uppercase tracking-tight text-[#EEEEF0]">
+                    <h4 className="font-sans font-black text-lg uppercase tracking-tight text-white">
                       {service.name}
                     </h4>
                     <p className="text-[#EEEEF0]/70 text-xs leading-relaxed">
@@ -677,10 +682,10 @@ export default function App() {
         <div className="max-w-7xl mx-auto">
           
           <div className="text-center mb-16 space-y-3">
-            <h2 className="font-display text-3xl sm:text-4xl md:text-5xl font-light text-[#EEEEF0] tracking-tight">
-              elite <span className="font-bold italic text-[#EF4444]">membership</span>
+            <h2 className="font-display text-4xl sm:text-5xl md:text-6xl font-black text-white tracking-tighter uppercase">
+              ELITE <span className="text-[#E50914]">MEMBERSHIPS</span>
             </h2>
-            <p className="text-[#EEEEF0]/70 text-xs sm:text-sm max-w-2xl mx-auto leading-relaxed font-serif italic">
+            <p className="text-zinc-400 text-xs font-bold uppercase tracking-widest max-w-2xl mx-auto leading-relaxed">
               Flexible structured plans designed for athletic consistency and verifiable strength results. Find the perfect package tier for your physical journey.
             </p>
           </div>
@@ -690,11 +695,11 @@ export default function App() {
             {currentUser && currentUser.status === "PENDING" && !isRenewing ? (
               <div className="col-span-1 md:col-span-3 bg-[#121215] border border-amber-500/30 p-10 sm:p-14 rounded-sm text-center space-y-6 max-w-2xl mx-auto shadow-xl">
                 <div className="w-16 h-16 rounded-full bg-amber-500/10 border border-amber-500/30 flex items-center justify-center mx-auto animate-pulse">
-                  <span className="text-amber-500 font-serif italic text-2xl font-bold">!</span>
+                  <span className="text-amber-500 font-sans text-2xl font-black">!</span>
                 </div>
                 <div className="space-y-2">
-                  <h3 className="font-display text-2xl sm:text-3xl font-light text-white tracking-tight uppercase">
-                    Membership Request <span className="font-bold italic text-amber-500">Pending</span>
+                  <h3 className="font-display text-2xl sm:text-3xl font-black text-white tracking-tight uppercase">
+                    Membership Request <span className="text-amber-500">Pending</span>
                   </h3>
                   <p className="text-zinc-400 text-sm leading-relaxed max-w-md mx-auto">
                     Your membership request is currently under review. <br />
@@ -708,8 +713,8 @@ export default function App() {
                   <MessageSquare className="w-7 h-7 text-blue-400" />
                 </div>
                 <div className="space-y-2">
-                  <h3 className="font-display text-2xl sm:text-3xl font-light text-white tracking-tight uppercase">
-                    Inquiry <span className="font-bold italic text-blue-400">Contacted</span>
+                  <h3 className="font-display text-2xl sm:text-3xl font-black text-white tracking-tight uppercase">
+                    Inquiry <span className="text-blue-400">Contacted</span>
                   </h3>
                   <p className="text-zinc-400 text-sm leading-relaxed max-w-md mx-auto">
                     Our team has contacted you regarding your membership. <br />
@@ -723,8 +728,8 @@ export default function App() {
                   <CheckCircle2 className="w-7 h-7 text-emerald-400" />
                 </div>
                 <div className="space-y-2">
-                  <h3 className="font-display text-2xl sm:text-3xl font-light text-white tracking-tight uppercase">
-                    Membership <span className="font-bold italic text-emerald-400">Approved</span>
+                  <h3 className="font-display text-2xl sm:text-3xl font-black text-white tracking-tight uppercase">
+                    Membership <span className="text-emerald-400">Approved</span>
                   </h3>
                   <p className="text-zinc-400 text-sm leading-relaxed max-w-md mx-auto">
                     Please complete payment or gym verification to activate your membership.
@@ -740,8 +745,8 @@ export default function App() {
                     <span className="text-[#EF4444] font-sans text-[10px] font-bold uppercase tracking-[0.25em] block mb-1">
                       ATHLETE CONTROL PORTAL
                     </span>
-                    <h3 className="font-display text-2xl sm:text-3xl font-light text-[#EEEEF0] tracking-tight uppercase">
-                      Current <span className="font-bold italic text-[#EF4444]">Membership</span>
+                    <h3 className="font-display text-2xl sm:text-3xl font-black text-white uppercase tracking-tight">
+                      Current <span className="text-[#E50914]">Membership</span>
                     </h3>
                   </div>
                   <span className="bg-[#EF4444]/10 border border-[#EF4444]/30 text-[#EF4444] text-[10px] font-bold uppercase tracking-widest px-3 py-1 rounded-sm">
@@ -778,14 +783,14 @@ export default function App() {
                     {currentUser.avatarUrl ? (
                       <img src={currentUser.avatarUrl} alt={currentUser.fullName} className="w-full h-full object-cover" />
                     ) : (
-                      <span className="text-[#EF4444] font-serif italic text-lg font-black uppercase">
+                      <span className="text-[#E50914] font-sans text-lg font-black uppercase">
                         {currentUser.fullName ? currentUser.fullName.split(" ").map(n => n[0]).join("") : "FIT"}
                       </span>
                     )}
                   </div>
                   <div className="flex-1 text-center sm:text-left space-y-1">
                     <span className="text-[9px] text-[#EF4444] font-mono uppercase tracking-[0.2em] font-bold block">REGISTERED ATHLETE</span>
-                    <h4 className="font-serif italic font-extrabold text-lg text-white uppercase tracking-tight leading-none">{currentUser.fullName}</h4>
+                    <h4 className="font-sans font-black text-lg text-white uppercase tracking-tight leading-none">{currentUser.fullName}</h4>
                     <p className="text-[11px] text-zinc-400 font-sans">
                       Phone: <span className="font-mono text-zinc-200">{currentUser.phone || "Not Set"}</span> | Emergency: <span className="font-mono text-zinc-200">{currentUser.emergencyContact || "Not Set"}</span>
                     </p>
@@ -893,7 +898,7 @@ export default function App() {
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 font-sans text-xs">
                   <div className="p-4 bg-[#0B0B0C] border border-white/5 rounded-sm">
                     <span className="text-zinc-400 uppercase tracking-wider text-[9px] font-bold block mb-1">PLAN NAME</span>
-                    <span className="text-sm font-serif italic font-bold text-white uppercase">{currentUser.membershipDetails?.planName || "Quarterly Pro"}</span>
+                    <span className="text-sm font-sans font-black text-white uppercase">{currentUser.membershipDetails?.planName || "Quarterly Pro"}</span>
                   </div>
 
                   <div className="p-4 bg-[#0B0B0C] border border-white/5 rounded-sm">
@@ -956,11 +961,11 @@ export default function App() {
             ) : currentUser && currentUser.status === "EXPIRED" && !isRenewing ? (
               <div className="col-span-1 md:col-span-3 bg-[#121215] border border-red-500/30 p-10 sm:p-14 rounded-sm text-center space-y-6 max-w-2xl mx-auto shadow-xl">
                 <div className="w-16 h-16 rounded-full bg-red-500/10 border border-red-500/30 flex items-center justify-center mx-auto">
-                  <span className="text-red-500 font-bold font-serif text-2xl">X</span>
+                  <span className="text-red-500 font-bold font-sans text-2xl font-black">X</span>
                 </div>
                 <div className="space-y-2">
-                  <h3 className="font-display text-2xl sm:text-3xl font-light text-white tracking-tight uppercase">
-                    Membership <span className="font-bold italic text-red-500">Expired</span>
+                  <h3 className="font-display text-2xl sm:text-3xl font-black text-white tracking-tight uppercase">
+                    Membership <span className="text-red-500">Expired</span>
                   </h3>
                   <p className="text-zinc-400 text-sm leading-relaxed max-w-md mx-auto">
                     Your membership has expired. Renew your plan to regain full access to classes, equipment, and personal coaching slots.
@@ -995,13 +1000,13 @@ export default function App() {
                       <span className="text-[9px] font-bold uppercase tracking-[0.2em] block mb-1 text-zinc-200/50">
                         {plan.category.toUpperCase()} TIER
                       </span>
-                      <h3 className="font-display text-2xl font-bold text-[#EEEEF0] uppercase tracking-tight mb-6">
+                      <h3 className="font-display text-2xl font-bold text-white uppercase tracking-tight mb-6">
                         {plan.name}
                       </h3>
                       
                       <div className="mb-8 flex items-baseline gap-1">
                         <span className="text-4xl font-extrabold text-[#EEEEF0]">₹ {plan.price.toLocaleString("en-IN")}</span>
-                        <span className="text-xs text-[#EEEEF0]/60 font-serif italic">/ {plan.period}</span>
+                        <span className="text-xs text-zinc-500 uppercase tracking-widest font-bold">/ {plan.period}</span>
                       </div>
 
                       <ul className="space-y-4 mb-10 text-xs text-[#EEEEF0]/80">
@@ -1055,10 +1060,10 @@ export default function App() {
               </span>
               
               <h3 className="font-display text-2xl sm:text-3xl md:text-4xl font-black uppercase text-white tracking-widest leading-none">
-                INCLUDES <span className="text-[#EF4444]">STRENGTH</span> & <span className="text-[#06B6D4]">CARDIO</span>
+                INCLUDES <span className="text-[#EF4444]">STRENGTH</span> & <span className="text-white">CARDIO</span>
               </h3>
               
-              <p className="text-[#EEEEF0]/70 text-xs max-w-xl mx-auto leading-relaxed font-serif italic">
+              <p className="text-zinc-400 text-xs max-w-xl mx-auto leading-relaxed font-sans font-bold uppercase tracking-wider">
                 All memberships include unrestricted access to our heavy compound lifting cages, prime strength selectorized isolation floor, and state-of-the-art cardiovascular suite.
               </p>
               
@@ -1113,10 +1118,10 @@ export default function App() {
           {/* Left Review column */}
           <div className="text-left space-y-8">
             <div className="space-y-2 pb-2 border-b border-white/10">
-              <h2 className="font-display text-3xl sm:text-4xl md:text-5xl font-light text-[#EEEEF0] tracking-tight">
-                what our <span className="font-bold italic text-[#EF4444]">athletes</span> say
+              <h2 className="font-display text-4xl sm:text-5xl md:text-6xl font-black text-white tracking-tighter uppercase">
+                ATHLETE <span className="text-[#E50914]">TESTIMONIALS</span>
               </h2>
-              <p className="text-[#EEEEF0]/70 text-xs sm:text-sm font-serif italic text-left">
+              <p className="text-zinc-400 text-xs font-bold uppercase tracking-widest text-left">
                 Real feedback from serious athletes training in our Hyderabad facility.
               </p>
             </div>
@@ -1128,7 +1133,7 @@ export default function App() {
                   <Star key={i} className="w-4 h-4 fill-[#EF4444] text-[#EF4444]" />
                 ))}
               </div>
-              <p className="text-[#EEEEF0] text-xs sm:text-sm italic leading-relaxed font-serif">
+              <p className="text-zinc-200 text-xs sm:text-sm leading-relaxed font-sans font-semibold uppercase tracking-wide">
                 "{pageContent.testimonialQuote}"
               </p>
               <div className="flex justify-between items-center text-[9px] font-sans font-bold tracking-wider text-[#EEEEF0]/60 uppercase">
@@ -1184,11 +1189,11 @@ export default function App() {
 
               <div className="relative z-10 text-left space-y-5">
                 
-                <h3 className="font-display text-2xl sm:text-3xl font-light text-[#EEEEF0] tracking-tight leading-none">
-                  EXPERT <span className="font-bold italic text-[#EF4444]">QUALIFICATIONS</span>
+                <h3 className="font-display text-2xl sm:text-3xl font-black text-white leading-none uppercase tracking-tight">
+                  EXPERT <span className="text-[#E50914]">QUALIFICATIONS</span>
                 </h3>
                 
-                <p className="text-[#EEEEF0]/70 text-xs sm:text-sm leading-relaxed max-w-sm">
+                <p className="text-zinc-400 text-xs sm:text-sm leading-relaxed max-w-sm">
                   Our coaches and personal trainers aren't just weightlifting enthusiasts; they are highly certified performance specialists with years of competitive sports backgrounds.
                 </p>
 
@@ -1224,8 +1229,8 @@ export default function App() {
                 className="h-10 w-10 p-0.5 border border-white/20 rounded-full" 
                 src="/logo.jpg" 
               />
-              <span className="font-display text-xl font-bold italic text-[#EEEEF0] tracking-tight">
-                in.fit <span className="font-sans text-xs font-light tracking-[0.1em] uppercase opacity-70">GYM</span>
+              <span className="font-display text-2xl font-black text-white uppercase tracking-tighter">
+                in.fit <span className="font-sans text-xs font-bold tracking-[0.1em] uppercase opacity-80 text-[#E50914]">GYM</span>
               </span>
             </div>
             

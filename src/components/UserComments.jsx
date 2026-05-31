@@ -146,10 +146,10 @@ export default function UserComments() {
         </div>
 
         <div className="flex items-center gap-2 bg-[#0B0B0C] px-3 py-1.5 rounded-sm border border-white/5">
-          <div className="flex text-[#EF4444]">
+          <div className="flex text-[#E50914]">
             {Array.from({ length: 5 }).map((_, i) => <Star
     key={i}
-    className={`w-3.5 h-3.5 ${Math.round(parseFloat(averageRating)) > i ? "fill-[#EF4444]" : "opacity-20"}`}
+    className={`w-3.5 h-3.5 ${Math.round(parseFloat(averageRating)) > i ? "fill-[#E50914]" : "opacity-20"}`}
   />)}
           </div>
           <span className="text-xs font-bold text-white tracking-widest">{averageRating} / 5</span>
@@ -159,14 +159,14 @@ export default function UserComments() {
       {
     /* Review Form */
   }
-      <form onSubmit={handleSubmit} className="bg-[#121215] border border-[#EF4444]/10 hover:border-[#EF4444]/30 transition-all rounded-sm p-6 space-y-4 text-left relative overflow-hidden">
-        <div className="absolute top-0 left-0 w-1.5 h-full bg-[#EF4444]" />
+      <form onSubmit={handleSubmit} className="bg-[#121215] border border-[#E50914]/10 hover:border-[#E50914]/30 transition-all rounded-sm p-6 space-y-4 text-left relative overflow-hidden">
+        <div className="absolute top-0 left-0 w-1.5 h-full bg-[#E50914]" />
         
         <div>
-          <h4 className="text-[10px] font-sans font-extrabold uppercase tracking-[0.2em] text-[#EF4444]">
+          <h4 className="text-[10px] font-sans font-extrabold uppercase tracking-[0.2em] text-[#E50914]">
             LEAVE YOUR TRANSFORMATION REVIEW
           </h4>
-          <p className="text-[#EEEEF0]/50 text-[11px] font-serif italic mt-0.5">
+          <p className="text-[#EEEEF0]/50 text-[10px] font-sans font-bold uppercase tracking-wider mt-0.5">
             Share your training progress, lift milestones, or facility rating.
           </p>
         </div>
@@ -188,7 +188,7 @@ export default function UserComments() {
     value={name}
     onChange={(e) => setName(e.target.value)}
     placeholder="e.g. Rahul Verma"
-    className="w-full bg-[#0B0B0C] text-white border border-white/10 focus:border-[#EF4444] rounded-sm px-3 py-2 text-xs outline-none transition-colors"
+    className="w-full bg-[#0B0B0C] text-white border border-white/10 focus:border-[#E50914] rounded-sm px-3 py-2 text-xs outline-none transition-colors"
   />
           </div>
 
@@ -197,7 +197,7 @@ export default function UserComments() {
             <select
     value={category}
     onChange={(e) => setCategory(e.target.value)}
-    className="w-full bg-[#0B0B0C] text-white border border-white/10 focus:border-[#EF4444] rounded-sm px-3 py-2 text-xs outline-none transition-colors appearance-none cursor-pointer"
+    className="w-full bg-[#0B0B0C] text-white border border-white/10 focus:border-[#E50914] rounded-sm px-3 py-2 text-xs outline-none transition-colors appearance-none cursor-pointer"
   >
               <option value="Strength">Strength Training</option>
               <option value="Cardio Suite">Cardio Suite</option>
@@ -226,7 +226,7 @@ export default function UserComments() {
       className="p-1 hover:scale-125 transition-transform"
     >
                   <Star
-      className={`w-5 h-5 transition-colors cursor-pointer ${isLit ? "fill-[#EF4444] text-[#EF4444]" : "text-white/20 hover:text-white/45"}`}
+      className={`w-5 h-5 transition-colors cursor-pointer ${isLit ? "fill-[#E50914] text-[#E50914]" : "text-white/20 hover:text-white/45"}`}
     />
                 </button>;
   })}
@@ -243,7 +243,7 @@ export default function UserComments() {
     value={text}
     onChange={(e) => setText(e.target.value)}
     placeholder="Write your constructive review here..."
-    className="w-full bg-[#0B0B0C] text-white border border-white/10 focus:border-[#EF4444] rounded-sm px-3 py-2 text-xs outline-none transition-colors resize-none placeholder-zinc-600"
+    className="w-full bg-[#0B0B0C] text-white border border-white/10 focus:border-[#E50914] rounded-sm px-3 py-2 text-xs outline-none transition-colors resize-none placeholder-zinc-600"
   />
         </div>
 
@@ -252,7 +252,7 @@ export default function UserComments() {
   }
         <button
     type="submit"
-    className="w-full py-3 bg-[#EF4444] hover:bg-white text-white hover:text-black font-sans font-extrabold uppercase tracking-widest text-[10px] rounded-sm transition-all cursor-pointer flex items-center justify-center gap-2 shadow-lg shadow-[#EF4444]/15"
+    className="w-full py-3 bg-[#E50914] hover:bg-white text-white hover:text-black font-sans font-extrabold uppercase tracking-widest text-[10px] rounded-sm transition-all cursor-pointer flex items-center justify-center gap-2 shadow-lg shadow-[#E50914]/15"
   >
           <Send className="w-3.5 h-3.5" />
           PUBLISH TESTIMONIAL
@@ -284,7 +284,7 @@ export default function UserComments() {
                     <div className="flex">
                       {Array.from({ length: 5 }).map((_, i) => <Star
     key={i}
-    className={`w-2.5 h-2.5 ${comment.rating > i ? "fill-[#EF4444] text-[#EF4444]" : "opacity-10"}`}
+    className={`w-2.5 h-2.5 ${comment.rating > i ? "fill-[#E50914] text-[#E50914]" : "opacity-10"}`}
   />)}
                     </div>
                     <span className="text-[7.5px] uppercase font-sans tracking-widest bg-white/5 border border-white/10 text-white/50 px-1 py-0.2 rounded-sm">
@@ -299,14 +299,14 @@ export default function UserComments() {
   }
               {comment.isUserAdded && <button
     onClick={() => handleDelete(comment.id)}
-    className="p-1.5 bg-red-950/10 hover:bg-red-500/10 border border-red-500/15 text-[#EF4444] rounded-sm transition-colors cursor-pointer"
+    className="p-1.5 bg-red-950/10 hover:bg-red-500/10 border border-red-500/15 text-[#E50914] rounded-sm transition-colors cursor-pointer"
     title="Remove Comment"
   >
                   <Trash2 className="w-3.5 h-3.5" />
                 </button>}
             </div>
 
-            <p className="text-xs text-[#EEEEF0]/85 leading-relaxed mt-2.5 font-serif italic pl-1">
+            <p className="text-xs text-[#EEEEF0]/85 leading-relaxed mt-2.5 font-sans font-semibold pl-1 uppercase tracking-wide">
               "{comment.text}"
             </p>
 

@@ -219,14 +219,14 @@ export default function RegistrationModal({ isOpen, onClose, selectedPlan, allPl
         {/* Header */}
         <div className="flex flex-col p-5 border-b border-white/10 bg-[#0B0B0C] text-left">
           <div className="flex items-center justify-between">
-            <h3 className="font-serif italic text-xl font-black text-[#EEEEF0] tracking-tight uppercase text-[#EF4444]">
+            <h3 className="font-display text-xl font-black text-[#EEEEF0] tracking-widest uppercase text-[#E50914]">
               MEMBERSHIP REQUEST
             </h3>
             {step !== 2 && (
               <button 
                 onClick={onClose} 
                 disabled={loading}
-                className="text-[#EEEEF0]/60 hover:text-[#EF4444] p-1.5 hover:bg-white/5 rounded-full transition-colors cursor-pointer"
+                className="text-[#EEEEF0]/60 hover:text-[#E50914] p-1.5 hover:bg-white/5 rounded-full transition-colors cursor-pointer"
               >
                 <X className="w-5 h-5" />
               </button>
@@ -254,7 +254,7 @@ export default function RegistrationModal({ isOpen, onClose, selectedPlan, allPl
                   value={selectedPlanId}
                   disabled={loading}
                   onChange={(e) => setSelectedPlanId(e.target.value)}
-                  className="w-full bg-[#0B0B0C] border border-white/15 focus:border-[#EF4444] rounded-sm px-3 py-2.5 text-xs text-[#EEEEF0] font-sans font-medium uppercase tracking-wider outline-none transition-all cursor-pointer"
+                  className="w-full bg-[#0B0B0C] border border-white/15 focus:border-[#E50914] rounded-sm px-3 py-2.5 text-xs text-[#EEEEF0] font-sans font-medium uppercase tracking-wider outline-none transition-all cursor-pointer"
                 >
                   {allPlans.map((plan) => (
                     <option key={plan.id} value={plan.id} className="bg-[#121215] text-[#EEEEF0]">
@@ -268,17 +268,17 @@ export default function RegistrationModal({ isOpen, onClose, selectedPlan, allPl
               <div className="bg-[#1A1A1E] text-white p-5 rounded-sm border border-white/10 space-y-2">
                 <div className="flex justify-between items-center">
                   <span className="text-white/60 text-[9px] uppercase tracking-widest font-bold">MEMBERSHIP PLAN</span>
-                  <span className="bg-[#EF4444] text-white text-[8px] font-bold uppercase tracking-widest px-2 py-0.5 rounded-sm">
+                  <span className="bg-[#E50914] text-white text-[8px] font-bold uppercase tracking-widest px-2 py-0.5 rounded-sm">
                     {activePlan.category.toUpperCase()}
                   </span>
                 </div>
-                <div className="font-serif text-lg font-bold italic text-white leading-none">
+                <div className="font-display text-lg font-black text-white leading-none uppercase tracking-wide">
                   {activePlan.name} Membership Plan
                 </div>
                 <p className="text-[10px] text-white/77 leading-relaxed font-sans">
                   All-access premium package. Submit request to get in-person equipment training access slots and coach guidance at Hyderabad’s premier performance center.
                 </p>
-                <div className="text-2xl text-[#EF4444] font-black pt-1">
+                <div className="text-2xl text-[#E50914] font-black pt-1">
                   ₹ {activePlan.price.toLocaleString("en-IN")}{" "}
                   <span className="text-xs text-white/50 font-normal font-sans">
                     / {activePlan.period}
@@ -287,7 +287,7 @@ export default function RegistrationModal({ isOpen, onClose, selectedPlan, allPl
               </div>
 
               {formErrors && (
-                <div className="p-3 bg-red-950/40 text-[#EF4444] border border-red-900/50 text-xs rounded-sm">
+                <div className="p-3 bg-red-950/40 text-[#E50914] border border-red-900/50 text-xs rounded-sm">
                   {formErrors}
                 </div>
               )}
@@ -304,7 +304,7 @@ export default function RegistrationModal({ isOpen, onClose, selectedPlan, allPl
                     value={fullName}
                     onChange={(e) => setFullName(e.target.value)}
                     placeholder="Enter your Name"
-                    className="w-full bg-[#0B0B0C] border border-white/15 focus:border-[#EF4444] rounded-sm px-3 py-2.5 text-xs text-[#EEEEF0] outline-none transition-all placeholder-zinc-500/50 font-sans"
+                    className="w-full bg-[#0B0B0C] border border-white/15 focus:border-[#E50914] rounded-sm px-3 py-2.5 text-xs text-[#EEEEF0] outline-none transition-all placeholder-zinc-500/50 font-sans"
                   />
                 </div>
 
@@ -319,7 +319,7 @@ export default function RegistrationModal({ isOpen, onClose, selectedPlan, allPl
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     placeholder="Enter your Email"
-                    className="w-full bg-[#0B0B0C] border border-white/15 focus:border-[#EF4444] rounded-sm px-3 py-2.5 text-xs text-[#EEEEF0] outline-none transition-all placeholder-zinc-500/50 font-sans"
+                    className="w-full bg-[#0B0B0C] border border-white/15 focus:border-[#E50914] rounded-sm px-3 py-2.5 text-xs text-[#EEEEF0] outline-none transition-all placeholder-zinc-500/50 font-sans"
                   />
                 </div>
 
@@ -334,7 +334,7 @@ export default function RegistrationModal({ isOpen, onClose, selectedPlan, allPl
                     value={phone}
                     onChange={(e) => setPhone(e.target.value)}
                     placeholder="Enter your Mobile Number"
-                    className="w-full bg-[#0B0B0C] border border-white/15 focus:border-[#EF4444] rounded-sm px-3 py-2.5 text-xs text-[#EEEEF0] outline-none transition-all placeholder-zinc-500/50 font-sans"
+                    className="w-full bg-[#0B0B0C] border border-white/15 focus:border-[#E50914] rounded-sm px-3 py-2.5 text-xs text-[#EEEEF0] outline-none transition-all placeholder-zinc-500/50 font-sans"
                   />
                 </div>
 
@@ -346,7 +346,7 @@ export default function RegistrationModal({ isOpen, onClose, selectedPlan, allPl
                     disabled={loading}
                     value={fitnessGoal}
                     onChange={(e) => setFitnessGoal(e.target.value)}
-                    className="w-full bg-[#0B0B0C] border border-white/15 focus:border-[#EF4444] rounded-sm px-3 py-2.5 text-xs text-[#EEEEF0] outline-none transition-all cursor-pointer font-sans"
+                    className="w-full bg-[#0B0B0C] border border-white/15 focus:border-[#E50914] rounded-sm px-3 py-2.5 text-xs text-[#EEEEF0] outline-none transition-all cursor-pointer font-sans"
                   >
                     <option value="General Fitness">General Fitness</option>
                     <option value="Muscle Building">Muscle Building</option>
@@ -362,7 +362,7 @@ export default function RegistrationModal({ isOpen, onClose, selectedPlan, allPl
                 <button
                   type="submit"
                   disabled={loading}
-                  className="w-full bg-[#EF4444] hover:bg-white text-white hover:text-black font-sans text-[10px] tracking-[0.25em] font-bold uppercase py-4 rounded-sm transition-all shadow-md cursor-pointer text-center disabled:opacity-50"
+                  className="w-full bg-[#E50914] hover:bg-white text-white hover:text-black font-sans text-[10px] tracking-[0.25em] font-bold uppercase py-4 rounded-sm transition-all shadow-md cursor-pointer text-center disabled:opacity-50"
                 >
                   {loading ? "SENDING REQUEST..." : "SEND MEMBERSHIP REQUEST"}
                 </button>
@@ -375,7 +375,7 @@ export default function RegistrationModal({ isOpen, onClose, selectedPlan, allPl
                 <div className="w-14 h-14 bg-emerald-600 rounded-full flex items-center justify-center shadow-lg border border-emerald-500 shadow-emerald-900/20">
                   <Check className="w-7 h-7 text-white" />
                 </div>
-                <h4 className="text-2xl font-serif italic font-bold text-[#EEEEF0] tracking-tight">
+                <h4 className="text-2xl font-display font-black text-white tracking-widest uppercase">
                   Thank You!
                 </h4>
                 <p className="text-[#EEEEF0]/90 text-sm font-sans font-semibold leading-relaxed max-w-sm">
@@ -387,7 +387,7 @@ export default function RegistrationModal({ isOpen, onClose, selectedPlan, allPl
               </div>
 
               <div className="bg-[#1A1A1E] border border-white/10 p-5 rounded-sm text-left space-y-3 font-sans">
-                <span className="text-[8px] font-bold text-[#EF4444] uppercase tracking-widest block font-sans">
+                <span className="text-[8px] font-bold text-[#E50914] uppercase tracking-widest block font-sans">
                   AUTOMATED WHATSAPP LEADS
                 </span>
                 <p className="text-[11px] text-zinc-300 leading-relaxed">

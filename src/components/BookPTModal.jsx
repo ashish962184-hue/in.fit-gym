@@ -71,12 +71,12 @@ export default function BookPTModal({
         <div className="p-6 border-b border-white/10 flex justify-between items-center bg-[#0B0B0C]">
           <div>
             <div className="flex items-center gap-2">
-              <Award className="w-5 h-5 text-[#EF4444]" />
-              <span className="text-[10px] text-[#EF4444] font-bold uppercase tracking-[0.2em] leading-none block">
+              <Award className="w-5 h-5 text-[#E50914]" />
+              <span className="text-[10px] text-[#E50914] font-bold uppercase tracking-[0.2em] leading-none block">
                 ONE-ON-ONE COACHING
               </span>
             </div>
-            <h3 className="font-serif italic text-2xl text-[#EEEEF0] font-bold mt-1 tracking-tight">
+            <h3 className="font-display text-2xl text-white font-black mt-1 tracking-wider uppercase">
               Elite Personal Training
             </h3>
           </div>
@@ -98,8 +98,8 @@ export default function BookPTModal({
           
           {!isSuccess ? <form onSubmit={handleSubmit} className="space-y-4">
               
-              {!memberName && <div className="p-3 bg-amber-50 border border-amber-100 rounded-sm flex justify-between items-center gap-3">
-                  <span className="text-[11px] text-amber-950 leading-relaxed text-left font-medium">
+              {!memberName && <div className="p-3 bg-zinc-900 border border-white/10 rounded-sm flex justify-between items-center gap-3">
+                  <span className="text-[11px] text-zinc-300 leading-relaxed text-left font-semibold">
                     👉 Training is free to test as a guest, but active membership gives access to offline tracking.
                   </span>
                   <button
@@ -108,7 +108,7 @@ export default function BookPTModal({
       onClose();
       onTriggerSignUp();
     }}
-    className="bg-[#1A1A1E] text-white text-[9px] px-3 py-1.5 rounded-sm uppercase tracking-wider font-bold hover:bg-[#EF4444] flex-shrink-0 cursor-pointer"
+    className="bg-[#1A1A1E] text-white text-[9px] px-3 py-1.5 rounded-sm uppercase tracking-wider font-bold hover:bg-[#E50914] flex-shrink-0 cursor-pointer border border-white/10"
   >
                     Enroll
                   </button>
@@ -125,7 +125,7 @@ export default function BookPTModal({
                   <select
     value={goal}
     onChange={(e) => setGoal(e.target.value)}
-    className="w-full bg-[#121215] border border-white/20 rounded-sm px-2.5 py-2 text-xs text-[#EEEEF0] uppercase tracking-wider outline-none focus:border-[#EF4444]"
+    className="w-full bg-[#121215] border border-white/20 rounded-sm px-2.5 py-2 text-xs text-[#EEEEF0] uppercase tracking-wider outline-none focus:border-[#E50914]"
   >
                     <option value="Compound Strength">Compound Strength</option>
                     <option value="Metabolic Conditioning">Metabolic Cardio</option>
@@ -142,7 +142,7 @@ export default function BookPTModal({
                   <select
     value={timeSlot}
     onChange={(e) => setTimeSlot(e.target.value)}
-    className="w-full bg-[#121215] border border-white/20 rounded-sm px-2.5 py-2 text-xs text-[#EEEEF0] outline-none focus:border-[#EF4444]"
+    className="w-full bg-[#121215] border border-white/20 rounded-sm px-2.5 py-2 text-xs text-[#EEEEF0] outline-none focus:border-[#E50914]"
   >
                     <option value="06:00 AM - 07:30 AM">06:00 AM - 07:30 AM</option>
                     <option value="07:30 AM - 09:00 AM">07:30 AM - 09:00 AM</option>
@@ -166,7 +166,7 @@ export default function BookPTModal({
     value={date}
     min={(/* @__PURE__ */ new Date()).toISOString().split("T")[0]}
     onChange={(e) => setDate(e.target.value)}
-    className="w-full bg-[#121215] border border-white/20 rounded-sm px-3.5 py-2 text-xs text-[#EEEEF0] outline-none focus:border-[#EF4444]"
+    className="w-full bg-[#121215] border border-white/20 rounded-sm px-3.5 py-2 text-xs text-[#EEEEF0] outline-none focus:border-[#E50914]"
   />
               </div>
 
@@ -183,29 +183,29 @@ export default function BookPTModal({
     placeholder="e.g. History of mild lower back tightness; want to check squat form."
     value={notes}
     onChange={(e) => setNotes(e.target.value)}
-    className="w-full bg-[#121215] border border-white/20 rounded-sm px-3 py-2 text-xs text-[#EEEEF0] placeholder-zinc-600/30 outline-none focus:border-[#EF4444]"
+    className="w-full bg-[#121215] border border-white/20 rounded-sm px-3 py-2 text-xs text-[#EEEEF0] placeholder-zinc-600/30 outline-none focus:border-[#E50914]"
   />
               </div>
 
               <div className="pt-2 border-t border-white/5">
                 <button
     type="submit"
-    className="w-full bg-[#1A1A1E] hover:bg-[#EF4444] text-white font-sans text-[10px] tracking-[0.25em] font-bold uppercase py-3.5 rounded-sm transition-all shadow-sm cursor-pointer"
+    className="w-full bg-[#1A1A1E] hover:bg-[#E50914] text-white font-sans text-[10px] tracking-[0.25em] font-bold uppercase py-3.5 rounded-sm transition-all shadow-sm cursor-pointer border border-white/10"
   >
                   REQUEST APPOINTMENT PASS
                 </button>
               </div>
 
             </form> : <div className="text-center py-4 space-y-5">
-              <div className="w-12 h-12 bg-[#EF4444] rounded-full flex items-center justify-center mx-auto shadow-sm">
+              <div className="w-12 h-12 bg-[#E50914] rounded-full flex items-center justify-center mx-auto shadow-sm">
                 <CheckCircle className="w-6 h-6 text-white" />
               </div>
 
               <div className="space-y-1">
-                <h4 className="font-serif italic text-lg font-bold text-[#EEEEF0] tracking-tight">
+                <h4 className="font-display text-xl font-black text-white tracking-widest uppercase">
                   coaching spot reserved
                 </h4>
-                <p className="text-xs text-zinc-200/60">
+                <p className="text-xs text-zinc-200/60 uppercase font-semibold">
                   Show your token at reception to unlock entry.
                 </p>
               </div>
@@ -215,7 +215,7 @@ export default function BookPTModal({
   }
               <div className="bg-[#0B0B0C] rounded-sm border border-white/10 p-5 text-left space-y-3 max-w-sm mx-auto font-mono text-[#EEEEF0]">
                 <div className="flex justify-between border-b border-white/10 pb-2">
-                  <span className="text-[10px] text-[#EF4444] font-bold">APPOINTMENT TOKEN</span>
+                  <span className="text-[10px] text-[#E50914] font-bold">APPOINTMENT TOKEN</span>
                   <span className="text-[10px] text-zinc-200 font-extrabold">{lastBookingCode}</span>
                 </div>
 
@@ -226,7 +226,7 @@ export default function BookPTModal({
                   </div>
                   <div className="flex justify-between">
                     <span className="text-zinc-200/60">ELITE COACH:</span>
-                    <span className="text-[#EF4444] font-bold">{activeTrainer?.name}</span>
+                    <span className="text-[#E50914] font-bold">{activeTrainer?.name}</span>
                   </div>
                   <div className="flex justify-between">
                     <span className="text-zinc-200/60">FOCUS AREA:</span>
@@ -238,7 +238,7 @@ export default function BookPTModal({
                   </div>
                   <div className="flex justify-between">
                     <span className="text-zinc-200/60">DATE:</span>
-                    <span className="text-[#EF4444] font-bold">{date}</span>
+                    <span className="text-[#E50914] font-bold">{date}</span>
                   </div>
                 </div>
                 
@@ -254,7 +254,7 @@ export default function BookPTModal({
       setIsSuccess(false);
       onClose();
     }}
-    className="w-full bg-[#1A1A1E] hover:bg-[#EF4444] text-white py-3 font-sans text-[10px] tracking-widest font-bold uppercase rounded-sm transition-all cursor-pointer"
+    className="w-full bg-[#1A1A1E] hover:bg-[#E50914] text-white py-3 font-sans text-[10px] tracking-widest font-bold uppercase rounded-sm transition-all cursor-pointer border border-white/10"
   >
                   DISMISS CODE
                 </button>

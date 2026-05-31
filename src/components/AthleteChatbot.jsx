@@ -73,17 +73,17 @@ export default function AthleteChatbot({ isOpen, onClose, gymContext }) {
   }
       <div className="p-4 bg-[#0B0B0C] border-b border-white/10 flex justify-between items-center">
         <div className="flex items-center gap-2">
-          <div className="w-8 h-8 rounded-full bg-[#EF4444]/15 border border-[#EF4444]/20 flex items-center justify-center">
-            <Dumbbell className="w-4 h-4 text-[#EF4444]" />
+          <div className="w-8 h-8 rounded-full bg-[#E50914]/15 border border-[#E50914]/20 flex items-center justify-center">
+            <Dumbbell className="w-4 h-4 text-[#E50914]" />
           </div>
           <div>
-            <span className="text-[8px] text-[#EF4444] font-bold uppercase tracking-widest leading-none block mb-0.5">ASSISTANT</span>
-            <span className="text-xs font-serif italic font-semibold text-[#EEEEF0] tracking-tight">Plan & Membership Advisor</span>
+            <span className="text-[8px] text-[#E50914] font-bold uppercase tracking-widest leading-none block mb-0.5">ASSISTANT</span>
+            <span className="text-[10px] font-sans font-black text-white uppercase tracking-wider block">Plan & Membership Advisor</span>
           </div>
         </div>
         <button
     onClick={onClose}
-    className="text-zinc-200/60 hover:text-[#EF4444] p-1 rounded-full hover:bg-black/5 cursor-pointer"
+    className="text-zinc-200/60 hover:text-[#E50914] p-1 rounded-full hover:bg-black/5 cursor-pointer"
   >
           <X className="w-4 h-4" />
         </button>
@@ -94,15 +94,15 @@ export default function AthleteChatbot({ isOpen, onClose, gymContext }) {
   }
       <div className="flex-1 p-4 h-[320px] overflow-y-auto space-y-3.5 bg-[#0B0B0C]/30">
         {messages.map((m) => <div key={m.id} className={`flex ${m.sender === "athlete" ? "justify-end" : "justify-start"}`}>
-            <div className={`max-w-[85%] rounded-sm p-3 text-xs leading-relaxed ${m.sender === "athlete" ? "bg-[#EF4444] text-white rounded-br-none font-medium" : "bg-[#121215] text-[#EEEEF0] border border-white/5 rounded-bl-none shadow-sm"}`}>
+            <div className={`max-w-[85%] rounded-sm p-3 text-xs leading-relaxed ${m.sender === "athlete" ? "bg-[#E50914] text-white rounded-br-none font-medium" : "bg-[#121215] text-[#EEEEF0] border border-white/5 rounded-bl-none shadow-sm"}`}>
               {m.text}
             </div>
           </div>)}
         {isTyping && <div className="flex justify-start">
             <div className="bg-[#121215] border border-white/5 rounded-sm rounded-bl-none p-3 text-xs flex gap-1.5 items-center">
-              <span className="w-1.5 h-1.5 bg-[#EF4444] rounded-full animate-bounce" />
-              <span className="w-1.5 h-1.5 bg-[#EF4444] rounded-full animate-bounce [animation-delay:0.2s]" />
-              <span className="w-1.5 h-1.5 bg-[#EF4444] rounded-full animate-bounce [animation-delay:0.4s]" />
+              <span className="w-1.5 h-1.5 bg-[#E50914] rounded-full animate-bounce" />
+              <span className="w-1.5 h-1.5 bg-[#E50914] rounded-full animate-bounce [animation-delay:0.2s]" />
+              <span className="w-1.5 h-1.5 bg-[#E50914] rounded-full animate-bounce [animation-delay:0.4s]" />
             </div>
           </div>}
         <div ref={messagesEndRef} />
@@ -117,11 +117,11 @@ export default function AthleteChatbot({ isOpen, onClose, gymContext }) {
     placeholder="Type lifting or routine query..."
     value={inputVal}
     onChange={(e) => setInputVal(e.target.value)}
-    className="flex-1 bg-[#121215] border border-white/15 rounded-sm px-2.5 py-1.5 text-xs text-[#EEEEF0] placeholder-zinc-600/30 outline-none focus:border-[#EF4444]"
+    className="flex-1 bg-[#121215] border border-white/15 rounded-sm px-2.5 py-1.5 text-xs text-[#EEEEF0] placeholder-zinc-600/30 outline-none focus:border-[#E50914]"
   />
         <button
     type="submit"
-    className="bg-[#1A1A1E] hover:bg-[#EF4444] text-white p-2 rounded-sm transition-colors flex items-center justify-center cursor-pointer"
+    className="bg-[#1A1A1E] hover:bg-[#E50914] text-white p-2 rounded-sm transition-colors flex items-center justify-center cursor-pointer"
   >
           <Send className="w-3.5 h-3.5" />
         </button>
@@ -135,7 +135,7 @@ export default function AthleteChatbot({ isOpen, onClose, gymContext }) {
     href="https://api.whatsapp.com/send?phone=919966683776"
     target="_blank"
     rel="noopener noreferrer"
-    className="text-[9px] text-[#EF4444] hover:text-[#EEEEF0] font-bold uppercase tracking-widest flex items-center justify-center gap-1.5 transition-colors"
+    className="text-[9px] text-[#E50914] hover:text-[#EEEEF0] font-bold uppercase tracking-widest flex items-center justify-center gap-1.5 transition-colors"
   >
           OR CONNECT ON WHATSAPP DIRECTLY <ArrowUpRight className="w-3 h-3" />
         </a>

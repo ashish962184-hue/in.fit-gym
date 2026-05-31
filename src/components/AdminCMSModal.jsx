@@ -867,18 +867,18 @@ export default function AdminCMSModal({ isOpen, onClose, onContentUpdated, isAdm
         <div className="p-4 sm:p-5 border-b border-white/10 flex justify-between items-center bg-[#0B0B0C] shrink-0">
           <div className="flex items-center gap-3">
             <div className="w-8 h-8 rounded-full bg-[#1A1A1E] text-white flex items-center justify-center border border-white/5">
-              <Settings className="w-4 h-4 text-[#EF4444]" />
+              <Settings className="w-4 h-4 text-[#E50914]" />
             </div>
             <div>
-              <span className="text-[9px] text-[#EF4444] font-bold uppercase tracking-[0.2em] leading-none block mb-0.5">
+              <span className="text-[9px] text-[#E50914] font-bold uppercase tracking-[0.2em] leading-none block mb-0.5">
                 ADMIN SYSTEM INTERFACE {staffRole !== "ADMIN" && `| ${staffRole} PORTAL`}
               </span>
-              <h3 className="font-serif italic text-lg sm:text-xl text-[#EEEEF0] font-bold tracking-tight">
+              <h3 className="font-display font-black text-lg sm:text-xl text-[#EEEEF0] tracking-wider uppercase">
                 in.fit CMS & Business Management Dashboard
               </h3>
             </div>
           </div>
-          <button onClick={onClose} className="text-zinc-400 hover:text-[#EF4444] p-1.5 hover:bg-white/5 rounded-full cursor-pointer transition-all">
+          <button onClick={onClose} className="text-zinc-400 hover:text-[#E50914] p-1.5 hover:bg-white/5 rounded-full cursor-pointer transition-all">
             <X className="w-4.5 h-4.5" />
           </button>
         </div>
@@ -887,19 +887,19 @@ export default function AdminCMSModal({ isOpen, onClose, onContentUpdated, isAdm
         {!isAuthenticated && !isAdminLoggedIn ? (
           <div className="flex-1 flex flex-col items-center justify-center p-8 bg-[#0B0B0C]/40">
             <form onSubmit={handleVerifyPass} className="w-full max-w-sm bg-[#121215] p-6 sm:p-8 rounded-sm shadow-xl border border-white/10 space-y-5 text-center">
-              <div className="w-12 h-12 rounded-full bg-[#EF4444]/10 border border-[#EF4444]/25 flex items-center justify-center mx-auto mb-2">
-                <Lock className="w-6 h-6 text-[#EF4444]" />
+              <div className="w-12 h-12 rounded-full bg-[#E50914]/10 border border-[#E50914]/25 flex items-center justify-center mx-auto mb-2">
+                <Lock className="w-6 h-6 text-[#E50914]" />
               </div>
               
               <div className="space-y-1">
-                <h4 className="font-serif italic text-base font-bold text-[#EEEEF0]">CMS Terminal Locked</h4>
+                <h4 className="font-display font-black text-base text-white uppercase tracking-wider">CMS Terminal Locked</h4>
                 <p className="text-[9px] text-zinc-400 uppercase tracking-widest font-semibold">
                   Administrator passkey authorization required
                 </p>
               </div>
 
               {authError && (
-                <div className="p-3 bg-red-950/20 text-[#EF4444] border border-red-900/50 text-[11px] rounded-sm flex items-center gap-2">
+                <div className="p-3 bg-red-950/20 text-[#E50914] border border-red-900/50 text-[11px] rounded-sm flex items-center gap-2">
                   <AlertCircle className="w-4 h-4 shrink-0" />
                   <span>{authError}</span>
                 </div>
@@ -915,14 +915,14 @@ export default function AdminCMSModal({ isOpen, onClose, onContentUpdated, isAdm
                   value={adminPass}
                   onChange={(e) => setAdminPass(e.target.value)}
                   placeholder="Enter administrator passcode"
-                  className="w-full bg-[#0B0B0C] border border-white/20 focus:border-[#EF4444] rounded-sm px-3.5 py-2.5 text-xs text-center text-[#EEEEF0] outline-none font-sans"
+                  className="w-full bg-[#0B0B0C] border border-white/20 focus:border-[#E50914] rounded-sm px-3.5 py-2.5 text-xs text-center text-[#EEEEF0] outline-none font-sans"
                 />
               </div>
 
               <div className="pt-2">
                 <button
                   type="submit"
-                  className="w-full bg-[#EF4444] hover:bg-white hover:text-black text-white font-sans text-[10px] tracking-widest font-bold uppercase py-3 rounded-sm transition-all shadow-sm flex items-center justify-center gap-1.5 cursor-pointer border border-[#EF4444]"
+                  className="w-full bg-[#E50914] hover:bg-white hover:text-black text-white font-sans text-[10px] tracking-widest font-bold uppercase py-3 rounded-sm transition-all shadow-sm flex items-center justify-center gap-1.5 cursor-pointer border border-[#E50914]"
                 >
                   UNLOCK CORE PANELS <ArrowRight className="w-3.5 h-3.5" />
                 </button>
@@ -963,7 +963,7 @@ export default function AdminCMSModal({ isOpen, onClose, onContentUpdated, isAdm
                       setEditingGalleryId(null);
                       setEditingTestimonialId(null);
                     }}
-                    className={`py-2.5 px-3.5 rounded-sm text-[9px] font-bold uppercase tracking-widest border border-transparent cursor-pointer text-left flex items-center gap-2.5 transition-all whitespace-nowrap ${activeTab === item.id ? "bg-[#EF4444]/10 text-[#EF4444] border-[#EF4444]/30 font-black" : "text-zinc-400 hover:bg-white/5 hover:text-white"}`}
+                    className={`py-2.5 px-3.5 rounded-sm text-[9px] font-bold uppercase tracking-widest border border-transparent cursor-pointer text-left flex items-center gap-2.5 transition-all whitespace-nowrap ${activeTab === item.id ? "bg-[#E50914]/10 text-[#E50914] border-[#E50914]/30 font-black" : "text-zinc-400 hover:bg-white/5 hover:text-white"}`}
                   >
                     <IconComp className="w-4 h-4 shrink-0" />
                     <span>{item.label}</span>
@@ -982,8 +982,8 @@ export default function AdminCMSModal({ isOpen, onClose, onContentUpdated, isAdm
             <div className="flex-1 flex flex-col overflow-hidden bg-[#121215]">
               
               {notifyMsg && (
-                <div className="p-3.5 bg-emerald-950/40 border-b border-emerald-800/30 text-emerald-400 text-xs font-semibold flex items-center gap-2 shrink-0 font-sans">
-                  <Check className="w-4 h-4 text-[#EF4444]" />
+                <div className="p-3.5 bg-emerald-950/40 border-b border-emerald-800/30 text-[#E50914] text-xs font-semibold flex items-center gap-2 shrink-0 font-sans">
+                  <Check className="w-4 h-4 text-[#E50914]" />
                   <span>{notifyMsg}</span>
                 </div>
               )}
@@ -997,8 +997,8 @@ export default function AdminCMSModal({ isOpen, onClose, onContentUpdated, isAdm
                   <div className="space-y-6">
                     <div className="flex justify-between items-center border-b border-white/10 pb-4">
                       <div>
-                        <span className="text-[9px] text-[#EF4444] font-black uppercase tracking-[0.2em] block mb-1">ATHLETE PIPELINE ENGINE</span>
-                        <h4 className="font-serif italic font-extrabold text-xl text-white tracking-tight uppercase">Inbound Registration Requests</h4>
+                        <span className="text-[9px] text-[#E50914] font-black uppercase tracking-[0.2em] block mb-1">ATHLETE PIPELINE ENGINE</span>
+                        <h4 className="font-display font-black text-xl text-white tracking-wider uppercase">Inbound Registration Requests</h4>
                       </div>
                       <div className="flex gap-2">
                         <button 
@@ -1036,9 +1036,9 @@ export default function AdminCMSModal({ isOpen, onClose, onContentUpdated, isAdm
                               {inquiries.filter(i => i.status === "CONTACTED").length}
                             </span>
                           </div>
-                          <div className="bg-[#0B0B0C] border border-emerald-500/20 p-4 rounded-sm">
-                            <span className="text-[8px] text-emerald-400 font-bold block uppercase mb-1">● APPROVED</span>
-                            <span className="text-2xl font-extrabold text-emerald-400 font-mono">
+                          <div className="bg-[#0B0B0C] border border-[#E50914]/20 p-4 rounded-sm">
+                            <span className="text-[8px] text-[#E50914] font-bold block uppercase mb-1">● APPROVED</span>
+                            <span className="text-2xl font-extrabold text-[#E50914] font-mono">
                               {inquiries.filter(i => i.status === "APPROVED").length}
                             </span>
                           </div>
@@ -1050,12 +1050,12 @@ export default function AdminCMSModal({ isOpen, onClose, onContentUpdated, isAdm
                             placeholder="Search requests by name, email, phone..."
                             value={searchQuery}
                             onChange={(e) => setSearchQuery(e.target.value)}
-                            className="w-full bg-[#0B0B0C] border border-white/10 focus:border-[#EF4444] rounded-sm px-4 py-2 text-xs text-white placeholder-zinc-500 outline-none"
+                            className="w-full bg-[#0B0B0C] border border-white/10 focus:border-[#E50914] rounded-sm px-4 py-2 text-xs text-white placeholder-zinc-500 outline-none"
                           />
                           <select
                             value={statusFilter}
                             onChange={(e) => setStatusFilter(e.target.value)}
-                            className="w-full sm:w-48 bg-[#0B0B0C] border border-white/10 focus:border-[#EF4444] rounded-sm px-3 py-2 text-xs text-white outline-none cursor-pointer"
+                            className="w-full sm:w-48 bg-[#0B0B0C] border border-white/10 focus:border-[#E50914] rounded-sm px-3 py-2 text-xs text-white outline-none cursor-pointer"
                           >
                             <option value="ALL">ALL STATUSES</option>
                             <option value="PENDING">PENDING</option>
@@ -1101,28 +1101,28 @@ export default function AdminCMSModal({ isOpen, onClose, onContentUpdated, isAdm
 
                                   return (
                                     <tr key={item.id} className="hover:bg-white/[0.02]">
-                                      <td className="p-4 font-serif italic font-bold text-sm uppercase tracking-tight text-white">{item.full_name}</td>
+                                      <td className="p-4 font-display font-black text-sm uppercase tracking-wider text-white">{item.full_name}</td>
                                       <td className="p-4 space-y-1">
                                         <div>{item.email}</div>
                                         <div className="flex items-center gap-2">
                                           <span className="font-mono text-zinc-400 font-bold">{item.phone}</span>
-                                          <a href={waUrl} target="_blank" rel="noopener noreferrer" className="bg-emerald-600/10 border border-emerald-500/30 hover:bg-emerald-600 hover:text-white px-2 py-0.5 text-[9px] text-emerald-400 font-bold uppercase tracking-wider rounded-sm transition-all">WhatsApp</a>
+                                          <a href={waUrl} target="_blank" rel="noopener noreferrer" className="bg-[#E50914]/10 border border-[#E50914]/30 hover:bg-[#E50914] hover:text-white px-2 py-0.5 text-[9px] text-[#E50914] font-bold uppercase tracking-wider rounded-sm transition-all">WhatsApp</a>
                                         </div>
                                       </td>
                                       <td className="p-4 text-zinc-300 font-semibold">{item.fitness_goal || "General Fitness"}</td>
                                       <td className="p-4">
                                         <div className="font-bold text-white uppercase">{item.selected_plan}</div>
-                                        <div className="font-mono text-[#EF4444] font-bold">₹{item.plan_price}</div>
+                                        <div className="font-mono text-[#E50914] font-bold">₹{item.plan_price}</div>
                                       </td>
                                       <td className="p-4">
                                         <select
                                           value={item.status}
                                           onChange={(e) => handleUpdateInquiryStatus(item.id, e.target.value)}
-                                          className={`px-2.5 py-1 text-[9px] font-bold uppercase tracking-widest bg-[#121215] border rounded-sm outline-none cursor-pointer transition-all ${item.status === "APPROVED" ? "border-emerald-500 text-emerald-400" : item.status === "CONTACTED" ? "border-blue-500 text-blue-400" : item.status === "REJECTED" ? "border-red-500 text-red-500" : "border-amber-500 text-amber-500"}`}
+                                          className={`px-2.5 py-1 text-[9px] font-bold uppercase tracking-widest bg-[#121215] border rounded-sm outline-none cursor-pointer transition-all ${item.status === "APPROVED" ? "border-[#E50914] text-[#E50914]" : item.status === "CONTACTED" ? "border-blue-500 text-blue-400" : item.status === "REJECTED" ? "border-red-500 text-red-500" : "border-amber-500 text-amber-500"}`}
                                         >
                                           <option value="PENDING" className="text-amber-500">PENDING</option>
                                           <option value="CONTACTED" className="text-blue-400">CONTACTED</option>
-                                          <option value="APPROVED" className="text-emerald-400">APPROVED</option>
+                                          <option value="APPROVED" className="text-[#E50914]">APPROVED</option>
                                           <option value="REJECTED" className="text-red-500">REJECTED</option>
                                         </select>
                                       </td>
@@ -1159,7 +1159,7 @@ export default function AdminCMSModal({ isOpen, onClose, onContentUpdated, isAdm
                               activeMemberships.map((item) => (
                                 <tr key={item.id} className="hover:bg-white/[0.02]">
                                   <td className="p-4">
-                                    <div className="font-serif italic font-bold text-sm uppercase text-white">{item.users?.full_name || "Syncing..."}</div>
+                                    <div className="font-display font-black text-sm uppercase text-white tracking-wide">{item.users?.full_name || "Syncing..."}</div>
                                     <div className="font-mono text-[10px] text-zinc-500">{item.users?.email}</div>
                                   </td>
                                   <td className="p-4">
@@ -1167,7 +1167,7 @@ export default function AdminCMSModal({ isOpen, onClose, onContentUpdated, isAdm
                                     <div className="font-mono text-zinc-400 font-bold">₹{item.plan_price}</div>
                                   </td>
                                   <td className="p-4">
-                                    <span className="bg-emerald-600/10 border border-emerald-500/30 text-emerald-400 px-2 py-0.5 rounded-sm font-mono text-[9px] font-bold uppercase tracking-wider">
+                                    <span className="bg-[#E50914]/10 border border-[#E50914]/30 text-[#E50914] px-2 py-0.5 rounded-sm font-mono text-[9px] font-bold uppercase tracking-wider">
                                       🎫 {item.athlete_cards?.card_number || "PENDING"}
                                     </span>
                                   </td>
@@ -1177,7 +1177,7 @@ export default function AdminCMSModal({ isOpen, onClose, onContentUpdated, isAdm
                                   <td className="p-4 text-right">
                                     <button
                                       onClick={() => handleToggleMembership(item.id, item.is_active)}
-                                      className={`px-3 py-1 text-[9px] font-bold uppercase tracking-widest rounded-sm border cursor-pointer transition-all ${item.is_active ? "bg-emerald-600 hover:bg-emerald-500 text-white border-emerald-500" : "bg-red-950/20 text-red-500 border-red-500/30 hover:bg-red-500 hover:text-white"}`}
+                                      className={`px-3 py-1 text-[9px] font-bold uppercase tracking-widest rounded-sm border cursor-pointer transition-all ${item.is_active ? "bg-[#E50914] hover:bg-emerald-500 text-white border-[#E50914]" : "bg-red-950/20 text-red-500 border-red-500/30 hover:bg-red-500 hover:text-white"}`}
                                     >
                                       {item.is_active ? "● ACTIVE" : "● SUSPENDED"}
                                     </button>
@@ -1198,8 +1198,8 @@ export default function AdminCMSModal({ isOpen, onClose, onContentUpdated, isAdm
                 {activeTab === "website_settings" && (
                   <div className="space-y-6">
                     <div className="border-b border-white/10 pb-4">
-                      <span className="text-[9px] text-[#EF4444] font-black uppercase tracking-[0.2em] block mb-1">CENTRAL CMS MATRIX</span>
-                      <h4 className="font-serif italic font-extrabold text-xl text-white tracking-tight uppercase">Website Settings Panel</h4>
+                      <span className="text-[9px] text-[#E50914] font-black uppercase tracking-[0.2em] block mb-1">CENTRAL CMS MATRIX</span>
+                      <h4 className="font-display font-black text-xl text-white tracking-wider uppercase">Website Settings Panel</h4>
                     </div>
 
                     {staffRole === "TRAINER" ? (
@@ -1226,7 +1226,7 @@ export default function AdminCMSModal({ isOpen, onClose, onContentUpdated, isAdm
                               key={sec.id}
                               type="button"
                               onClick={() => setActiveSettingsSection(sec.id)}
-                              className={`w-full text-left py-2 px-3 text-[9px] uppercase tracking-wider font-bold rounded-sm cursor-pointer transition-colors ${activeSettingsSection === sec.id ? "bg-[#EF4444]/10 text-[#EF4444]" : "text-zinc-400 hover:bg-white/5 hover:text-white"}`}
+                              className={`w-full text-left py-2 px-3 text-[9px] uppercase tracking-wider font-bold rounded-sm cursor-pointer transition-colors ${activeSettingsSection === sec.id ? "bg-[#E50914]/10 text-[#E50914]" : "text-zinc-400 hover:bg-white/5 hover:text-white"}`}
                             >
                               {sec.label}
                             </button>
@@ -1257,63 +1257,63 @@ export default function AdminCMSModal({ isOpen, onClose, onContentUpdated, isAdm
                               <div className="grid grid-cols-2 gap-4">
                                 <div>
                                   <label className="block text-[8px] font-bold text-zinc-500 uppercase tracking-widest mb-1.5">Gym Brand Title</label>
-                                  <input type="text" name="gymName" defaultValue={cmsContent.gymName || "IN.FIT GYM"} className="w-full bg-[#121215] border border-white/15 rounded-sm p-2 text-white outline-none focus:border-[#EF4444]" />
+                                  <input type="text" name="gymName" defaultValue={cmsContent.gymName || "IN.FIT GYM"} className="w-full bg-[#121215] border border-white/15 rounded-sm p-2 text-white outline-none focus:border-[#E50914]" />
                                 </div>
                                 <div>
                                   <label className="block text-[8px] font-bold text-zinc-500 uppercase tracking-widest mb-1.5">Tagline Info Bar</label>
-                                  <input type="text" name="tagline" defaultValue={cmsContent.heroTagline} className="w-full bg-[#121215] border border-white/15 rounded-sm p-2 text-white outline-none focus:border-[#EF4444]" />
+                                  <input type="text" name="tagline" defaultValue={cmsContent.heroTagline} className="w-full bg-[#121215] border border-white/15 rounded-sm p-2 text-white outline-none focus:border-[#E50914]" />
                                 </div>
                               </div>
                               <div className="grid grid-cols-2 gap-4">
                                 <div>
                                   <label className="block text-[8px] font-bold text-zinc-500 uppercase tracking-widest mb-1.5">Heading Line 1</label>
-                                  <input type="text" name="heading1" defaultValue={cmsContent.heroHeadingLine1} className="w-full bg-[#121215] border border-white/15 rounded-sm p-2 text-white outline-none focus:border-[#EF4444]" />
+                                  <input type="text" name="heading1" defaultValue={cmsContent.heroHeadingLine1} className="w-full bg-[#121215] border border-white/15 rounded-sm p-2 text-white outline-none focus:border-[#E50914]" />
                                 </div>
                                 <div>
                                   <label className="block text-[8px] font-bold text-zinc-500 uppercase tracking-widest mb-1.5">Heading 1 Highlight (Red)</label>
-                                  <input type="text" name="highlight" defaultValue={cmsContent.heroHeadingHighlight} className="w-full bg-[#121215] border border-white/15 rounded-sm p-2 text-[#EF4444] font-bold outline-none focus:border-[#EF4444]" />
+                                  <input type="text" name="highlight" defaultValue={cmsContent.heroHeadingHighlight} className="w-full bg-[#121215] border border-white/15 rounded-sm p-2 text-[#E50914] font-bold outline-none focus:border-[#E50914]" />
                                 </div>
                               </div>
                               <div className="grid grid-cols-2 gap-4">
                                 <div>
                                   <label className="block text-[8px] font-bold text-zinc-500 uppercase tracking-widest mb-1.5">Heading Line 2</label>
-                                  <input type="text" name="heading2" defaultValue={cmsContent.heroHeadingLine2} className="w-full bg-[#121215] border border-white/15 rounded-sm p-2 text-white outline-none focus:border-[#EF4444]" />
+                                  <input type="text" name="heading2" defaultValue={cmsContent.heroHeadingLine2} className="w-full bg-[#121215] border border-white/15 rounded-sm p-2 text-white outline-none focus:border-[#E50914]" />
                                 </div>
                                 <div>
                                   <label className="block text-[8px] font-bold text-zinc-500 uppercase tracking-widest mb-1.5">Heading 2 Highlight</label>
-                                  <input type="text" name="highlight2" defaultValue={cmsContent.heroHeadingHighlight2} className="w-full bg-[#121215] border border-white/15 rounded-sm p-2 text-white font-bold outline-none focus:border-[#EF4444]" />
+                                  <input type="text" name="highlight2" defaultValue={cmsContent.heroHeadingHighlight2} className="w-full bg-[#121215] border border-white/15 rounded-sm p-2 text-white font-bold outline-none focus:border-[#E50914]" />
                                 </div>
                               </div>
                               <div>
                                 <label className="block text-[8px] font-bold text-zinc-500 uppercase tracking-widest mb-1.5">Main Marketing Description</label>
-                                <textarea name="description" rows={3} defaultValue={cmsContent.heroDescription} className="w-full bg-[#121215] border border-white/15 rounded-sm p-2.5 text-white outline-none focus:border-[#EF4444]" />
+                                <textarea name="description" rows={3} defaultValue={cmsContent.heroDescription} className="w-full bg-[#121215] border border-white/15 rounded-sm p-2.5 text-white outline-none focus:border-[#E50914]" />
                               </div>
                               <div className="grid grid-cols-2 gap-4">
                                 <div>
                                   <label className="block text-[8px] font-bold text-zinc-500 uppercase tracking-widest mb-1.5">CTA Button Text</label>
-                                  <input type="text" name="ctaText" defaultValue={cmsContent.heroCtaText || "JOIN MEMBERSHIP"} className="w-full bg-[#121215] border border-white/15 rounded-sm p-2 text-white outline-none focus:border-[#EF4444]" />
+                                  <input type="text" name="ctaText" defaultValue={cmsContent.heroCtaText || "JOIN MEMBERSHIP"} className="w-full bg-[#121215] border border-white/15 rounded-sm p-2 text-white outline-none focus:border-[#E50914]" />
                                 </div>
                                 <div>
                                   <label className="block text-[8px] font-bold text-zinc-500 uppercase tracking-widest mb-1.5">CTA Anchored Link</label>
-                                  <input type="text" name="ctaLink" defaultValue={cmsContent.heroCtaLink || "#packages"} className="w-full bg-[#121215] border border-white/15 rounded-sm p-2 text-white outline-none focus:border-[#EF4444]" />
+                                  <input type="text" name="ctaLink" defaultValue={cmsContent.heroCtaLink || "#packages"} className="w-full bg-[#121215] border border-white/15 rounded-sm p-2 text-white outline-none focus:border-[#E50914]" />
                                 </div>
                               </div>
                               <div className="grid grid-cols-3 gap-3">
                                 <div>
                                   <label className="block text-[8px] font-bold text-zinc-500 uppercase tracking-widest mb-1.5">Member Count</label>
-                                  <input type="number" name="memberCount" defaultValue={cmsContent.memberCount || 700} className="w-full bg-[#121215] border border-white/15 rounded-sm p-2 text-white outline-none focus:border-[#EF4444]" />
+                                  <input type="number" name="memberCount" defaultValue={cmsContent.memberCount || 700} className="w-full bg-[#121215] border border-white/15 rounded-sm p-2 text-white outline-none focus:border-[#E50914]" />
                                 </div>
                                 <div>
                                   <label className="block text-[8px] font-bold text-zinc-500 uppercase tracking-widest mb-1.5">Trainer Count</label>
-                                  <input type="number" name="trainerCount" defaultValue={cmsContent.trainerCount || 10} className="w-full bg-[#121215] border border-white/15 rounded-sm p-2 text-white outline-none focus:border-[#EF4444]" />
+                                  <input type="number" name="trainerCount" defaultValue={cmsContent.trainerCount || 10} className="w-full bg-[#121215] border border-white/15 rounded-sm p-2 text-white outline-none focus:border-[#E50914]" />
                                 </div>
                                 <div>
                                   <label className="block text-[8px] font-bold text-zinc-500 uppercase tracking-widest mb-1.5">Years Experience</label>
-                                  <input type="number" name="yearsExperience" defaultValue={cmsContent.yearsExperience || 5} className="w-full bg-[#121215] border border-white/15 rounded-sm p-2 text-white outline-none focus:border-[#EF4444]" />
+                                  <input type="number" name="yearsExperience" defaultValue={cmsContent.yearsExperience || 5} className="w-full bg-[#121215] border border-white/15 rounded-sm p-2 text-white outline-none focus:border-[#E50914]" />
                                 </div>
                               </div>
                               <div className="pt-2">
-                                <button type="submit" className="bg-[#EF4444] hover:bg-white text-white hover:text-black text-[9px] font-bold uppercase tracking-widest py-2 px-6 rounded-sm transition-all cursor-pointer">Save Hero Copy</button>
+                                <button type="submit" className="bg-[#E50914] hover:bg-white text-white hover:text-black text-[9px] font-bold uppercase tracking-widest py-2 px-6 rounded-sm transition-all cursor-pointer">Save Hero Copy</button>
                               </div>
                             </form>
                           )}
@@ -1331,22 +1331,22 @@ export default function AdminCMSModal({ isOpen, onClose, onContentUpdated, isAdm
                               <span className="text-[10px] text-zinc-400 font-bold uppercase tracking-widest block border-b border-white/5 pb-1 mb-2">ABOUT SECTION EDIT</span>
                               <div>
                                 <label className="block text-[8px] font-bold text-zinc-500 uppercase tracking-widest mb-1.5">About Section Title</label>
-                                <input type="text" name="title" defaultValue={cmsContent.aboutTitle || "WELCOME TO IN.FIT GYM"} className="w-full bg-[#121215] border border-white/15 rounded-sm p-2 text-white outline-none focus:border-[#EF4444]" />
+                                <input type="text" name="title" defaultValue={cmsContent.aboutTitle || "WELCOME TO IN.FIT GYM"} className="w-full bg-[#121215] border border-white/15 rounded-sm p-2 text-white outline-none focus:border-[#E50914]" />
                               </div>
                               <div>
                                 <label className="block text-[8px] font-bold text-zinc-500 uppercase tracking-widest mb-1.5">Central Narrative Copy</label>
-                                <textarea name="description" rows={3} defaultValue={cmsContent.aboutDescription} className="w-full bg-[#121215] border border-white/15 rounded-sm p-2.5 text-white outline-none focus:border-[#EF4444]" />
+                                <textarea name="description" rows={3} defaultValue={cmsContent.aboutDescription} className="w-full bg-[#121215] border border-white/15 rounded-sm p-2.5 text-white outline-none focus:border-[#E50914]" />
                               </div>
                               <div>
                                 <label className="block text-[8px] font-bold text-zinc-500 uppercase tracking-widest mb-1.5">Core Mission</label>
-                                <textarea name="mission" rows={2} defaultValue={cmsContent.aboutMission || ""} className="w-full bg-[#121215] border border-white/15 rounded-sm p-2 text-white outline-none focus:border-[#EF4444]" />
+                                <textarea name="mission" rows={2} defaultValue={cmsContent.aboutMission || ""} className="w-full bg-[#121215] border border-white/15 rounded-sm p-2 text-white outline-none focus:border-[#E50914]" />
                               </div>
                               <div>
                                 <label className="block text-[8px] font-bold text-zinc-500 uppercase tracking-widest mb-1.5">Core Vision</label>
-                                <textarea name="vision" rows={2} defaultValue={cmsContent.aboutVision || ""} className="w-full bg-[#121215] border border-white/15 rounded-sm p-2 text-white outline-none focus:border-[#EF4444]" />
+                                <textarea name="vision" rows={2} defaultValue={cmsContent.aboutVision || ""} className="w-full bg-[#121215] border border-white/15 rounded-sm p-2 text-white outline-none focus:border-[#E50914]" />
                               </div>
                               <div className="pt-2">
-                                <button type="submit" className="bg-[#EF4444] hover:bg-white text-white hover:text-black text-[9px] font-bold uppercase tracking-widest py-2 px-6 rounded-sm transition-all cursor-pointer">Save About Copy</button>
+                                <button type="submit" className="bg-[#E50914] hover:bg-white text-white hover:text-black text-[9px] font-bold uppercase tracking-widest py-2 px-6 rounded-sm transition-all cursor-pointer">Save About Copy</button>
                               </div>
                             </form>
                           )}
@@ -1367,33 +1367,33 @@ export default function AdminCMSModal({ isOpen, onClose, onContentUpdated, isAdm
                               <div className="grid grid-cols-2 gap-4">
                                 <div>
                                   <label className="block text-[8px] font-bold text-zinc-500 uppercase tracking-widest mb-1.5">Main Telephone Phone 1</label>
-                                  <input type="text" name="phone1" defaultValue={cmsContent.contactPhone1 || "99666 83776"} className="w-full bg-[#121215] border border-white/15 rounded-sm p-2 text-white outline-none focus:border-[#EF4444]" />
+                                  <input type="text" name="phone1" defaultValue={cmsContent.contactPhone1 || "99666 83776"} className="w-full bg-[#121215] border border-white/15 rounded-sm p-2 text-white outline-none focus:border-[#E50914]" />
                                 </div>
                                 <div>
                                   <label className="block text-[8px] font-bold text-zinc-500 uppercase tracking-widest mb-1.5">Alternative Phone 2</label>
-                                  <input type="text" name="phone2" defaultValue={cmsContent.contactPhone2 || "83091 34004"} className="w-full bg-[#121215] border border-white/15 rounded-sm p-2 text-white outline-none focus:border-[#EF4444]" />
+                                  <input type="text" name="phone2" defaultValue={cmsContent.contactPhone2 || "83091 34004"} className="w-full bg-[#121215] border border-white/15 rounded-sm p-2 text-white outline-none focus:border-[#E50914]" />
                                 </div>
                               </div>
                               <div>
                                 <label className="block text-[8px] font-bold text-zinc-500 uppercase tracking-widest mb-1.5">Physical Facility Address</label>
-                                <input type="text" name="address" defaultValue={cmsContent.contactAddress || "Annojiguda, Hyderabad"} className="w-full bg-[#121215] border border-white/15 rounded-sm p-2 text-white outline-none focus:border-[#EF4444]" />
+                                <input type="text" name="address" defaultValue={cmsContent.contactAddress || "Annojiguda, Hyderabad"} className="w-full bg-[#121215] border border-white/15 rounded-sm p-2 text-white outline-none focus:border-[#E50914]" />
                               </div>
                               <div className="grid grid-cols-3 gap-3">
                                 <div>
                                   <label className="block text-[8px] font-bold text-zinc-500 uppercase tracking-widest mb-1.5">Official Support Email</label>
-                                  <input type="email" name="email" defaultValue={cmsContent.contactEmail || "support@infitgym.in"} className="w-full bg-[#121215] border border-white/15 rounded-sm p-2 text-white outline-none focus:border-[#EF4444]" />
+                                  <input type="email" name="email" defaultValue={cmsContent.contactEmail || "support@infitgym.in"} className="w-full bg-[#121215] border border-white/15 rounded-sm p-2 text-white outline-none focus:border-[#E50914]" />
                                 </div>
                                 <div>
                                   <label className="block text-[8px] font-bold text-zinc-500 uppercase tracking-widest mb-1.5">WhatsApp Mobile UID</label>
-                                  <input type="text" name="whatsapp" defaultValue={cmsContent.contactWhatsapp || "9966683776"} className="w-full bg-[#121215] border border-white/15 rounded-sm p-2 text-white outline-none focus:border-[#EF4444]" />
+                                  <input type="text" name="whatsapp" defaultValue={cmsContent.contactWhatsapp || "9966683776"} className="w-full bg-[#121215] border border-white/15 rounded-sm p-2 text-white outline-none focus:border-[#E50914]" />
                                 </div>
                                 <div>
                                   <label className="block text-[8px] font-bold text-zinc-500 uppercase tracking-widest mb-1.5">Emergency Hotline</label>
-                                  <input type="text" name="emergency" defaultValue={cmsContent.contactEmergency || "83091 34004"} className="w-full bg-[#121215] border border-white/15 rounded-sm p-2 text-white outline-none focus:border-[#EF4444]" />
+                                  <input type="text" name="emergency" defaultValue={cmsContent.contactEmergency || "83091 34004"} className="w-full bg-[#121215] border border-white/15 rounded-sm p-2 text-white outline-none focus:border-[#E50914]" />
                                 </div>
                               </div>
                               <div className="pt-2">
-                                <button type="submit" className="bg-[#EF4444] hover:bg-white text-white hover:text-black text-[9px] font-bold uppercase tracking-widest py-2 px-6 rounded-sm transition-all cursor-pointer">Save Contact Info</button>
+                                <button type="submit" className="bg-[#E50914] hover:bg-white text-white hover:text-black text-[9px] font-bold uppercase tracking-widest py-2 px-6 rounded-sm transition-all cursor-pointer">Save Contact Info</button>
                               </div>
                             </form>
                           )}
@@ -1409,14 +1409,14 @@ export default function AdminCMSModal({ isOpen, onClose, onContentUpdated, isAdm
                               <span className="text-[10px] text-zinc-400 font-bold uppercase tracking-widest block border-b border-white/5 pb-1 mb-2">GYM OPERATING TIMINGS</span>
                               <div>
                                 <label className="block text-[8px] font-bold text-zinc-500 uppercase tracking-widest mb-1.5">Weekday Timings (Mon - Sat)</label>
-                                <input type="text" name="weekdays" defaultValue={cmsContent.contactHours?.split(",")[0]?.replace("Mon - Sat: ", "") || "5:00 AM - 10:00 PM"} className="w-full bg-[#121215] border border-white/15 rounded-sm p-2 text-white outline-none focus:border-[#EF4444]" />
+                                <input type="text" name="weekdays" defaultValue={cmsContent.contactHours?.split(",")[0]?.replace("Mon - Sat: ", "") || "5:00 AM - 10:00 PM"} className="w-full bg-[#121215] border border-white/15 rounded-sm p-2 text-white outline-none focus:border-[#E50914]" />
                               </div>
                               <div>
                                 <label className="block text-[8px] font-bold text-zinc-500 uppercase tracking-widest mb-1.5">Weekend Timings (Sunday)</label>
-                                <input type="text" name="weekends" defaultValue={cmsContent.contactHours?.split(",")[1]?.replace(" Sun: ", "") || "6:00 AM - 12:00 PM"} className="w-full bg-[#121215] border border-white/15 rounded-sm p-2 text-white outline-none focus:border-[#EF4444]" />
+                                <input type="text" name="weekends" defaultValue={cmsContent.contactHours?.split(",")[1]?.replace(" Sun: ", "") || "6:00 AM - 12:00 PM"} className="w-full bg-[#121215] border border-white/15 rounded-sm p-2 text-white outline-none focus:border-[#E50914]" />
                               </div>
                               <div className="pt-2">
-                                <button type="submit" className="bg-[#EF4444] hover:bg-white text-white hover:text-black text-[9px] font-bold uppercase tracking-widest py-2 px-6 rounded-sm transition-all cursor-pointer">Save Timing Logs</button>
+                                <button type="submit" className="bg-[#E50914] hover:bg-white text-white hover:text-black text-[9px] font-bold uppercase tracking-widest py-2 px-6 rounded-sm transition-all cursor-pointer">Save Timing Logs</button>
                               </div>
                             </form>
                           )}
@@ -1434,14 +1434,14 @@ export default function AdminCMSModal({ isOpen, onClose, onContentUpdated, isAdm
                               <span className="text-[10px] text-zinc-400 font-bold uppercase tracking-widest block border-b border-white/5 pb-1 mb-2">SOCIAL NETWORK INTERCONNECTS</span>
                               <div>
                                 <label className="block text-[8px] font-bold text-zinc-500 uppercase tracking-widest mb-1.5">Official Instagram URL</label>
-                                <input type="text" name="instagram" defaultValue={cmsContent.socialInstagram || "https://www.instagram.com/infit_gym/"} className="w-full bg-[#121215] border border-white/15 rounded-sm p-2 text-white outline-none focus:border-[#EF4444]" />
+                                <input type="text" name="instagram" defaultValue={cmsContent.socialInstagram || "https://www.instagram.com/infit_gym/"} className="w-full bg-[#121215] border border-white/15 rounded-sm p-2 text-white outline-none focus:border-[#E50914]" />
                               </div>
                               <div>
                                 <label className="block text-[8px] font-bold text-zinc-500 uppercase tracking-widest mb-1.5">Official Facebook URL</label>
-                                <input type="text" name="facebook" defaultValue={cmsContent.socialFacebook || "https://www.facebook.com/infitgym/"} className="w-full bg-[#121215] border border-white/15 rounded-sm p-2 text-white outline-none focus:border-[#EF4444]" />
+                                <input type="text" name="facebook" defaultValue={cmsContent.socialFacebook || "https://www.facebook.com/infitgym/"} className="w-full bg-[#121215] border border-white/15 rounded-sm p-2 text-white outline-none focus:border-[#E50914]" />
                               </div>
                               <div className="pt-2">
-                                <button type="submit" className="bg-[#EF4444] hover:bg-white text-white hover:text-black text-[9px] font-bold uppercase tracking-widest py-2 px-6 rounded-sm transition-all cursor-pointer">Save Social Links</button>
+                                <button type="submit" className="bg-[#E50914] hover:bg-white text-white hover:text-black text-[9px] font-bold uppercase tracking-widest py-2 px-6 rounded-sm transition-all cursor-pointer">Save Social Links</button>
                               </div>
                             </form>
                           )}
@@ -1459,22 +1459,22 @@ export default function AdminCMSModal({ isOpen, onClose, onContentUpdated, isAdm
                               <span className="text-[10px] text-zinc-400 font-bold uppercase tracking-widest block border-b border-white/5 pb-1 mb-2">SEO OPTIMIZATIONS & META TAGS</span>
                               <div>
                                 <label className="block text-[8px] font-bold text-zinc-500 uppercase tracking-widest mb-1.5">Meta Page Title Tag (Max 60 Chars)</label>
-                                <input type="text" name="metaTitle" defaultValue={cmsContent.metaTitle || "in.fit GYM | Hyderabad’s Elite AC Strength & Cardio Transformation Center"} className="w-full bg-[#121215] border border-white/15 rounded-sm p-2 text-white outline-none focus:border-[#EF4444]" />
+                                <input type="text" name="metaTitle" defaultValue={cmsContent.metaTitle || "in.fit GYM | Hyderabad’s Elite AC Strength & Cardio Transformation Center"} className="w-full bg-[#121215] border border-white/15 rounded-sm p-2 text-white outline-none focus:border-[#E50914]" />
                               </div>
                               <div>
                                 <label className="block text-[8px] font-bold text-zinc-500 uppercase tracking-widest mb-1.5">Meta Description Tag (Max 160 Chars)</label>
-                                <textarea name="metaDescription" rows={2} defaultValue={cmsContent.metaDescription || ""} className="w-full bg-[#121215] border border-white/15 rounded-sm p-2 text-white outline-none focus:border-[#EF4444]" />
+                                <textarea name="metaDescription" rows={2} defaultValue={cmsContent.metaDescription || ""} className="w-full bg-[#121215] border border-white/15 rounded-sm p-2 text-white outline-none focus:border-[#E50914]" />
                               </div>
                               <div>
                                 <label className="block text-[8px] font-bold text-zinc-500 uppercase tracking-widest mb-1.5">Meta Keywords list (Comma separated)</label>
-                                <input type="text" name="keywords" defaultValue={cmsContent.keywords || "gym, hyderabad, strength training"} className="w-full bg-[#121215] border border-white/15 rounded-sm p-2 text-white outline-none focus:border-[#EF4444]" />
+                                <input type="text" name="keywords" defaultValue={cmsContent.keywords || "gym, hyderabad, strength training"} className="w-full bg-[#121215] border border-white/15 rounded-sm p-2 text-white outline-none focus:border-[#E50914]" />
                               </div>
                               <div>
                                 <label className="block text-[8px] font-bold text-zinc-500 uppercase tracking-widest mb-1.5">OpenGraph Share Image URL</label>
-                                <input type="text" name="ogImage" defaultValue={cmsContent.ogImage || ""} className="w-full bg-[#121215] border border-white/15 rounded-sm p-2 text-white outline-none focus:border-[#EF4444]" />
+                                <input type="text" name="ogImage" defaultValue={cmsContent.ogImage || ""} className="w-full bg-[#121215] border border-white/15 rounded-sm p-2 text-white outline-none focus:border-[#E50914]" />
                               </div>
                               <div className="pt-2">
-                                <button type="submit" className="bg-[#EF4444] hover:bg-white text-white hover:text-black text-[9px] font-bold uppercase tracking-widest py-2 px-6 rounded-sm transition-all cursor-pointer">Save SEO Fields</button>
+                                <button type="submit" className="bg-[#E50914] hover:bg-white text-white hover:text-black text-[9px] font-bold uppercase tracking-widest py-2 px-6 rounded-sm transition-all cursor-pointer">Save SEO Fields</button>
                               </div>
                             </form>
                           )}
@@ -1491,13 +1491,13 @@ export default function AdminCMSModal({ isOpen, onClose, onContentUpdated, isAdm
                   <div className="space-y-6">
                     <div className="flex justify-between items-center border-b border-white/10 pb-4">
                       <div>
-                        <span className="text-[9px] text-[#EF4444] font-black uppercase tracking-[0.2em] block mb-1">PROGRAM CATALOG</span>
-                        <h4 className="font-serif italic font-extrabold text-xl text-white tracking-tight uppercase">Gym Services CMS</h4>
+                        <span className="text-[9px] text-[#E50914] font-black uppercase tracking-[0.2em] block mb-1">PROGRAM CATALOG</span>
+                        <h4 className="font-display font-black text-xl text-white tracking-wider uppercase">Gym Services CMS</h4>
                       </div>
                       {staffRole !== "TRAINER" && (
                         <button 
                           onClick={handleStartAddService} 
-                          className="bg-[#EF4444] hover:bg-white text-white hover:text-black text-[9px] font-bold uppercase tracking-widest px-4 py-2 rounded-sm flex items-center gap-1.5 transition-all cursor-pointer"
+                          className="bg-[#E50914] hover:bg-white text-white hover:text-black text-[9px] font-bold uppercase tracking-widest px-4 py-2 rounded-sm flex items-center gap-1.5 transition-all cursor-pointer"
                         >
                           <Plus className="w-4 h-4" /> ADD SERVICE ITEM
                         </button>
@@ -1506,7 +1506,7 @@ export default function AdminCMSModal({ isOpen, onClose, onContentUpdated, isAdm
 
                     {editingServiceId ? (
                       <div className="p-5 border border-white/10 rounded-sm bg-[#0B0B0C] space-y-4 max-w-2xl text-xs">
-                        <h5 className="font-serif italic font-bold text-white text-base border-b border-white/5 pb-1 uppercase">{editingServiceId === "new" ? "Add Gym Program" : "Modify Service"}</h5>
+                        <h5 className="font-display font-black text-white text-base border-b border-white/5 pb-1 uppercase tracking-wider">{editingServiceId === "new" ? "Add Gym Program" : "Modify Service"}</h5>
                         <div className="grid grid-cols-2 gap-4">
                           <div>
                             <label className="block text-[8px] font-bold text-zinc-400 uppercase tracking-widest mb-1">Service Title *</label>
@@ -1526,7 +1526,7 @@ export default function AdminCMSModal({ isOpen, onClose, onContentUpdated, isAdm
                           <input type="text" value={serviceForm.image_url || ""} onChange={(e) => setServiceForm({ ...serviceForm, image_url: e.target.value })} className="w-full bg-[#121215] border border-white/15 rounded-sm p-2 text-white" />
                         </div>
                         <div className="pt-2 flex gap-4">
-                          <button onClick={handleSaveServiceForm} className="bg-emerald-600 hover:bg-emerald-500 text-white text-[10px] font-bold uppercase py-2 px-5 rounded-sm transition-all cursor-pointer">Save Service</button>
+                          <button onClick={handleSaveServiceForm} className="bg-[#E50914] hover:bg-emerald-500 text-white text-[10px] font-bold uppercase py-2 px-5 rounded-sm transition-all cursor-pointer">Save Service</button>
                           <button onClick={() => setEditingServiceId(null)} className="border border-white/20 text-white text-[10px] font-bold uppercase py-2 px-5 rounded-sm transition-all cursor-pointer">Cancel</button>
                         </div>
                       </div>
@@ -1539,8 +1539,8 @@ export default function AdminCMSModal({ isOpen, onClose, onContentUpdated, isAdm
                             </div>
                             <div className="p-4 space-y-2 text-left flex-1 flex flex-col justify-between">
                               <div className="space-y-1">
-                                <span className="text-[8px] text-[#EF4444] font-mono font-bold uppercase tracking-wider">{item.category}</span>
-                                <h5 className="font-serif italic font-extrabold text-white text-base tracking-tight uppercase leading-tight">{item.name}</h5>
+                                <span className="text-[8px] text-[#E50914] font-mono font-bold uppercase tracking-wider">{item.category}</span>
+                                <h5 className="font-display font-black text-white text-base tracking-wider uppercase leading-tight">{item.name}</h5>
                                 <p className="text-[11px] text-zinc-400 leading-relaxed line-clamp-3">{item.description}</p>
                               </div>
                               {staffRole !== "TRAINER" && (
@@ -1564,13 +1564,13 @@ export default function AdminCMSModal({ isOpen, onClose, onContentUpdated, isAdm
                   <div className="space-y-6">
                     <div className="flex justify-between items-center border-b border-white/10 pb-4">
                       <div>
-                        <span className="text-[9px] text-[#EF4444] font-black uppercase tracking-[0.2em] block mb-1">FINANCIAL PLANS</span>
-                        <h4 className="font-serif italic font-extrabold text-xl text-white tracking-tight uppercase">Membership Pricing Plans</h4>
+                        <span className="text-[9px] text-[#E50914] font-black uppercase tracking-[0.2em] block mb-1">FINANCIAL PLANS</span>
+                        <h4 className="font-display font-black text-xl text-white tracking-wider uppercase">Membership Pricing Plans</h4>
                       </div>
                       {staffRole !== "TRAINER" && (
                         <button 
                           onClick={handleStartAddPlan} 
-                          className="bg-[#EF4444] hover:bg-white text-white hover:text-black text-[9px] font-bold uppercase tracking-widest px-4 py-2 rounded-sm flex items-center gap-1.5 transition-all cursor-pointer"
+                          className="bg-[#E50914] hover:bg-white text-white hover:text-black text-[9px] font-bold uppercase tracking-widest px-4 py-2 rounded-sm flex items-center gap-1.5 transition-all cursor-pointer"
                         >
                           <Plus className="w-4 h-4" /> ADD PRICING TIER
                         </button>
@@ -1587,7 +1587,7 @@ export default function AdminCMSModal({ isOpen, onClose, onContentUpdated, isAdm
                       </div>
                     ) : editingPlanId ? (
                       <div className="p-5 border border-white/10 rounded-sm bg-[#0B0B0C] space-y-4 max-w-2xl text-xs">
-                        <h5 className="font-serif italic font-bold text-white text-base border-b border-white/5 pb-1 uppercase">{editingPlanId === "new" ? "Create Pricing Package" : "Modify Package Parameters"}</h5>
+                        <h5 className="font-display font-black text-white text-base border-b border-white/5 pb-1 uppercase tracking-wider">{editingPlanId === "new" ? "Create Pricing Package" : "Modify Package Parameters"}</h5>
                         <div className="grid grid-cols-2 gap-4">
                           <div>
                             <label className="block text-[8px] font-bold text-zinc-400 uppercase tracking-widest mb-1">Plan Title Name *</label>
@@ -1615,10 +1615,10 @@ export default function AdminCMSModal({ isOpen, onClose, onContentUpdated, isAdm
                           </div>
                           <div className="flex items-center gap-6 pt-5">
                             <label className="flex items-center gap-2 cursor-pointer font-bold uppercase tracking-wider text-[9px]">
-                              <input type="checkbox" checked={planForm.most_popular || false} onChange={(e) => setPlanForm({ ...planForm, most_popular: e.target.checked })} className="rounded bg-[#121215] border-white/20 text-[#EF4444] focus:ring-[#EF4444]" /> Most Popular Badge
+                              <input type="checkbox" checked={planForm.most_popular || false} onChange={(e) => setPlanForm({ ...planForm, most_popular: e.target.checked })} className="rounded bg-[#121215] border-white/20 text-[#E50914] focus:ring-[#E50914]" /> Most Popular Badge
                             </label>
                             <label className="flex items-center gap-2 cursor-pointer font-bold uppercase tracking-wider text-[9px]">
-                              <input type="checkbox" checked={planForm.is_enabled || false} onChange={(e) => setPlanForm({ ...planForm, is_enabled: e.target.checked })} className="rounded bg-[#121215] border-white/20 text-[#EF4444] focus:ring-[#EF4444]" /> Active Enabled
+                              <input type="checkbox" checked={planForm.is_enabled || false} onChange={(e) => setPlanForm({ ...planForm, is_enabled: e.target.checked })} className="rounded bg-[#121215] border-white/20 text-[#E50914] focus:ring-[#E50914]" /> Active Enabled
                             </label>
                           </div>
                         </div>
@@ -1631,7 +1631,7 @@ export default function AdminCMSModal({ isOpen, onClose, onContentUpdated, isAdm
                           <textarea rows={2} value={planForm.disabled_features ? (Array.isArray(planForm.disabled_features) ? planForm.disabled_features.join(", ") : planForm.disabled_features) : ""} onChange={(e) => setPlanForm({ ...planForm, disabled_features: e.target.value })} className="w-full bg-[#121215] border border-white/15 rounded-sm p-2 text-white" placeholder="Personal Coach sessions, Diet charts..." />
                         </div>
                         <div className="pt-2 flex gap-4">
-                          <button onClick={handleSavePlanForm} className="bg-emerald-600 hover:bg-emerald-500 text-white text-[10px] font-bold uppercase py-2 px-5 rounded-sm transition-all cursor-pointer">Save Package</button>
+                          <button onClick={handleSavePlanForm} className="bg-[#E50914] hover:bg-emerald-500 text-white text-[10px] font-bold uppercase py-2 px-5 rounded-sm transition-all cursor-pointer">Save Package</button>
                           <button onClick={() => setEditingPlanId(null)} className="border border-white/20 text-white text-[10px] font-bold uppercase py-2 px-5 rounded-sm transition-all cursor-pointer">Cancel</button>
                         </div>
                       </div>
@@ -1640,8 +1640,8 @@ export default function AdminCMSModal({ isOpen, onClose, onContentUpdated, isAdm
                         {plans.map((p) => (
                           <div key={p.id} className="p-5 bg-[#0B0B0C] border border-white/10 rounded-sm flex justify-between items-start">
                             <div className="space-y-1">
-                              <span className="text-[7.5px] font-bold text-[#EF4444] uppercase tracking-widest block">{p.category} TIER</span>
-                              <h5 className="font-serif italic font-bold text-base text-white uppercase">{p.name}</h5>
+                              <span className="text-[7.5px] font-bold text-[#E50914] uppercase tracking-widest block">{p.category} TIER</span>
+                              <h5 className="font-display font-black text-base text-white uppercase tracking-wider">{p.name}</h5>
                               <div className="text-lg font-mono font-black text-white">₹{p.price} <span className="text-[10px] font-sans font-normal text-zinc-500">/ {p.period}</span></div>
                               <span className="text-[8px] font-sans font-bold uppercase text-zinc-500 block">ID: {p.plan_id}</span>
                             </div>
@@ -1663,13 +1663,13 @@ export default function AdminCMSModal({ isOpen, onClose, onContentUpdated, isAdm
                   <div className="space-y-6">
                     <div className="flex justify-between items-center border-b border-white/10 pb-4">
                       <div>
-                        <span className="text-[9px] text-[#EF4444] font-black uppercase tracking-[0.2em] block mb-1">TEAM STAFF</span>
-                        <h4 className="font-serif italic font-extrabold text-xl text-white tracking-tight uppercase">Certified Coaches Roster</h4>
+                        <span className="text-[9px] text-[#E50914] font-black uppercase tracking-[0.2em] block mb-1">TEAM STAFF</span>
+                        <h4 className="font-display font-black text-xl text-white tracking-wider uppercase">Certified Coaches Roster</h4>
                       </div>
                       {staffRole !== "TRAINER" && (
                         <button 
                           onClick={handleStartAddTrainer} 
-                          className="bg-[#EF4444] hover:bg-white text-white hover:text-black text-[9px] font-bold uppercase tracking-widest px-4 py-2 rounded-sm flex items-center gap-1.5 transition-all cursor-pointer"
+                          className="bg-[#E50914] hover:bg-white text-white hover:text-black text-[9px] font-bold uppercase tracking-widest px-4 py-2 rounded-sm flex items-center gap-1.5 transition-all cursor-pointer"
                         >
                           <Plus className="w-4 h-4" /> ADD TRAINER COACH
                         </button>
@@ -1678,7 +1678,7 @@ export default function AdminCMSModal({ isOpen, onClose, onContentUpdated, isAdm
 
                     {editingTrainerId ? (
                       <div className="p-5 border border-white/10 rounded-sm bg-[#0B0B0C] space-y-4 max-w-2xl text-xs">
-                        <h5 className="font-serif italic font-bold text-white text-base border-b border-white/5 pb-1 uppercase">{editingTrainerId === "new" ? "Recruit Team Coach" : "Edit Coach Profile"}</h5>
+                        <h5 className="font-display font-black text-white text-base border-b border-white/5 pb-1 uppercase tracking-wider">{editingTrainerId === "new" ? "Recruit Team Coach" : "Edit Coach Profile"}</h5>
                         <div className="grid grid-cols-2 gap-4">
                           <div>
                             <label className="block text-[8px] font-bold text-zinc-400 uppercase tracking-widest mb-1">Coach Name *</label>
@@ -1714,7 +1714,7 @@ export default function AdminCMSModal({ isOpen, onClose, onContentUpdated, isAdm
                           <textarea rows={2} value={trainerForm.certificates ? (Array.isArray(trainerForm.certificates) ? trainerForm.certificates.join(", ") : trainerForm.certificates) : ""} onChange={(e) => setTrainerForm({ ...trainerForm, certificates: e.target.value })} className="w-full bg-[#121215] border border-white/15 rounded-sm p-2 text-white" placeholder="NASM-CPT, Squat University form certified..." />
                         </div>
                         <div className="pt-2 flex gap-4">
-                          <button onClick={handleSaveTrainerForm} className="bg-emerald-600 hover:bg-emerald-500 text-white text-[10px] font-bold uppercase py-2 px-5 rounded-sm transition-all cursor-pointer">Save Profile</button>
+                          <button onClick={handleSaveTrainerForm} className="bg-[#E50914] hover:bg-emerald-500 text-white text-[10px] font-bold uppercase py-2 px-5 rounded-sm transition-all cursor-pointer">Save Profile</button>
                           <button onClick={() => setEditingTrainerId(null)} className="border border-white/20 text-white text-[10px] font-bold uppercase py-2 px-5 rounded-sm transition-all cursor-pointer">Cancel</button>
                         </div>
                       </div>
@@ -1724,7 +1724,7 @@ export default function AdminCMSModal({ isOpen, onClose, onContentUpdated, isAdm
                           <div key={t.id} className="p-4 bg-[#0B0B0C] border border-white/10 rounded-sm flex items-center gap-4">
                             <img src={t.photo_url} alt={t.name} className="w-12 h-12 rounded-full object-cover border border-white/10 flex-shrink-0" />
                             <div className="flex-1 text-left min-w-0">
-                              <h5 className="font-serif italic font-bold text-white text-sm uppercase leading-tight truncate">{t.name}</h5>
+                              <h5 className="font-display font-black text-white text-sm uppercase leading-tight truncate tracking-wide">{t.name}</h5>
                               <span className="text-[10px] text-zinc-400 block truncate">{t.specialization} • ({t.experience})</span>
                               <span className="text-[8px] text-zinc-500 font-mono block">INSTA: @{t.instagram || "none"}</span>
                             </div>
@@ -1748,13 +1748,13 @@ export default function AdminCMSModal({ isOpen, onClose, onContentUpdated, isAdm
                   <div className="space-y-6">
                     <div className="flex justify-between items-center border-b border-white/10 pb-4">
                       <div>
-                        <span className="text-[9px] text-[#EF4444] font-black uppercase tracking-[0.2em] block mb-1">SOCIAL PROOF</span>
-                        <h4 className="font-serif italic font-extrabold text-xl text-white tracking-tight uppercase">Athlete Reviews & Testimonials</h4>
+                        <span className="text-[9px] text-[#E50914] font-black uppercase tracking-[0.2em] block mb-1">SOCIAL PROOF</span>
+                        <h4 className="font-display font-black text-xl text-white tracking-wider uppercase">Athlete Reviews & Testimonials</h4>
                       </div>
                       {staffRole !== "TRAINER" && (
                         <button 
                           onClick={handleStartAddTestimonial} 
-                          className="bg-[#EF4444] hover:bg-white text-white hover:text-black text-[9px] font-bold uppercase tracking-widest px-4 py-2 rounded-sm flex items-center gap-1.5 transition-all cursor-pointer"
+                          className="bg-[#E50914] hover:bg-white text-white hover:text-black text-[9px] font-bold uppercase tracking-widest px-4 py-2 rounded-sm flex items-center gap-1.5 transition-all cursor-pointer"
                         >
                           <Plus className="w-4 h-4" /> ADD TESTIMONIAL
                         </button>
@@ -1763,7 +1763,7 @@ export default function AdminCMSModal({ isOpen, onClose, onContentUpdated, isAdm
 
                     {editingTestimonialId ? (
                       <div className="p-5 border border-white/10 rounded-sm bg-[#0B0B0C] space-y-4 max-w-2xl text-xs">
-                        <h5 className="font-serif italic font-bold text-white text-base border-b border-white/5 pb-1 uppercase">{editingTestimonialId === "new" ? "Add Athlete Testimonial" : "Edit Review Parameters"}</h5>
+                        <h5 className="font-display font-black text-white text-base border-b border-white/5 pb-1 uppercase tracking-wider">{editingTestimonialId === "new" ? "Add Athlete Testimonial" : "Edit Review Parameters"}</h5>
                         <div className="grid grid-cols-2 gap-4">
                           <div>
                             <label className="block text-[8px] font-bold text-zinc-400 uppercase tracking-widest mb-1">Athlete Name *</label>
@@ -1786,10 +1786,10 @@ export default function AdminCMSModal({ isOpen, onClose, onContentUpdated, isAdm
                         </div>
                         <div>
                           <label className="block text-[8px] font-bold text-zinc-400 uppercase tracking-widest mb-1">Quote Review Text *</label>
-                          <textarea rows={3} value={testimonialForm.review_text || ""} onChange={(e) => setTestimonialForm({ ...testimonialForm, review_text: e.target.value })} className="w-full bg-[#121215] border border-white/15 rounded-sm p-2 text-white font-serif italic" />
+                          <textarea rows={3} value={testimonialForm.review_text || ""} onChange={(e) => setTestimonialForm({ ...testimonialForm, review_text: e.target.value })} className="w-full bg-[#121215] border border-white/15 rounded-sm p-2 text-white font-sans font-medium" />
                         </div>
                         <div className="pt-2 flex gap-4">
-                          <button onClick={handleSaveTestimonialForm} className="bg-emerald-600 hover:bg-emerald-500 text-white text-[10px] font-bold uppercase py-2 px-5 rounded-sm transition-all cursor-pointer">Save Testimonial</button>
+                          <button onClick={handleSaveTestimonialForm} className="bg-[#E50914] hover:bg-emerald-500 text-white text-[10px] font-bold uppercase py-2 px-5 rounded-sm transition-all cursor-pointer">Save Testimonial</button>
                           <button onClick={() => setEditingTestimonialId(null)} className="border border-white/20 text-white text-[10px] font-bold uppercase py-2 px-5 rounded-sm transition-all cursor-pointer">Cancel</button>
                         </div>
                       </div>
@@ -1797,13 +1797,13 @@ export default function AdminCMSModal({ isOpen, onClose, onContentUpdated, isAdm
                       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         {testimonials.map((t) => (
                           <div key={t.id} className="p-5 bg-[#0B0B0C] border border-white/10 rounded-sm space-y-3 relative text-left">
-                            <div className="flex text-[#EF4444] text-[10px]">
+                            <div className="flex text-[#E50914] text-[10px]">
                               {Array.from({ length: Math.round(t.rating) }).map((_, i) => "★").join("")}
                             </div>
-                            <p className="text-zinc-200 text-xs italic font-serif leading-relaxed">"{t.review_text}"</p>
+                            <p className="text-zinc-200 text-xs font-sans font-semibold pl-1 leading-relaxed">"{t.review_text}"</p>
                             <div className="flex justify-between items-center text-[8.5px] uppercase font-bold tracking-wider text-zinc-400 pt-2 border-t border-white/5">
                               <span>— {t.member_name}</span>
-                              <span className="text-[#EF4444]">{t.category}</span>
+                              <span className="text-[#E50914]">{t.category}</span>
                             </div>
                             {staffRole !== "TRAINER" && (
                               <div className="absolute top-4 right-4 flex gap-3 text-[10px]">
@@ -1825,13 +1825,13 @@ export default function AdminCMSModal({ isOpen, onClose, onContentUpdated, isAdm
                   <div className="space-y-6">
                     <div className="flex justify-between items-center border-b border-white/10 pb-4">
                       <div>
-                        <span className="text-[9px] text-[#EF4444] font-black uppercase tracking-[0.2em] block mb-1">BRIGHT VISUALS</span>
-                        <h4 className="font-serif italic font-extrabold text-xl text-white tracking-tight uppercase">High-Oxygen Photo Gallery</h4>
+                        <span className="text-[9px] text-[#E50914] font-black uppercase tracking-[0.2em] block mb-1">BRIGHT VISUALS</span>
+                        <h4 className="font-display font-black text-xl text-white tracking-wider uppercase">High-Oxygen Photo Gallery</h4>
                       </div>
                       {staffRole !== "TRAINER" && (
                         <button 
                           onClick={handleStartAddGallery} 
-                          className="bg-[#EF4444] hover:bg-white text-white hover:text-black text-[9px] font-bold uppercase tracking-widest px-4 py-2 rounded-sm flex items-center gap-1.5 transition-all cursor-pointer"
+                          className="bg-[#E50914] hover:bg-white text-white hover:text-black text-[9px] font-bold uppercase tracking-widest px-4 py-2 rounded-sm flex items-center gap-1.5 transition-all cursor-pointer"
                         >
                           <Plus className="w-4 h-4" /> ADD GALLERY IMAGE
                         </button>
@@ -1840,7 +1840,7 @@ export default function AdminCMSModal({ isOpen, onClose, onContentUpdated, isAdm
 
                     {editingGalleryId ? (
                       <div className="p-5 border border-white/10 rounded-sm bg-[#0B0B0C] space-y-4 max-w-2xl text-xs">
-                        <h5 className="font-serif italic font-bold text-white text-base border-b border-white/5 pb-1 uppercase">{editingGalleryId === "new" ? "Add Photo" : "Edit Photo Details"}</h5>
+                        <h5 className="font-display font-black text-white text-base border-b border-white/5 pb-1 uppercase tracking-wider">{editingGalleryId === "new" ? "Add Photo" : "Edit Photo Details"}</h5>
                         <div className="grid grid-cols-2 gap-4">
                           <div>
                             <label className="block text-[8px] font-bold text-zinc-400 uppercase tracking-widest mb-1">Slide Title *</label>
@@ -1865,7 +1865,7 @@ export default function AdminCMSModal({ isOpen, onClose, onContentUpdated, isAdm
                           <input type="text" value={galleryForm.photo_url || ""} onChange={(e) => setGalleryForm({ ...galleryForm, photo_url: e.target.value })} className="w-full bg-[#121215] border border-white/15 rounded-sm p-2 text-white" />
                         </div>
                         <div className="pt-2 flex gap-4">
-                          <button onClick={handleSaveGalleryForm} className="bg-emerald-600 hover:bg-emerald-500 text-white text-[10px] font-bold uppercase py-2 px-5 rounded-sm transition-all cursor-pointer">Save Photo</button>
+                          <button onClick={handleSaveGalleryForm} className="bg-[#E50914] hover:bg-emerald-500 text-white text-[10px] font-bold uppercase py-2 px-5 rounded-sm transition-all cursor-pointer">Save Photo</button>
                           <button onClick={() => setEditingGalleryId(null)} className="border border-white/20 text-white text-[10px] font-bold uppercase py-2 px-5 rounded-sm transition-all cursor-pointer">Cancel</button>
                         </div>
                       </div>
@@ -1878,8 +1878,8 @@ export default function AdminCMSModal({ isOpen, onClose, onContentUpdated, isAdm
                             </div>
                             <div className="p-4 flex justify-between items-center text-left">
                               <div>
-                                <span className="text-[8px] text-[#EF4444] font-mono font-bold uppercase tracking-widest block">{g.category}</span>
-                                <h5 className="font-serif italic font-bold text-sm text-white uppercase tracking-tight truncate max-w-[160px]">{g.title}</h5>
+                                <span className="text-[8px] text-[#E50914] font-mono font-bold uppercase tracking-widest block">{g.category}</span>
+                                <h5 className="font-display font-black text-sm text-white uppercase tracking-wider truncate max-w-[160px]">{g.title}</h5>
                               </div>
                               {staffRole !== "TRAINER" && (
                                 <div className="flex gap-2">
@@ -1901,8 +1901,8 @@ export default function AdminCMSModal({ isOpen, onClose, onContentUpdated, isAdm
                 {activeTab === "contact_logs" && (
                   <div className="space-y-6 text-left">
                     <div className="border-b border-white/10 pb-4">
-                      <span className="text-[9px] text-[#EF4444] font-black uppercase tracking-[0.2em] block mb-1">VISITOR ENQUIRIES</span>
-                      <h4 className="font-serif italic font-extrabold text-xl text-white tracking-tight uppercase">Inbound Contact Messages</h4>
+                      <span className="text-[9px] text-[#E50914] font-black uppercase tracking-[0.2em] block mb-1">VISITOR ENQUIRIES</span>
+                      <h4 className="font-display font-black text-xl text-white tracking-wider uppercase">Inbound Contact Messages</h4>
                     </div>
 
                     <div className="bg-[#0B0B0C] border border-white/10 rounded-sm overflow-hidden">
@@ -1927,7 +1927,7 @@ export default function AdminCMSModal({ isOpen, onClose, onContentUpdated, isAdm
                               const waUrl = `https://api.whatsapp.com/send?phone=${log.phone.replace(/[^0-9]/g, "")}&text=${encodeURIComponent(waText)}`;
                               return (
                                 <tr key={log.id} className="hover:bg-white/[0.02] text-xs">
-                                  <td className="p-4 font-bold text-white font-serif uppercase italic">{log.name}</td>
+                                  <td className="p-4 font-black text-white font-sans uppercase tracking-wider">{log.name}</td>
                                   <td className="p-4 space-y-0.5">
                                     <div className="text-zinc-200">{log.email}</div>
                                     <div className="font-mono text-zinc-400 font-bold">{log.phone}</div>
@@ -1935,7 +1935,7 @@ export default function AdminCMSModal({ isOpen, onClose, onContentUpdated, isAdm
                                   <td className="p-4 text-zinc-300 max-w-xs truncate" title={log.message}>{log.message}</td>
                                   <td className="p-4 font-mono text-zinc-400">{new Date(log.created_at).toLocaleDateString("en-IN")}</td>
                                   <td className="p-4 text-right">
-                                    <a href={waUrl} target="_blank" rel="noopener noreferrer" className="bg-emerald-600 hover:bg-emerald-500 text-white font-sans text-[8.5px] font-bold uppercase tracking-widest px-3 py-1.5 rounded-sm transition-colors inline-block">WhatsApp Chat</a>
+                                    <a href={waUrl} target="_blank" rel="noopener noreferrer" className="bg-[#E50914] hover:bg-emerald-500 text-white font-sans text-[8.5px] font-bold uppercase tracking-widest px-3 py-1.5 rounded-sm transition-colors inline-block">WhatsApp Chat</a>
                                   </td>
                                 </tr>
                               );
@@ -1953,14 +1953,14 @@ export default function AdminCMSModal({ isOpen, onClose, onContentUpdated, isAdm
                 {activeTab === "attendance" && (
                   <div className="space-y-6">
                     <div className="border-b border-white/10 pb-4">
-                      <span className="text-[9px] text-[#EF4444] font-black uppercase tracking-[0.2em] block mb-1">GYM SECURITY SYSTEMS</span>
-                      <h4 className="font-serif italic font-extrabold text-xl text-white tracking-tight uppercase">Athlete Attendance Logs</h4>
+                      <span className="text-[9px] text-[#E50914] font-black uppercase tracking-[0.2em] block mb-1">GYM SECURITY SYSTEMS</span>
+                      <h4 className="font-display font-black text-xl text-white tracking-wider uppercase">Athlete Attendance Logs</h4>
                     </div>
 
                     <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 items-start">
                       {/* Check-In Console */}
                       <div className="bg-[#0B0B0C] p-5 border border-white/10 rounded-sm space-y-4">
-                        <span className="text-[9px] text-[#EF4444] font-bold uppercase tracking-widest block border-b border-white/5 pb-1">Check In Athlete</span>
+                        <span className="text-[9px] text-[#E50914] font-bold uppercase tracking-widest block border-b border-white/5 pb-1">Check In Athlete</span>
                         <div className="space-y-3">
                           <label className="block text-[8px] font-bold text-zinc-400 uppercase tracking-widest">Select Active Member</label>
                           <input
@@ -1968,7 +1968,7 @@ export default function AdminCMSModal({ isOpen, onClose, onContentUpdated, isAdm
                             placeholder="Type athlete name to search..."
                             value={attendanceSearch}
                             onChange={(e) => setAttendanceSearch(e.target.value)}
-                            className="w-full bg-[#121215] border border-white/10 focus:border-[#EF4444] rounded-sm px-3.5 py-2.5 text-xs text-white outline-none placeholder-zinc-500"
+                            className="w-full bg-[#121215] border border-white/10 focus:border-[#E50914] rounded-sm px-3.5 py-2.5 text-xs text-white outline-none placeholder-zinc-500"
                           />
                           <div className="max-h-48 overflow-y-auto space-y-1.5 border border-white/5 p-2 rounded bg-zinc-950/40 text-xs">
                             {(() => {
@@ -1984,14 +1984,14 @@ export default function AdminCMSModal({ isOpen, onClose, onContentUpdated, isAdm
                               }
 
                               return filtered.map(member => (
-                                <div key={member.id} className="flex justify-between items-center py-2 px-2.5 bg-[#121215] border border-white/5 rounded-sm hover:border-[#EF4444]/40 transition-colors">
+                                <div key={member.id} className="flex justify-between items-center py-2 px-2.5 bg-[#121215] border border-white/5 rounded-sm hover:border-[#E50914]/40 transition-colors">
                                   <div>
                                     <span className="font-bold text-white uppercase text-[10px]">{member.users?.full_name}</span>
                                     <span className="text-[8px] text-zinc-500 font-mono block">UID: {member.athlete_cards?.card_number || "none"}</span>
                                   </div>
                                   <button
                                     onClick={() => handleCheckInMember(member.user_id)}
-                                    className="bg-[#EF4444] hover:bg-white text-white hover:text-black font-sans text-[8.5px] font-bold uppercase tracking-wider py-1 px-2.5 rounded-sm transition-all cursor-pointer"
+                                    className="bg-[#E50914] hover:bg-white text-white hover:text-black font-sans text-[8.5px] font-bold uppercase tracking-wider py-1 px-2.5 rounded-sm transition-all cursor-pointer"
                                   >
                                     Check In
                                   </button>
@@ -2004,7 +2004,7 @@ export default function AdminCMSModal({ isOpen, onClose, onContentUpdated, isAdm
 
                       {/* Today's Attendance Logs */}
                       <div className="lg:col-span-2 bg-[#0B0B0C] p-5 border border-white/10 rounded-sm space-y-4">
-                        <span className="text-[9px] text-[#EF4444] font-bold uppercase tracking-widest block border-b border-white/5 pb-1">Today's Attendance Logs ({attendanceToday.length})</span>
+                        <span className="text-[9px] text-[#E50914] font-bold uppercase tracking-widest block border-b border-white/5 pb-1">Today's Attendance Logs ({attendanceToday.length})</span>
                         <div className="bg-[#121215] border border-white/5 rounded-sm overflow-hidden">
                           <table className="w-full text-left text-xs border-collapse">
                             <thead>
@@ -2036,14 +2036,14 @@ export default function AdminCMSModal({ isOpen, onClose, onContentUpdated, isAdm
                                           {new Date(log.check_out).toLocaleTimeString("en-IN", { hour: "2-digit", minute: "2-digit" })}
                                         </span>
                                       ) : (
-                                        <span className="text-[#EF4444] font-bold tracking-wide animate-pulse">TRAINING...</span>
+                                        <span className="text-[#E50914] font-bold tracking-wide animate-pulse">TRAINING...</span>
                                       )}
                                     </td>
                                     <td className="p-3 text-right">
                                       {!log.check_out && (
                                         <button
                                           onClick={() => handleCheckOutMember(log.id)}
-                                          className="bg-zinc-800 hover:bg-[#EF4444] text-white font-sans text-[8.5px] font-bold uppercase tracking-wider py-1 px-2 rounded-sm transition-all cursor-pointer"
+                                          className="bg-zinc-800 hover:bg-[#E50914] text-white font-sans text-[8.5px] font-bold uppercase tracking-wider py-1 px-2 rounded-sm transition-all cursor-pointer"
                                         >
                                           Check Out
                                         </button>
@@ -2066,19 +2066,19 @@ export default function AdminCMSModal({ isOpen, onClose, onContentUpdated, isAdm
                 {activeTab === "qr_scanning" && (
                   <div className="space-y-6">
                     <div className="border-b border-white/10 pb-4">
-                      <span className="text-[9px] text-[#EF4444] font-black uppercase tracking-[0.2em] block mb-1">ACCESS AUDITING</span>
-                      <h4 className="font-serif italic font-extrabold text-xl text-white tracking-tight uppercase">Athlete Card Scanner Simulator</h4>
+                      <span className="text-[9px] text-[#E50914] font-black uppercase tracking-[0.2em] block mb-1">ACCESS AUDITING</span>
+                      <h4 className="font-display font-black text-xl text-white tracking-wider uppercase">Athlete Card Scanner Simulator</h4>
                     </div>
 
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-start max-w-4xl mx-auto">
                       {/* Barcode scanner panel */}
                       <form onSubmit={handleScanPass} className="bg-[#0B0B0C] p-6 border border-white/10 rounded-sm space-y-5 text-center">
-                        <div className="w-16 h-16 rounded-full bg-[#EF4444]/10 border border-[#EF4444]/20 flex items-center justify-center mx-auto">
-                          <QrCode className="w-8 h-8 text-[#EF4444] animate-pulse" />
+                        <div className="w-16 h-16 rounded-full bg-[#E50914]/10 border border-[#E50914]/20 flex items-center justify-center mx-auto">
+                          <QrCode className="w-8 h-8 text-[#E50914] animate-pulse" />
                         </div>
                         
                         <div className="space-y-1">
-                          <h5 className="font-serif italic text-base font-bold text-white uppercase">Scan Barcode / QR Code</h5>
+                          <h5 className="font-display font-black text-base text-white uppercase tracking-wider">Scan Barcode / QR Code</h5>
                           <p className="text-[9px] text-zinc-500 uppercase tracking-widest font-semibold font-sans">
                             Enter Athlete Pass Card UID (e.g. FIT-123456)
                           </p>
@@ -2091,14 +2091,14 @@ export default function AdminCMSModal({ isOpen, onClose, onContentUpdated, isAdm
                             value={scannerInput}
                             onChange={(e) => setScannerInput(e.target.value)}
                             placeholder="Type or scan Card Number"
-                            className="w-full bg-[#121215] border border-white/15 focus:border-[#EF4444] rounded-sm px-4 py-3 text-sm text-center text-white outline-none font-sans font-extrabold tracking-widest"
+                            className="w-full bg-[#121215] border border-white/15 focus:border-[#E50914] rounded-sm px-4 py-3 text-sm text-center text-white outline-none font-sans font-extrabold tracking-widest"
                           />
                         </div>
 
                         <div className="pt-2">
                           <button
                             type="submit"
-                            className="w-full bg-[#EF4444] hover:bg-white hover:text-black text-white font-sans text-[10px] tracking-widest font-bold uppercase py-3.5 rounded-sm transition-all cursor-pointer flex items-center justify-center gap-1.5"
+                            className="w-full bg-[#E50914] hover:bg-white hover:text-black text-white font-sans text-[10px] tracking-widest font-bold uppercase py-3.5 rounded-sm transition-all cursor-pointer flex items-center justify-center gap-1.5"
                           >
                             RUN SCAN VALIDATOR <ArrowRight className="w-3.5 h-3.5" />
                           </button>
@@ -2112,10 +2112,10 @@ export default function AdminCMSModal({ isOpen, onClose, onContentUpdated, isAdm
                             <span className="text-[8px] text-zinc-500 font-bold uppercase tracking-widest block">AUDIT SCAN RESPONSE</span>
                             
                             {scannedResult.status === "ACTIVE" ? (
-                              <div className="bg-emerald-950/40 border border-emerald-500 p-4 rounded-sm flex items-start gap-3">
-                                <Check className="w-5 h-5 text-emerald-400 shrink-0 mt-0.5" />
+                              <div className="bg-emerald-950/40 border border-[#E50914] p-4 rounded-sm flex items-start gap-3">
+                                <Check className="w-5 h-5 text-[#E50914] shrink-0 mt-0.5" />
                                 <div>
-                                  <span className="font-bold text-emerald-400 text-xs uppercase tracking-widest block">✅ ACCESS GRANTED</span>
+                                  <span className="font-bold text-[#E50914] text-xs uppercase tracking-widest block">✅ ACCESS GRANTED</span>
                                   <p className="text-[11.5px] text-zinc-300 font-sans mt-0.5">{scannedResult.message}</p>
                                 </div>
                               </div>
@@ -2141,10 +2141,10 @@ export default function AdminCMSModal({ isOpen, onClose, onContentUpdated, isAdm
                               <div className="p-4 bg-[#121215] border border-white/5 rounded-sm space-y-3 font-sans text-xs">
                                 <div className="flex items-center gap-3">
                                   <div className="w-11 h-11 rounded-full border border-white/10 bg-[#0B0B0C] flex items-center justify-center shrink-0">
-                                    <span className="text-[#EF4444] font-serif font-black uppercase text-xs italic">{scannedResult.card.users?.full_name.split(" ").map(n => n[0]).join("")}</span>
+                                    <span className="text-[#E50914] font-display font-black uppercase text-xs">{scannedResult.card.users?.full_name.split(" ").map(n => n[0]).join("")}</span>
                                   </div>
                                   <div>
-                                    <h6 className="font-serif italic font-extrabold text-white uppercase text-[13px]">{scannedResult.card.users?.full_name}</h6>
+                                    <h6 className="font-display font-black text-white uppercase text-[13px] tracking-wide">{scannedResult.card.users?.full_name}</h6>
                                     <span className="text-[9px] text-zinc-500 font-mono">{scannedResult.card.users?.email}</span>
                                   </div>
                                 </div>
@@ -2155,13 +2155,13 @@ export default function AdminCMSModal({ isOpen, onClose, onContentUpdated, isAdm
                                   </div>
                                   <div>
                                     <span className="text-zinc-500 block uppercase tracking-wider text-[8px] font-bold">EXPIRY DATE</span>
-                                    <span className={`font-mono font-bold ${scannedResult.status === "ACTIVE" ? "text-emerald-400" : "text-red-500"}`}>{new Date(scannedResult.card.memberships?.expiry_date).toLocaleDateString("en-IN")}</span>
+                                    <span className={`font-mono font-bold ${scannedResult.status === "ACTIVE" ? "text-[#E50914]" : "text-red-500"}`}>{new Date(scannedResult.card.memberships?.expiry_date).toLocaleDateString("en-IN")}</span>
                                   </div>
                                 </div>
                                 {scannedResult.status === "ACTIVE" && (
                                   <button
                                     onClick={() => handleCheckInMember(scannedResult.card.user_id)}
-                                    className="w-full bg-[#EF4444] hover:bg-white text-white hover:text-black font-sans text-[9px] font-bold uppercase tracking-widest py-2 rounded-sm transition-all mt-2 cursor-pointer text-center"
+                                    className="w-full bg-[#E50914] hover:bg-white text-white hover:text-black font-sans text-[9px] font-bold uppercase tracking-widest py-2 rounded-sm transition-all mt-2 cursor-pointer text-center"
                                   >
                                     Log Attendance Check-In
                                   </button>
@@ -2185,8 +2185,8 @@ export default function AdminCMSModal({ isOpen, onClose, onContentUpdated, isAdm
                 {activeTab === "backup" && (
                   <div className="space-y-6">
                     <div className="border-b border-white/10 pb-4">
-                      <span className="text-[9px] text-[#EF4444] font-black uppercase tracking-[0.2em] block mb-1">DATA INTEGRITY</span>
-                      <h4 className="font-serif italic font-extrabold text-xl text-white tracking-tight uppercase">Database Backup & Recovery Console</h4>
+                      <span className="text-[9px] text-[#E50914] font-black uppercase tracking-[0.2em] block mb-1">DATA INTEGRITY</span>
+                      <h4 className="font-display font-black text-xl text-white tracking-wider uppercase">Database Backup & Recovery Console</h4>
                     </div>
 
                     {staffRole === "TRAINER" ? (
@@ -2202,17 +2202,17 @@ export default function AdminCMSModal({ isOpen, onClose, onContentUpdated, isAdm
                         {/* Export block */}
                         <div className="bg-[#0B0B0C] border border-white/10 p-6 rounded-sm flex flex-col justify-between space-y-5">
                           <div className="space-y-2">
-                            <div className="w-10 h-10 rounded-full bg-[#EF4444]/10 border border-[#EF4444]/20 flex items-center justify-center mb-1">
-                              <Download className="w-5 h-5 text-[#EF4444]" />
+                            <div className="w-10 h-10 rounded-full bg-[#E50914]/10 border border-[#E50914]/20 flex items-center justify-center mb-1">
+                              <Download className="w-5 h-5 text-[#E50914]" />
                             </div>
-                            <h5 className="font-serif italic font-extrabold text-white text-base uppercase leading-none">Export CMS Backup</h5>
+                            <h5 className="font-display font-black text-white text-base uppercase leading-none tracking-wide">Export CMS Backup</h5>
                             <p className="text-zinc-400 text-xs leading-relaxed font-sans">
                               Compile and download a local backup file containing all websiteSettings page copy configurations, services catalogue, trainers details, pricing plans features, testimonials, and gallery items records.
                             </p>
                           </div>
                           <button
                             onClick={handleExportBackup}
-                            className="bg-[#1A1A1E] hover:bg-[#EF4444] border border-white/20 hover:border-[#EF4444] text-white font-sans text-[10px] font-bold uppercase tracking-widest py-3 px-6 rounded-sm transition-all cursor-pointer text-center"
+                            className="bg-[#1A1A1E] hover:bg-[#E50914] border border-white/20 hover:border-[#E50914] text-white font-sans text-[10px] font-bold uppercase tracking-widest py-3 px-6 rounded-sm transition-all cursor-pointer text-center"
                           >
                             EXPORT COMPILER JSON
                           </button>
@@ -2224,7 +2224,7 @@ export default function AdminCMSModal({ isOpen, onClose, onContentUpdated, isAdm
                             <div className="w-10 h-10 rounded-full bg-blue-500/10 border border-blue-500/20 flex items-center justify-center mb-1">
                               <Upload className="w-5 h-5 text-blue-400" />
                             </div>
-                            <h5 className="font-serif italic font-extrabold text-white text-base uppercase leading-none">Import Settings Restore</h5>
+                            <h5 className="font-display font-black text-white text-base uppercase leading-none tracking-wide">Import Settings Restore</h5>
                             <p className="text-zinc-400 text-xs leading-relaxed font-sans">
                               Restore website settings page configs, services listings, gallery slides, and trainer listings by uploading a compiled in.fit JSON backup file directly.
                             </p>

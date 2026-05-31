@@ -9,10 +9,10 @@ export default function VisualGallery({ isOpen, onClose }) {
     return <div className="fixed inset-0 z-50 flex items-center justify-center p-4 font-sans">
         <div className="absolute inset-0 bg-black/60 backdrop-blur-[3px]" onClick={onClose} />
         <div className="relative w-full max-w-md bg-[#121215] border border-white/10 rounded-sm p-8 text-center z-10 space-y-3">
-          <Image className="w-8 h-8 text-[#EF4444] mx-auto" />
-          <h4 className="font-serif italic text-lg font-bold">No Active Visual Assets</h4>
-          <p className="text-xs text-zinc-200/60">Configure photographs using the Admin CMS panel.</p>
-          <button onClick={onClose} className="px-5 py-2.5 bg-[#1A1A1E] hover:bg-[#EF4444] text-white text-[10px] font-bold tracking-wider uppercase rounded-sm cursor-pointer">
+          <Image className="w-8 h-8 text-[#E50914] mx-auto" />
+          <h4 className="font-display text-lg font-black text-white uppercase tracking-wider">No Active Visual Assets</h4>
+          <p className="text-xs text-zinc-200/60 uppercase font-semibold">Configure photographs using the Admin CMS panel.</p>
+          <button onClick={onClose} className="px-5 py-2.5 bg-[#1A1A1E] hover:bg-[#E50914] text-white text-[10px] font-bold tracking-widest uppercase rounded-sm cursor-pointer border border-white/10">
             Dismiss
           </button>
         </div>
@@ -38,14 +38,14 @@ export default function VisualGallery({ isOpen, onClose }) {
   }
         <div className="p-4 border-b border-white/10 flex justify-between items-center bg-[#0B0B0C]">
           <div className="flex items-center gap-2">
-            <Image className="w-5 h-5 text-[#EF4444]" />
-            <span className="text-[10px] text-[#EF4444] font-bold uppercase tracking-[0.2em] leading-none block">
+            <Image className="w-5 h-5 text-[#E50914]" />
+            <span className="text-[10px] text-[#E50914] font-bold uppercase tracking-[0.2em] leading-none block">
               VIRTUAL FACILITY EXPLORATION
             </span>
           </div>
           <button
     onClick={onClose}
-    className="text-zinc-200/60 hover:text-[#EF4444] p-1 pr-2 uppercase text-[10px] font-bold tracking-widest flex items-center gap-1 cursor-pointer"
+    className="text-zinc-200/60 hover:text-[#E50914] p-1 pr-2 uppercase text-[10px] font-bold tracking-widest flex items-center gap-1 cursor-pointer"
   >
             DISMISS <X className="w-4 h-4" />
           </button>
@@ -88,10 +88,10 @@ export default function VisualGallery({ isOpen, onClose }) {
     /* Title banner */
   }
           <div className="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-black to-transparent text-left">
-            <span className="text-[9px] text-[#EF4444] bg-[#121215] border border-white/20 px-2.5 py-0.5 rounded-sm uppercase tracking-widest font-bold font-sans">
+            <span className="text-[9px] text-[#E50914] bg-[#121215] border border-white/20 px-2.5 py-0.5 rounded-sm uppercase tracking-widest font-bold font-sans">
               {activeItem.category}
             </span>
-            <h4 className="font-serif italic text-2xl text-white font-bold tracking-tight mt-1">
+            <h4 className="font-display text-2xl text-white font-black tracking-widest mt-1 uppercase">
               {activeItem.title}
             </h4>
             <p className="text-white/80 text-xs mt-1.5 leading-relaxed max-w-2xl">
@@ -106,7 +106,7 @@ export default function VisualGallery({ isOpen, onClose }) {
             {galleryItems.map((_, i) => <button
     key={i}
     onClick={() => setActiveIndex(i)}
-    className={`w-2.5 h-1 transition-all cursor-pointer ${activeIndex === i ? "bg-[#EF4444] w-6" : "bg-[#121215]/30 hover:bg-[#121215]/60"}`}
+    className={`w-2.5 h-1 transition-all cursor-pointer ${activeIndex === i ? "bg-[#E50914] w-6" : "bg-[#121215]/30 hover:bg-[#121215]/60"}`}
   />)}
           </div>
         </div>
@@ -118,7 +118,7 @@ export default function VisualGallery({ isOpen, onClose }) {
           <span>
             Section {activeIndex + 1} of {galleryItems.length}
           </span>
-          <span className="text-[#EF4444] font-semibold flex items-center gap-1">
+          <span className="text-[#E50914] font-semibold flex items-center gap-1">
             <Sparkles className="w-3.5 h-3.5" /> STRENGTH HARDWARE INSIDE
           </span>
         </div>
