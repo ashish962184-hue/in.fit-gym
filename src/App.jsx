@@ -310,14 +310,26 @@ export default function App() {
     }
 
     try {
-      // 1. Fetch user role details
-      const { data: profile, error: profileErr } = await supabase
+      // 1. Fetch user role details (with robust fallback)
+      let profile = {
+        email: sessionUser.email,
+        full_name: sessionUser.user_metadata?.full_name || "Gym Member",
+        phone: sessionUser.user_metadata?.phone || "Not provided",
+        role: sessionUser.user_metadata?.role || "MEMBER",
+        created_at: sessionUser.created_at
+      };
+
+      const { data: dbProfile, error: profileErr } = await supabase
         .from("users")
         .select("*")
         .eq("id", sessionUser.id)
         .single();
 
-      if (profileErr) throw profileErr;
+      if (!profileErr && dbProfile) {
+        profile = dbProfile;
+      } else if (profileErr) {
+        console.warn("Could not fetch db profile, falling back to session metadata:", profileErr.message);
+      }
 
       setLoggedInUser({
         email: profile.email,
