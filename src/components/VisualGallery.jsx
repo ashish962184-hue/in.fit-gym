@@ -1,10 +1,9 @@
 import { useState } from "react";
 import { X, ChevronLeft, ChevronRight, Sparkles, Image } from "lucide-react";
-import { getStoredGallery } from "../cmsDefaults";
-export default function VisualGallery({ isOpen, onClose }) {
+
+export default function VisualGallery({ isOpen, onClose, galleryItems = [] }) {
   const [activeIndex, setActiveIndex] = useState(0);
   if (!isOpen) return null;
-  const galleryItems = getStoredGallery();
   if (galleryItems.length === 0) {
     return <div className="fixed inset-0 z-50 flex items-center justify-center p-4 font-sans">
         <div className="absolute inset-0 bg-black/60 backdrop-blur-[3px]" onClick={onClose} />

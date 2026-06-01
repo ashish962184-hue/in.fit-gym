@@ -85,11 +85,12 @@ export const INITIAL_PLANS = [
       "Biometric Body Scans",
       "Free in.fit Shaker Bottle"
     ],
-    disabledFeatures: []
+    disabledFeatures: [],
+    bestValue: true
   },
   {
     id: "couple-3-months",
-    name: "3 Month Couple Package",
+    name: "Couple Package",
     category: "Couple",
     price: 5999,
     period: "3 months",
@@ -194,14 +195,14 @@ export const GALLERY_ITEMS = [
     id: "gallery-1",
     title: "Elite Strength Floor",
     description: "Equipped with custom matte coated plates, specialized power cages, and official Real Leader USA pin-selected racks.",
-    category: "Gym",
+    category: "Strength Area",
     image: "https://lh3.googleusercontent.com/aida-public/AB6AXuCjr0WZYB2WIx9gR6BF1xHDKvgpcNQEWOGA5jp72grreuNi_5sDoOob994albOIdTtjPnWqrRdDt87SHr8XOt01A-l74VuSnUn7__DjlzXo1OOCbhAIyIUbvU9rpXX9VvC7oZnVA3R-QPBARDPtJQzHLurbp88UzrxZGbLn4XNntV-ujRhCFUZIXwSziGPgFly7En4dWUmhyZ8s-853MFzGBtfuIPYX0QlRoN_-L-oxsDyN3qbmEg_6nrl1zjZ8uxzp0Ecc3m3LdQM"
   },
   {
     id: "gallery-2",
     title: "Metcon CrossFit Rig",
     description: "Features a 30-foot central pull-up rig, gymnastics wall-balls, rogue concept-2 rowers and skiergs.",
-    category: "Equipment",
+    category: "Gym Equipment",
     image: "https://lh3.googleusercontent.com/aida-public/AB6AXuDAVs1hC75ipnjlGbmNO2F3ltwsFsm2dAugqfpgylqtFONh8tVgVMzJTy5HDc9AWVsOZoQJgxscmpbpDpDef2X4qiGFqfGjSbV2_vODb_gjBYYlwp31pKdGG5cjw7yI7d5g0K4lvAAk7iBKzoL1GCT4Hh3_4aRAv5BmPpbnhiDQx1WuwDBeqpFQEOFGpuQHZnfjgMXuPKMtTklRHeO4JkRPm3wPh9ZFkho4TBi2U4lYgpnG3RiJOS91NHx6pvwjUynwZng-pdsnfXI"
   }
 ];

@@ -1,12 +1,6 @@
 import { useState, useEffect, useRef } from "react";
-import { 
-  DEFAULT_PAGE_CONTENT,
-  getStoredPageContent, 
-  getStoredPlans, 
-  getStoredClasses, 
-  getStoredTrainers,
-  getStoredGallery
-} from "./cmsDefaults";
+import { DEFAULT_PAGE_CONTENT } from "./cmsDefaults";
+import { supabase } from "./supabaseClient";
 import AuthModal from "./components/AuthModal";
 import AdminCMSModal from "./components/AdminCMSModal";
 import { 
@@ -35,7 +29,7 @@ import LegalConsentModal from "./components/LegalConsentModal";
 import VisualGallery from "./components/VisualGallery";
 import AthleteChatbot from "./components/AthleteChatbot";
 import UserComments from "./components/UserComments";
-import { supabase } from "./supabaseClient";
+
 
 export default function App() {
   const [currentUser, setCurrentUser] = useState(null);
@@ -62,6 +56,8 @@ export default function App() {
   const [isPtOpen, setIsPtOpen] = useState(false);
   const [isGalleryOpen, setIsGalleryOpen] = useState(false);
   const [isChatbotOpen, setIsChatbotOpen] = useState(false);
+  const [selectedService, setSelectedService] = useState(null);
+
   
   // Footer Legal States
   const [legalDocType, setLegalDocType] = useState(null);
@@ -122,19 +118,79 @@ export default function App() {
   // Fetch all Website Settings and Core listings from Supabase tables
   const fetchGlobalCMSData = async () => {
     try {
-      // 1. Fetch website_settings
+      // 1. Fetch website_settings — map DB keys → UI state keys
       const { data: settings } = await supabase
         .from("website_settings")
         .select("*");
-      
+
       let mergedContent = { ...DEFAULT_PAGE_CONTENT };
       if (settings && settings.length > 0) {
         settings.forEach((s) => {
-          if (s.key === "hero") mergedContent = { ...mergedContent, ...s.value };
-          if (s.key === "about") mergedContent = { ...mergedContent, ...s.value };
-          if (s.key === "contact") mergedContent = { ...mergedContent, ...s.value };
-          if (s.key === "social") mergedContent = { ...mergedContent, ...s.value };
-          if (s.key === "seo") mergedContent = { ...mergedContent, ...s.value };
+          if (s.key === "hero") {
+            const h = s.value;
+            mergedContent = {
+              ...mergedContent,
+              heroTagline:          h.tagline          ?? mergedContent.heroTagline,
+              heroHeadingLine1:     h.heading1         ?? mergedContent.heroHeadingLine1,
+              heroHeadingHighlight: h.highlight        ?? mergedContent.heroHeadingHighlight,
+              heroHeadingLine2:     h.heading2         ?? mergedContent.heroHeadingLine2,
+              heroHeadingHighlight2:h.highlight2       ?? mergedContent.heroHeadingHighlight2,
+              heroDescription:      h.description      ?? mergedContent.heroDescription,
+              heroBgUrl:            h.bgImageUrl       ?? mergedContent.heroBgUrl,
+              heroCtaText:          h.ctaText          ?? mergedContent.heroCtaText,
+              heroCtaLink:          h.ctaLink          ?? mergedContent.heroCtaLink,
+              heroMemberCount:      h.memberCount      ?? mergedContent.heroMemberCount,
+              heroTrainerCount:     h.trainerCount     ?? mergedContent.heroTrainerCount,
+              heroYearsExperience:  h.yearsExperience  ?? mergedContent.heroYearsExperience,
+              heroSatisfaction:     h.satisfaction     ?? mergedContent.heroSatisfaction,
+            };
+          }
+          if (s.key === "about") {
+            const a = s.value;
+            mergedContent = {
+              ...mergedContent,
+              aboutTitle:       a.title       ?? mergedContent.aboutTitle,
+              aboutDescription: a.description ?? mergedContent.aboutDescription,
+              aboutMission:     a.mission     ?? mergedContent.aboutMission,
+              aboutVision:      a.vision      ?? mergedContent.aboutVision,
+              aboutImages:      a.images      ?? mergedContent.aboutImages,
+            };
+          }
+          if (s.key === "contact") {
+            const c = s.value;
+            mergedContent = {
+              ...mergedContent,
+              contactPhone1:    c.phone1    ?? mergedContent.contactPhone1,
+              contactPhone2:    c.phone2    ?? mergedContent.contactPhone2,
+              contactWhatsapp:  c.whatsapp  ?? mergedContent.contactWhatsapp,
+              contactEmail:     c.email     ?? mergedContent.contactEmail,
+              contactAddress:   c.address   ?? mergedContent.contactAddress,
+              contactMapUrl:    c.mapUrl    ?? mergedContent.contactMapUrl,
+              contactHours:     c.hours     ?? mergedContent.contactHours,
+              contactEmergency: c.emergency ?? mergedContent.contactEmergency,
+            };
+          }
+          if (s.key === "social") {
+            const soc = s.value;
+            mergedContent = {
+              ...mergedContent,
+              socialInstagram: soc.instagram ?? mergedContent.socialInstagram,
+              socialFacebook:  soc.facebook  ?? mergedContent.socialFacebook,
+              socialYoutube:   soc.youtube   ?? mergedContent.socialYoutube,
+              socialLinkedin:  soc.linkedin  ?? mergedContent.socialLinkedin,
+            };
+          }
+          if (s.key === "seo") {
+            const seo = s.value;
+            mergedContent = {
+              ...mergedContent,
+              seoMetaTitle:          seo.metaTitle          ?? mergedContent.seoMetaTitle,
+              seoMetaDescription:    seo.metaDescription    ?? mergedContent.seoMetaDescription,
+              seoKeywords:           seo.keywords           ?? mergedContent.seoKeywords,
+              seoOgImage:            seo.ogImage            ?? mergedContent.seoOgImage,
+              seoGoogleAnalyticsId:  seo.googleAnalyticsId  ?? mergedContent.seoGoogleAnalyticsId,
+            };
+          }
         });
       }
       setPageContent(mergedContent);
@@ -158,7 +214,7 @@ export default function App() {
           mostPopular: p.most_popular
         })));
       } else {
-        setPlans(getStoredPlans());
+        setPlans([]);
       }
 
       // 3. Fetch services
@@ -172,11 +228,15 @@ export default function App() {
         setServicesList(servicesData);
       } else {
         setServicesList([
-          { id: "s1", name: "Strength Training", description: "Unleash absolute raw power on our dedicated biomechanic plates floor, complete with barbell deadlifting racks and professional cages.", image_url: "https://images.unsplash.com/photo-1517838277536-f5f99be501cd?w=600&auto=format&fit=crop&q=60", category: "Strength" },
-          { id: "s2", name: "Cardio Training", description: "Improve metabolic output and stamina on our high-performance temperature-regulated treadmill cardio suites.", image_url: "https://images.unsplash.com/photo-1538805060514-97d9cc17730c?w=600&auto=format&fit=crop&q=60", category: "Conditioning" },
-          { id: "s3", name: "Functional Training", description: "Dynamic cross-functional circuits targeting joint stability, kinetic balance, and high anaerobic recovery.", image_url: "https://images.unsplash.com/photo-1434682881908-b43d0467b798?w=600&auto=format&fit=crop&q=60", category: "Functional" },
-          { id: "s4", name: "Personal Training", description: "One-on-one biometric masterclasses with certified elite coaches focused entirely on your lifting form.", image_url: "https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?w=600&auto=format&fit=crop&q=60", category: "Coaching" },
-          { id: "s5", name: "Diet Planning", description: "Highly tailored periodization macro structures designed to fuel hardcore lifting recoveries and weight management goals.", image_url: "https://images.unsplash.com/photo-1490645935967-10de6ba17061?w=600&auto=format&fit=crop&q=60", category: "Nutrition" }
+          { id: "s1", name: "Strength Training", description: "Unleash absolute raw power on our dedicated biomechanic plates floor, complete with barbell deadlifting racks and professional cages.", image_url: "https://images.unsplash.com/photo-1517838277536-f5f99be501cd?w=600&auto=format&fit=crop&q=60", category: "Strength", schedule: "Mon–Sat: 6:00 AM – 9:00 PM", features: "Power Cages & Barbells,Plate-Loaded Machines,Real Leader USA Equipment,Deadlift Platforms,Trainer Guidance Available" },
+          { id: "s2", name: "Cardio Training", description: "Improve metabolic output and stamina on our high-performance temperature-regulated treadmill cardio suites.", image_url: "https://images.unsplash.com/photo-1538805060514-97d9cc17730c?w=600&auto=format&fit=crop&q=60", category: "Conditioning", schedule: "Mon–Sat: 5:00 AM – 10:00 PM", features: "Commercial Treadmills,Elliptical Machines,Stationary Bikes,Air-Conditioned Floor,Heart Rate Monitoring" },
+          { id: "s3", name: "Functional Training", description: "Dynamic cross-functional circuits targeting joint stability, kinetic balance, and high anaerobic recovery.", image_url: "https://images.unsplash.com/photo-1434682881908-b43d0467b798?w=600&auto=format&fit=crop&q=60", category: "Functional", schedule: "Mon–Sat: 7:00 AM – 8:00 PM", features: "Kettlebells & Battle Ropes,TRX Suspension Training,Medicine Balls,Agility Ladders,Group or Solo Sessions" },
+          { id: "s4", name: "Personal Training", description: "One-on-one biometric masterclasses with certified elite coaches focused entirely on your lifting form.", image_url: "https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?w=600&auto=format&fit=crop&q=60", category: "Coaching", schedule: "By Appointment — 7 Days", features: "1-on-1 Certified Coach,Custom Workout Plan,Nutritional Guidance,Progress Tracking,Form Correction & Safety" },
+          { id: "s5", name: "Zumba Class", description: "High-energy dance fitness sessions designed to burn fat, build endurance, and boost your cardiovascular health.", image_url: "https://images.unsplash.com/photo-1518611012118-696072aa579a?w=600&auto=format&fit=crop&q=60", category: "Aerobics", schedule: "Tue & Thu: 6:30 PM – 7:30 PM", features: "Expert Zumba Instructor,Group Class Format,High-Energy Music,Calorie Burning Dance Moves,All Fitness Levels Welcome" },
+          { id: "s6", name: "HIIT Workout", description: "High-Intensity Interval Training classes featuring kettlebells, slam balls, and battling ropes for maximum athletic output.", image_url: "https://images.unsplash.com/photo-1517963879433-6ad2b056d712?w=600&auto=format&fit=crop&q=60", category: "Conditioning", schedule: "Mon/Wed/Fri: 7:00 AM & 6:00 PM", features: "Interval Timer Training,Kettlebell Circuits,Battle Rope Slams,Group Energy Atmosphere,Measurable Performance" },
+          { id: "s7", name: "Yoga & Flexibility", description: "Develop mobility, core stability, and targeted flexibility to complement your heavy lifting routines.", image_url: "https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=600&auto=format&fit=crop&q=60", category: "Flexibility", schedule: "Mon & Wed: 8:00 AM – 9:00 AM", features: "Certified Yoga Instructor,Yoga Mats & Props Provided,Breathing Techniques,Stretch & Mobility Work,Stress Reduction" },
+          { id: "s8", name: "Weight Loss Program", description: "Scientifically structured exercise and dietary pathways targeting steady, healthy body composition improvements.", image_url: "https://images.unsplash.com/photo-1518310383802-640c2de311b2?w=600&auto=format&fit=crop&q=60", category: "Weight Loss", schedule: "Custom Schedule with Coach", features: "Diet & Calorie Planning,Cardio + Strength Mix,Weekly Progress Check-in,Body Composition Tracking,Expert Accountability" },
+          { id: "s9", name: "Muscle Building Program", description: "Heavy compound hypertrophic programming and macro structures curated to maximize lean skeletal mass accretion.", image_url: "https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?w=600&auto=format&fit=crop&q=60", category: "Hypertrophy", schedule: "Custom Schedule with Coach", features: "Progressive Overload Plans,Compound Lift Focus,Macro Nutrition Blueprint,Supplement Guidance,Monthly Strength Tests" }
         ]);
       }
 
@@ -198,7 +258,7 @@ export default function App() {
           facebook: t.facebook
         })));
       } else {
-        setTrainersList(getStoredTrainers());
+        setTrainersList([]);
       }
 
       // 5. Fetch gallery
@@ -216,7 +276,7 @@ export default function App() {
           image: g.photo_url
         })));
       } else {
-        setGalleryList(getStoredGallery());
+        setGalleryList([]);
       }
 
       // 6. Fetch testimonials
@@ -235,8 +295,7 @@ export default function App() {
         ]);
       }
 
-      // 7. Load classes list for scheduler fallback
-      setClassesList(getStoredClasses());
+      // 7. Classes list — no DB fallback (managed via Admin CMS)
     } catch (err) {
       console.error("CMS central database sync failure:", err.message);
     }
@@ -269,7 +328,15 @@ export default function App() {
       });
 
       // 2. Fetch requests, active memberships, and athlete cards if standard user
-      if (profile.role === "MEMBER") {
+      if (profile.role === "ADMIN") {
+        setCurrentUser({
+          email: profile.email,
+          fullName: profile.full_name,
+          phone: profile.phone,
+          role: profile.role,
+          joinedDate: new Date(profile.created_at).toLocaleDateString("en-IN", { month: "short", day: "numeric", year: "numeric" })
+        });
+      } else if (profile.role === "MEMBER") {
         const { data: requests } = await supabase
           .from("membership_requests")
           .select("*")
@@ -442,64 +509,147 @@ export default function App() {
 
       {/* Hero Section */}
       <section 
-        className="relative min-h-[90vh] flex items-center bg-cover bg-center py-24 px-5 md:px-20 overflow-hidden border-b-2 border-[#E50914]"
+        className="relative min-h-screen flex flex-col justify-between overflow-hidden bg-black"
         style={{
-          backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.95)), url('https://images.unsplash.com/photo-1517838277536-f5f99be501cd?w=1600&auto=format&fit=crop&q=80')`
+          backgroundImage: `url('/hero-bg3.png')`,
+          backgroundPosition: 'center',
+          backgroundSize: 'cover',
+          backgroundRepeat: 'no-repeat'
         }}
       >
-        <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent pointer-events-none" />
+        {/* Gradients for readability */}
+        <div className="absolute inset-0 bg-gradient-to-r from-black via-black/70 to-transparent pointer-events-none" style={{zIndex:1}} />
+        <div className="absolute bottom-0 left-0 right-0 h-48 bg-gradient-to-t from-black to-transparent pointer-events-none" style={{zIndex:2}} />
+        <div className="absolute top-0 left-0 right-0 h-32 bg-gradient-to-b from-black/80 to-transparent pointer-events-none" style={{zIndex:2}} />
 
-        <div className="max-w-7xl mx-auto w-full relative z-10 flex flex-col items-start gap-8 text-left">
-          
-          <div className="flex flex-wrap gap-2.5">
-            <span className="inline-flex items-center gap-1.5 text-[10px] font-black text-white bg-[#E50914] py-1 px-4 uppercase tracking-[0.2em] rounded-sm select-none">
-              💪 HARDCORE BODYBUILDING
-            </span>
-            <span className="inline-flex items-center gap-1.5 text-[10px] font-black text-white bg-zinc-900 border border-zinc-700 py-1 px-4 uppercase tracking-[0.2em] rounded-sm select-none">
-              ⚡ MEMBERSHIPS FROM ₹1299/MO
-            </span>
-          </div>
+        {/* Main Content — text on left side */}
+        <div className="relative flex-1 flex flex-col justify-center px-6 sm:px-12 md:px-20 pt-32 pb-10" style={{zIndex:3}}>
+          <div className="max-w-[40%] min-w-[300px] flex flex-col gap-6 text-left">
+            
+            {/* Small overline tag */}
+            <div className="flex items-center gap-3">
+              <div className="w-8 h-[3px] bg-[#E50914]" />
+              <span className="text-[#E50914] font-sans text-[11px] font-black uppercase tracking-[0.3em]">
+                2 FLOORS A/C GYM
+              </span>
+            </div>
 
-          <h1 className="font-display text-6xl sm:text-8xl md:text-9xl tracking-tight text-white font-black leading-[0.85] uppercase tracking-tighter">
-            {pageContent.heroHeadingLine1} <span className="text-[#E50914]">{pageContent.heroHeadingHighlight}</span> <br />
-            {pageContent.heroHeadingLine2} <span className="text-zinc-400">{pageContent.heroHeadingHighlight2}</span>
-          </h1>
+            {/* Main Heading */}
+            <h1 className="font-display text-[4.5rem] sm:text-[6rem] md:text-[8rem] text-white font-black leading-[0.85] uppercase tracking-tight">
+              TRAIN HARD.
+              <br />
+              <span className="text-[#E50914]">
+                TRANSFORM FASTER.
+              </span>
+            </h1>
 
-          <p className="text-zinc-300 text-sm sm:text-base max-w-2xl leading-relaxed mt-2 font-sans font-semibold uppercase tracking-wider text-left">
-            {pageContent.heroDescription}
-          </p>
+            <h3 className="text-white font-sans text-xs sm:text-sm font-bold uppercase tracking-[0.2em]">
+              Strength • Cardio • Functional Training
+            </h3>
 
-          <div className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto pt-4 font-sans">
-            <button 
-              onClick={() => scrollToRef(packagesRef)}
-              className="bg-[#E50914] hover:bg-white text-white hover:text-black border border-[#E50914] hover:border-white font-sans text-[11px] tracking-[0.25em] font-black px-10 py-5 uppercase rounded-sm transition-all shadow-lg shadow-[#E50914]/20 cursor-pointer text-center"
-            >
-              JOIN MEMBERSHIP NOW
-            </button>
-            {loggedInUser?.role === "ADMIN" ? (
+            {/* Description */}
+            <p className="text-zinc-300 text-sm font-sans font-medium leading-relaxed max-w-sm">
+              Professional equipment and expert trainers built for real transformation.
+            </p>
+
+            {/* CTA Buttons */}
+            <div className="flex flex-col sm:flex-row flex-wrap gap-4 pt-4 font-sans">
               <button 
-                onClick={() => setIsAdminCmsOpen(true)}
-                className="border-2 border-[#E50914] text-[#E50914] hover:text-white hover:bg-[#E50914] font-sans text-[11px] tracking-[0.25em] font-black px-10 py-5 uppercase rounded-sm transition-all cursor-pointer flex items-center justify-center gap-2"
+                onClick={() => scrollToRef(packagesRef)}
+                className="bg-[#E50914] hover:bg-white text-white hover:text-black font-sans text-[11px] tracking-[0.2em] font-black px-8 py-4 uppercase transition-all cursor-pointer text-center"
               >
-                <Settings className="w-3.5 h-3.5 animate-spin" /> Open Admin CMS Dashboard
+                JOIN NOW
               </button>
-            ) : (
+              
               <button 
-                onClick={() => handleTriggerSignUp("quarterly-pro")}
-                className="border-2 border-white/20 hover:border-white text-white hover:bg-white/5 font-sans text-[11px] tracking-[0.25em] font-black px-10 py-5 uppercase rounded-sm transition-all cursor-pointer text-center"
+                onClick={() => scrollToRef(packagesRef)}
+                className="border-2 border-white/30 hover:border-white text-white hover:bg-white/5 font-sans text-[11px] tracking-[0.2em] font-black px-8 py-4 uppercase transition-all cursor-pointer text-center"
               >
-                Explore Offers
+                VIEW MEMBERSHIP
               </button>
-            )}
-          </div>
+              
+              <button 
+                onClick={() => window.open('https://wa.me/911234567890', '_blank')}
+                className="border-2 border-green-500/50 hover:border-green-500 text-green-400 hover:bg-green-500/10 font-sans text-[11px] tracking-[0.2em] font-black px-8 py-4 uppercase transition-all cursor-pointer text-center"
+              >
+                WHATSAPP
+              </button>
 
+              {loggedInUser?.role === "ADMIN" && (
+                <button 
+                  onClick={() => setIsAdminCmsOpen(true)}
+                  className="border-2 border-[#E50914]/50 hover:border-[#E50914] text-[#E50914] hover:bg-[#E50914]/10 font-sans text-[11px] tracking-[0.2em] font-black px-8 py-4 uppercase transition-all cursor-pointer flex items-center justify-center gap-2"
+                >
+                  <Settings className="w-3.5 h-3.5" /> ADMIN CMS
+                </button>
+              )}
+            </div>
+
+          </div>
         </div>
 
-        {/* Ambient Decorative Graphic */}
-        <div className="absolute right-12 bottom-12 w-80 h-80 border-2 border-white/5 rounded-full pointer-events-none flex items-center justify-center opacity-30">
-          <div className="w-60 h-60 border border-dashed border-white/10 rounded-full" />
+        <div className="relative w-full flex flex-col" style={{zIndex:3}}>
+          {/* Membership Quick Strip */}
+          <div className="w-full bg-black/80 backdrop-blur-md border-t border-white/10 overflow-x-auto no-scrollbar">
+            <div className="flex items-center justify-start md:justify-center gap-8 px-6 py-4 min-w-max">
+              <div className="flex flex-col text-center">
+                <span className="text-zinc-500 text-[9px] font-bold tracking-[0.2em] uppercase">Student</span>
+                <span className="text-white font-display text-xl tracking-wide">₹1299</span>
+              </div>
+              <div className="w-px h-8 bg-white/10" />
+              <div className="flex flex-col text-center">
+                <span className="text-zinc-500 text-[9px] font-bold tracking-[0.2em] uppercase">1 Month</span>
+                <span className="text-white font-display text-xl tracking-wide">₹1499</span>
+              </div>
+              <div className="w-px h-8 bg-white/10" />
+              <div className="flex flex-col text-center relative">
+                <span className="absolute -top-3 left-1/2 -translate-x-1/2 bg-[#E50914] text-white text-[7px] font-black px-1.5 py-0.5 rounded-sm tracking-widest uppercase">Popular</span>
+                <span className="text-[#E50914] text-[9px] font-bold tracking-[0.2em] uppercase pt-1">3 Months</span>
+                <span className="text-white font-display text-xl tracking-wide">₹3499</span>
+              </div>
+              <div className="w-px h-8 bg-white/10" />
+              <div className="flex flex-col text-center">
+                <span className="text-zinc-500 text-[9px] font-bold tracking-[0.2em] uppercase">6 Months</span>
+                <span className="text-white font-display text-xl tracking-wide">₹6499</span>
+              </div>
+              <div className="w-px h-8 bg-white/10" />
+              <div className="flex flex-col text-center relative">
+                <span className="absolute -top-3 left-1/2 -translate-x-1/2 bg-yellow-500 text-black text-[7px] font-black px-1.5 py-0.5 rounded-sm tracking-widest uppercase whitespace-nowrap">Best Value</span>
+                <span className="text-yellow-500 text-[9px] font-bold tracking-[0.2em] uppercase pt-1">12 Months</span>
+                <span className="text-white font-display text-xl tracking-wide">₹10999</span>
+              </div>
+              <div className="w-px h-8 bg-white/10" />
+              <div className="flex flex-col text-center">
+                <span className="text-zinc-500 text-[9px] font-bold tracking-[0.2em] uppercase">Couple</span>
+                <span className="text-white font-display text-xl tracking-wide">₹5999</span>
+              </div>
+            </div>
+          </div>
+
+          {/* Stats Bar at the bottom */}
+          <div className="w-full bg-black border-t-2 border-[#E50914]">
+            <div className="max-w-7xl mx-auto px-6 sm:px-12 md:px-20 py-6 grid grid-cols-2 md:grid-cols-4 divide-x divide-white/5">
+              {[
+                { value: `${pageContent.heroMemberCount || 700}+`, label: "Members" },
+                { value: `${pageContent.heroTrainerCount || 10}+`, label: "Trainers" },
+                { value: `${pageContent.heroYearsExperience || 5}+`, label: "Years" },
+                { value: `${pageContent.heroSatisfaction || 95}%`, label: "Satisfaction" },
+              ].map((stat, i) => (
+                <div key={i} className="flex flex-col items-center gap-1 py-2">
+                  <span className="font-display text-3xl sm:text-4xl text-[#E50914] font-black leading-none tracking-tight">
+                    {stat.value}
+                  </span>
+                  <span className="text-zinc-500 text-[9px] font-bold uppercase tracking-[0.2em] font-sans">
+                    {stat.label}
+                  </span>
+                </div>
+              ))}
+            </div>
+          </div>
         </div>
+
       </section>
+
 
       {/* Bento Core Features / "Facility Highlights" */}
       <section 
@@ -626,7 +776,8 @@ export default function App() {
             {servicesList.map((service, index) => (
               <div 
                 key={service.id || index}
-                className="group bg-[#121215] border border-white/5 hover:border-[#EF4444]/40 transition-all relative overflow-hidden text-left rounded-sm min-h-[350px] flex flex-col justify-between shadow-sm hover:shadow-lg duration-300"
+                onClick={() => setSelectedService(service)}
+                className="group bg-[#121215] border border-white/5 hover:border-[#EF4444]/40 transition-all relative overflow-hidden text-left rounded-sm min-h-[350px] flex flex-col justify-between shadow-sm hover:shadow-lg duration-300 cursor-pointer"
               >
                 {/* Image Background Header with Dark Gradient Overlay */}
                 <div className="h-44 w-full overflow-hidden relative">
@@ -636,9 +787,12 @@ export default function App() {
                     className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500 filter grayscale group-hover:grayscale-0" 
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-[#121215] via-[#121215]/30 to-transparent" />
-                  
                   {/* Floating Red Accent Strip */}
                   <div className="absolute top-0 left-0 w-[3px] h-0 bg-[#EF4444] group-hover:h-full transition-all duration-300" />
+                  {/* View Details hint on hover */}
+                  <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                    <span className="bg-[#E50914] text-white text-[9px] font-black uppercase tracking-widest px-3 py-1.5">VIEW DETAILS</span>
+                  </div>
                 </div>
 
                 <div className="p-6 flex-1 flex flex-col justify-between space-y-4">
@@ -653,18 +807,9 @@ export default function App() {
                       {service.description}
                     </p>
                   </div>
-
-                  <button 
-                    onClick={() => {
-                      const packSec = document.getElementById("packages");
-                      if (packSec) {
-                        packSec.scrollIntoView({ behavior: "smooth" });
-                      }
-                    }}
-                    className="text-[9px] font-sans font-bold uppercase tracking-[0.25em] text-[#EEEEF0]/60 group-hover:text-[#EF4444] group-hover:line-through transition-colors text-left flex items-center gap-1.5 cursor-pointer outline-none mt-2"
-                  >
-                    CHOOSE PLAN <ArrowRight className="w-3.5 h-3.5 text-[#EF4444]" />
-                  </button>
+                  <div className="text-[9px] font-sans font-bold uppercase tracking-[0.25em] text-[#EF4444] flex items-center gap-1.5 mt-2">
+                    VIEW DETAILS <ArrowRight className="w-3.5 h-3.5" />
+                  </div>
                 </div>
               </div>
             ))}
@@ -672,6 +817,7 @@ export default function App() {
 
         </div>
       </section>
+
 
       {/* Packages Pricing table / "Elite Membership" */}
       <section 
@@ -942,7 +1088,7 @@ export default function App() {
                   </div>
                 )}
 
-                <div className="pt-4 border-t border-white/10">
+                <div className="pt-4 border-t border-white/10 flex flex-col sm:flex-row gap-3">
                   <button 
                     onClick={() => {
                       const viewBtn = document.getElementById("nav-view-pass-btn");
@@ -952,9 +1098,15 @@ export default function App() {
                         alert("Click the 'VIEW ATHLETE CARD' button in the top navigation bar to open your digital pass card!");
                       }
                     }}
-                    className="w-full bg-[#EF4444] hover:bg-white text-white hover:text-black font-sans text-[10px] tracking-[0.25em] font-bold uppercase py-4 rounded-sm transition-all shadow-md cursor-pointer text-center"
+                    className="flex-1 bg-[#E50914] hover:bg-white text-white hover:text-black font-sans text-[10px] tracking-[0.25em] font-bold uppercase py-4 rounded-sm transition-all shadow-md cursor-pointer text-center"
                   >
                     VIEW ATHLETE CARD
+                  </button>
+                  <button 
+                    onClick={() => setIsRenewing(true)}
+                    className="flex-1 border-2 border-white/15 hover:border-white text-white hover:bg-white/5 font-sans text-[10px] tracking-[0.25em] font-bold uppercase py-4 rounded-sm transition-all cursor-pointer text-center"
+                  >
+                    RENEW MEMBERSHIP
                   </button>
                 </div>
               </div>
@@ -981,8 +1133,27 @@ export default function App() {
                 </div>
               </div>
             ) : (
-              plans.map((plan) => {
-                const isRecommended = plan.mostPopular || plan.category === "Performance";
+              <>
+                {isRenewing && (
+                  <div className="col-span-1 md:col-span-3 bg-[#121215] border border-[#E50914]/40 p-6 rounded-sm flex flex-col sm:flex-row justify-between items-center gap-4 text-left font-sans mb-2 w-full">
+                    <div>
+                      <span className="text-[#E50914] text-[9px] font-bold uppercase tracking-[0.2em] block mb-1">
+                        ACTIVE ATHLETE RENEWAL & UPGRADE
+                      </span>
+                      <h4 className="text-white text-xs font-bold uppercase">
+                        Select any membership package below to extend your active pass card cycle.
+                      </h4>
+                    </div>
+                    <button 
+                      onClick={() => setIsRenewing(false)}
+                      className="bg-transparent border border-white/20 hover:border-white text-white text-[9px] font-bold uppercase py-2.5 px-5 rounded-sm transition-all cursor-pointer whitespace-nowrap"
+                    >
+                      Cancel Renewal
+                    </button>
+                  </div>
+                )}
+                {plans.map((plan) => {
+                  const isRecommended = plan.mostPopular || plan.category === "Performance";
                 return (
                   <div 
                     key={plan.id}
@@ -1046,8 +1217,8 @@ export default function App() {
                     )}
                   </div>
                 );
-              })
-            )}
+              })}
+            </>)}
           </div>
 
           {/* Prominent Logo-Branded strength cardio Features Banner */}
@@ -1241,22 +1412,22 @@ export default function App() {
 
             <div className="flex gap-2.5 pt-1">
               <a 
-                href="https://www.instagram.com/infit_gym/" 
+                href={pageContent.socialInstagram || "https://www.instagram.com/infit_gym/"}
                 target="_blank" 
                 rel="noopener noreferrer"
                 title="Connect on Instagram"
                 className="w-10 h-10 border border-white/10 bg-[#0B0B0C] text-[#EEEEF0]/70 hover:border-[#EF4444] hover:text-[#EF4444] transition-all flex items-center justify-center rounded-sm"
               >
-                <i className="fab fa-instagram text-sm"></i>
+                <Instagram className="w-4 h-4" />
               </a>
               <a 
                 href="https://www.google.com/maps/dir/?api=1&destination=in.fit+GYM+Annojiguda+Hyderabad" 
                 target="_blank" 
                 rel="noopener noreferrer"
-                title="Google Maps Location Listing"
+                title="Google Maps Location"
                 className="w-10 h-10 border border-white/10 bg-[#0B0B0C] text-[#EEEEF0]/70 hover:border-[#EF4444] hover:text-[#EF4444] transition-all flex items-center justify-center rounded-sm"
               >
-                <i className="fas fa-map-marker-alt text-sm"></i>
+                <MapPin className="w-4 h-4" />
               </a>
             </div>
           </div>
@@ -1430,8 +1601,9 @@ export default function App() {
 
       {/* 5. Photographic slideshow */}
       <VisualGallery 
-        isOpen={isGalleryOpen}
-        onClose={() => setIsGalleryOpen(false)}
+        isOpen={isGalleryOpen} 
+        onClose={() => setIsGalleryOpen(false)} 
+        galleryItems={galleryList}
       />
 
       {/* 6. Coach assistant chat */}
@@ -1456,6 +1628,116 @@ export default function App() {
         isAdminLoggedIn={loggedInUser?.role === "ADMIN"}
       />
 
+      {/* ============================================================ */}
+      {/* Service Detail Modal */}
+      {/* ============================================================ */}
+      {selectedService && (
+        <div 
+          className="fixed inset-0 z-[200] flex items-center justify-center p-4 sm:p-8"
+          onClick={() => setSelectedService(null)}
+        >
+          {/* Backdrop */}
+          <div className="absolute inset-0 bg-black/90 backdrop-blur-sm" />
+          
+          {/* Modal Panel */}
+          <div 
+            className="relative z-10 bg-[#0B0B0C] border border-white/10 rounded-sm w-full max-w-3xl max-h-[90vh] overflow-y-auto shadow-2xl"
+            onClick={(e) => e.stopPropagation()}
+          >
+            {/* Hero Image */}
+            <div className="relative h-56 sm:h-72 overflow-hidden">
+              <img 
+                src={selectedService.image_url} 
+                alt={selectedService.name}
+                className="w-full h-full object-cover"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-[#0B0B0C] via-black/40 to-transparent" />
+              {/* Close button */}
+              <button 
+                onClick={() => setSelectedService(null)}
+                className="absolute top-4 right-4 w-9 h-9 bg-black/70 border border-white/20 text-white hover:bg-[#E50914] hover:border-[#E50914] transition-all flex items-center justify-center rounded-sm font-bold text-sm cursor-pointer"
+              >
+                ✕
+              </button>
+              {/* Category badge on image */}
+              <div className="absolute bottom-4 left-6">
+                <span className="bg-[#E50914] text-white text-[9px] font-black uppercase tracking-widest px-3 py-1.5">
+                  {selectedService.category || "TRAINING"} PROGRAM
+                </span>
+              </div>
+            </div>
+
+            {/* Content */}
+            <div className="p-6 sm:p-8 space-y-6">
+              
+              {/* Title + Schedule */}
+              <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3">
+                <h2 className="font-display text-3xl sm:text-4xl text-white font-black uppercase tracking-tight">
+                  {selectedService.name}
+                </h2>
+                {selectedService.schedule && (
+                  <div className="flex-shrink-0 bg-[#121215] border border-white/10 px-4 py-2 rounded-sm text-center">
+                    <span className="block text-[8px] text-zinc-500 font-bold uppercase tracking-widest mb-0.5">SCHEDULE</span>
+                    <span className="text-[11px] text-[#E50914] font-black uppercase tracking-wide">{selectedService.schedule}</span>
+                  </div>
+                )}
+              </div>
+
+              {/* Description */}
+              <p className="text-zinc-300 text-sm leading-relaxed font-sans">
+                {selectedService.description}
+              </p>
+
+              {/* Features List */}
+              {selectedService.features && (
+                <div>
+                  <h3 className="text-[10px] text-zinc-500 font-bold uppercase tracking-widest mb-4 border-b border-white/5 pb-2">
+                    WHAT'S INCLUDED
+                  </h3>
+                  <ul className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    {(typeof selectedService.features === 'string' 
+                      ? selectedService.features.split(',') 
+                      : selectedService.features
+                    ).map((feat, i) => (
+                      <li key={i} className="flex items-center gap-3">
+                        <span className="w-5 h-5 flex-shrink-0 bg-[#E50914]/10 border border-[#E50914]/30 rounded-sm flex items-center justify-center">
+                          <span className="text-[#E50914] text-[10px] font-black">✓</span>
+                        </span>
+                        <span className="text-zinc-300 text-xs font-medium">{feat.trim()}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+
+              {/* CTA Buttons */}
+              <div className="flex flex-col sm:flex-row gap-3 pt-2 border-t border-white/5">
+                <button
+                  onClick={() => {
+                    setSelectedService(null);
+                    scrollToRef(packagesRef);
+                  }}
+                  className="flex-1 bg-[#E50914] hover:bg-white text-white hover:text-black font-sans text-[11px] tracking-[0.3em] font-black py-4 uppercase transition-all cursor-pointer text-center"
+                >
+                  JOIN NOW — VIEW PLANS
+                </button>
+                <button
+                  onClick={() => {
+                    setSelectedService(null);
+                    setIsPtOpen(true);
+                  }}
+                  className="flex-1 border-2 border-white/20 hover:border-white text-white font-sans text-[11px] tracking-[0.25em] font-black py-4 uppercase transition-all cursor-pointer text-center"
+                >
+                  BOOK A FREE TRIAL
+                </button>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      )}
+
     </div>
+
   );
 }

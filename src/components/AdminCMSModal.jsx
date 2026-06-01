@@ -22,8 +22,9 @@ import {
   Calendar,
   Lock
 } from "lucide-react";
-import { getStoredAdminPasskey, DEFAULT_PAGE_CONTENT } from "../cmsDefaults";
+import { DEFAULT_PAGE_CONTENT } from "../cmsDefaults";
 import { supabase } from "../supabaseClient";
+import ImageUpload from "./ImageUpload";
 
 export default function AdminCMSModal({ isOpen, onClose, onContentUpdated, isAdminLoggedIn }) {
   const [isAuthenticated, setIsAuthenticated] = useState(isAdminLoggedIn);
@@ -72,6 +73,9 @@ export default function AdminCMSModal({ isOpen, onClose, onContentUpdated, isAdm
   const [galleryForm, setGalleryForm] = useState({});
   const [editingTestimonialId, setEditingTestimonialId] = useState(null);
   const [testimonialForm, setTestimonialForm] = useState({});
+
+  // Hero banner image URL (managed via ImageUpload)
+  const [heroBannerUrl, setHeroBannerUrl] = useState("");
 
   // Sync session authentication role and database logs
   const syncStaffRole = async () => {
@@ -217,17 +221,7 @@ export default function AdminCMSModal({ isOpen, onClose, onContentUpdated, isAdm
     setTimeout(() => setNotifyMsg(""), 3000);
   };
 
-  const handleVerifyPass = (e) => {
-    e.preventDefault();
-    const currentPasskey = getStoredAdminPasskey();
-    if (adminPass === currentPasskey || adminPass === "infitadmin2026") {
-      setIsAuthenticated(true);
-      setStaffRole("ADMIN");
-      setAuthError("");
-    } else {
-      setAuthError("Invalid administrative passkey passcode.");
-    }
-  };
+  // Admin access is purely role-based via Supabase — no local passkey needed
 
   // --- WEBSITE SETTINGS KEY-VALUE UPDATE ---
   const handleSaveSettingKey = async (sectionKey, sectionObj) => {
@@ -883,51 +877,25 @@ export default function AdminCMSModal({ isOpen, onClose, onContentUpdated, isAdm
           </button>
         </div>
 
-        {/* CMS Term Lock Screen */}
+        {/* CMS Access Gate — purely role-based via Supabase, no local passkey */}
         {!isAuthenticated && !isAdminLoggedIn ? (
           <div className="flex-1 flex flex-col items-center justify-center p-8 bg-[#0B0B0C]/40">
-            <form onSubmit={handleVerifyPass} className="w-full max-w-sm bg-[#121215] p-6 sm:p-8 rounded-sm shadow-xl border border-white/10 space-y-5 text-center">
+            <div className="w-full max-w-sm bg-[#121215] p-6 sm:p-8 rounded-sm shadow-xl border border-white/10 space-y-5 text-center">
               <div className="w-12 h-12 rounded-full bg-[#E50914]/10 border border-[#E50914]/25 flex items-center justify-center mx-auto mb-2">
                 <Lock className="w-6 h-6 text-[#E50914]" />
               </div>
-              
-              <div className="space-y-1">
-                <h4 className="font-display font-black text-base text-white uppercase tracking-wider">CMS Terminal Locked</h4>
-                <p className="text-[9px] text-zinc-400 uppercase tracking-widest font-semibold">
-                  Administrator passkey authorization required
+              <div className="space-y-2">
+                <h4 className="font-display font-black text-base text-white uppercase tracking-wider">Admin Access Required</h4>
+                <p className="text-[11px] text-zinc-400 leading-relaxed">
+                  You must be <strong className="text-white">signed in with an Admin account</strong> to access this panel.
+                </p>
+                <p className="text-[10px] text-zinc-500 leading-relaxed">
+                  To create your first admin: Register normally, then go to<br />
+                  <span className="font-mono text-zinc-300">Supabase → Table Editor → users</span><br />
+                  and set your <span className="font-mono text-zinc-300">role = ADMIN</span>.
                 </p>
               </div>
-
-              {authError && (
-                <div className="p-3 bg-red-950/20 text-[#E50914] border border-red-900/50 text-[11px] rounded-sm flex items-center gap-2">
-                  <AlertCircle className="w-4 h-4 shrink-0" />
-                  <span>{authError}</span>
-                </div>
-              )}
-
-              <div>
-                <label className="block text-[8px] text-left font-bold text-zinc-400 uppercase tracking-widest mb-1.5">
-                  Admin Passcode
-                </label>
-                <input
-                  type="password"
-                  required
-                  value={adminPass}
-                  onChange={(e) => setAdminPass(e.target.value)}
-                  placeholder="Enter administrator passcode"
-                  className="w-full bg-[#0B0B0C] border border-white/20 focus:border-[#E50914] rounded-sm px-3.5 py-2.5 text-xs text-center text-[#EEEEF0] outline-none font-sans"
-                />
-              </div>
-
-              <div className="pt-2">
-                <button
-                  type="submit"
-                  className="w-full bg-[#E50914] hover:bg-white hover:text-black text-white font-sans text-[10px] tracking-widest font-bold uppercase py-3 rounded-sm transition-all shadow-sm flex items-center justify-center gap-1.5 cursor-pointer border border-[#E50914]"
-                >
-                  UNLOCK CORE PANELS <ArrowRight className="w-3.5 h-3.5" />
-                </button>
-              </div>
-            </form>
+            </div>
           </div>
         ) : (
           /* WORKSPACE PANELS CONTAINER */
@@ -1115,16 +1083,43 @@ export default function AdminCMSModal({ isOpen, onClose, onContentUpdated, isAdm
                                         <div className="font-mono text-[#E50914] font-bold">₹{item.plan_price}</div>
                                       </td>
                                       <td className="p-4">
-                                        <select
-                                          value={item.status}
-                                          onChange={(e) => handleUpdateInquiryStatus(item.id, e.target.value)}
-                                          className={`px-2.5 py-1 text-[9px] font-bold uppercase tracking-widest bg-[#121215] border rounded-sm outline-none cursor-pointer transition-all ${item.status === "APPROVED" ? "border-[#E50914] text-[#E50914]" : item.status === "CONTACTED" ? "border-blue-500 text-blue-400" : item.status === "REJECTED" ? "border-red-500 text-red-500" : "border-amber-500 text-amber-500"}`}
-                                        >
-                                          <option value="PENDING" className="text-amber-500">PENDING</option>
-                                          <option value="CONTACTED" className="text-blue-400">CONTACTED</option>
-                                          <option value="APPROVED" className="text-[#E50914]">APPROVED</option>
-                                          <option value="REJECTED" className="text-red-500">REJECTED</option>
-                                        </select>
+                                        {item.status === "PENDING" ? (
+                                          <div className="flex flex-wrap gap-2 items-center">
+                                            <button 
+                                              onClick={() => handleUpdateInquiryStatus(item.id, "APPROVED")}
+                                              className="bg-[#E50914] hover:bg-emerald-600 text-white font-sans text-[8px] tracking-widest font-black uppercase py-1.5 px-3 rounded-sm transition-all cursor-pointer shadow-md"
+                                            >
+                                              APPROVE
+                                            </button>
+                                            <button 
+                                              onClick={() => handleUpdateInquiryStatus(item.id, "REJECTED")}
+                                              className="border border-white/10 hover:border-red-500 hover:text-red-500 text-zinc-400 font-sans text-[8px] tracking-widest font-black uppercase py-1.5 px-3 rounded-sm transition-all cursor-pointer bg-black/40"
+                                            >
+                                              REJECT
+                                            </button>
+                                            <select
+                                              value={item.status}
+                                              onChange={(e) => handleUpdateInquiryStatus(item.id, e.target.value)}
+                                              className="px-1.5 py-1 text-[8px] font-bold uppercase bg-[#121215] border border-white/10 rounded-sm outline-none cursor-pointer text-zinc-400"
+                                            >
+                                              <option value="PENDING" className="text-amber-500">PENDING</option>
+                                              <option value="CONTACTED" className="text-blue-400">CONTACTED</option>
+                                              <option value="APPROVED" className="text-[#E50914]">APPROVED</option>
+                                              <option value="REJECTED" className="text-red-500">REJECTED</option>
+                                            </select>
+                                          </div>
+                                        ) : (
+                                          <select
+                                            value={item.status}
+                                            onChange={(e) => handleUpdateInquiryStatus(item.id, e.target.value)}
+                                            className={`px-2.5 py-1 text-[9px] font-bold uppercase tracking-widest bg-[#121215] border rounded-sm outline-none cursor-pointer transition-all ${item.status === "APPROVED" ? "border-[#E50914] text-[#E50914]" : item.status === "CONTACTED" ? "border-blue-500 text-blue-400" : item.status === "REJECTED" ? "border-red-500 text-red-500" : "border-amber-500 text-amber-500"}`}
+                                          >
+                                            <option value="PENDING" className="text-amber-500">PENDING</option>
+                                            <option value="CONTACTED" className="text-blue-400">CONTACTED</option>
+                                            <option value="APPROVED" className="text-[#E50914]">APPROVED</option>
+                                            <option value="REJECTED" className="text-red-500">REJECTED</option>
+                                          </select>
+                                        )}
                                       </td>
                                       <td className="p-4 text-right">
                                         <button onClick={() => handleDeleteRequest(item.id)} className="text-zinc-500 hover:text-red-500 p-1 rounded hover:bg-white/5 transition-colors cursor-pointer"><Trash2 className="w-4 h-4" /></button>
@@ -1246,14 +1241,26 @@ export default function AdminCMSModal({ isOpen, onClose, onContentUpdated, isAdm
                                 heading2: e.target.heading2.value,
                                 highlight2: e.target.highlight2.value,
                                 description: e.target.description.value,
+                                bgImageUrl: heroBannerUrl || cmsContent.heroBgUrl || "",
                                 ctaText: e.target.ctaText.value,
                                 ctaLink: e.target.ctaLink.value,
                                 memberCount: parseInt(e.target.memberCount.value) || 700,
                                 trainerCount: parseInt(e.target.trainerCount.value) || 10,
-                                yearsExperience: parseInt(e.target.yearsExperience.value) || 5
+                                yearsExperience: parseInt(e.target.yearsExperience.value) || 5,
+                                satisfaction: parseInt(e.target.satisfaction.value) || 95
                               });
                             }} className="space-y-4 text-xs">
                               <span className="text-[10px] text-zinc-400 font-bold uppercase tracking-widest block border-b border-white/5 pb-1 mb-2">HERO SECTION PANEL</span>
+
+                              {/* Hero Banner Image Upload */}
+                              <ImageUpload
+                                bucket="gym-images"
+                                folder="hero"
+                                currentUrl={cmsContent.heroBgUrl || ""}
+                                label="Hero Background Image"
+                                onUpload={(url) => setHeroBannerUrl(url)}
+                              />
+
                               <div className="grid grid-cols-2 gap-4">
                                 <div>
                                   <label className="block text-[8px] font-bold text-zinc-500 uppercase tracking-widest mb-1.5">Gym Brand Title</label>
@@ -1298,18 +1305,22 @@ export default function AdminCMSModal({ isOpen, onClose, onContentUpdated, isAdm
                                   <input type="text" name="ctaLink" defaultValue={cmsContent.heroCtaLink || "#packages"} className="w-full bg-[#121215] border border-white/15 rounded-sm p-2 text-white outline-none focus:border-[#E50914]" />
                                 </div>
                               </div>
-                              <div className="grid grid-cols-3 gap-3">
+                              <div className="grid grid-cols-4 gap-3">
                                 <div>
                                   <label className="block text-[8px] font-bold text-zinc-500 uppercase tracking-widest mb-1.5">Member Count</label>
-                                  <input type="number" name="memberCount" defaultValue={cmsContent.memberCount || 700} className="w-full bg-[#121215] border border-white/15 rounded-sm p-2 text-white outline-none focus:border-[#E50914]" />
+                                  <input type="number" name="memberCount" defaultValue={cmsContent.heroMemberCount || 700} className="w-full bg-[#121215] border border-white/15 rounded-sm p-2 text-white outline-none focus:border-[#E50914]" />
                                 </div>
                                 <div>
                                   <label className="block text-[8px] font-bold text-zinc-500 uppercase tracking-widest mb-1.5">Trainer Count</label>
-                                  <input type="number" name="trainerCount" defaultValue={cmsContent.trainerCount || 10} className="w-full bg-[#121215] border border-white/15 rounded-sm p-2 text-white outline-none focus:border-[#E50914]" />
+                                  <input type="number" name="trainerCount" defaultValue={cmsContent.heroTrainerCount || 10} className="w-full bg-[#121215] border border-white/15 rounded-sm p-2 text-white outline-none focus:border-[#E50914]" />
                                 </div>
                                 <div>
                                   <label className="block text-[8px] font-bold text-zinc-500 uppercase tracking-widest mb-1.5">Years Experience</label>
-                                  <input type="number" name="yearsExperience" defaultValue={cmsContent.yearsExperience || 5} className="w-full bg-[#121215] border border-white/15 rounded-sm p-2 text-white outline-none focus:border-[#E50914]" />
+                                  <input type="number" name="yearsExperience" defaultValue={cmsContent.heroYearsExperience || 5} className="w-full bg-[#121215] border border-white/15 rounded-sm p-2 text-white outline-none focus:border-[#E50914]" />
+                                </div>
+                                <div>
+                                  <label className="block text-[8px] font-bold text-zinc-500 uppercase tracking-widest mb-1.5">Satisfaction %</label>
+                                  <input type="number" name="satisfaction" defaultValue={cmsContent.heroSatisfaction || 95} className="w-full bg-[#121215] border border-white/15 rounded-sm p-2 text-white outline-none focus:border-[#E50914]" />
                                 </div>
                               </div>
                               <div className="pt-2">
@@ -1453,25 +1464,31 @@ export default function AdminCMSModal({ isOpen, onClose, onContentUpdated, isAdm
                                 metaTitle: e.target.metaTitle.value,
                                 metaDescription: e.target.metaDescription.value,
                                 keywords: e.target.keywords.value,
-                                ogImage: e.target.ogImage.value
+                                ogImage: e.target.ogImage.value,
+                                googleAnalyticsId: e.target.googleAnalyticsId.value
                               });
                             }} className="space-y-4 text-xs">
                               <span className="text-[10px] text-zinc-400 font-bold uppercase tracking-widest block border-b border-white/5 pb-1 mb-2">SEO OPTIMIZATIONS & META TAGS</span>
                               <div>
                                 <label className="block text-[8px] font-bold text-zinc-500 uppercase tracking-widest mb-1.5">Meta Page Title Tag (Max 60 Chars)</label>
-                                <input type="text" name="metaTitle" defaultValue={cmsContent.metaTitle || "in.fit GYM | Hyderabad’s Elite AC Strength & Cardio Transformation Center"} className="w-full bg-[#121215] border border-white/15 rounded-sm p-2 text-white outline-none focus:border-[#E50914]" />
+                                <input type="text" name="metaTitle" defaultValue={cmsContent.seoMetaTitle || "in.fit GYM | Hyderabad's Elite AC Strength & Cardio Transformation Center"} className="w-full bg-[#121215] border border-white/15 rounded-sm p-2 text-white outline-none focus:border-[#E50914]" />
                               </div>
                               <div>
                                 <label className="block text-[8px] font-bold text-zinc-500 uppercase tracking-widest mb-1.5">Meta Description Tag (Max 160 Chars)</label>
-                                <textarea name="metaDescription" rows={2} defaultValue={cmsContent.metaDescription || ""} className="w-full bg-[#121215] border border-white/15 rounded-sm p-2 text-white outline-none focus:border-[#E50914]" />
+                                <textarea name="metaDescription" rows={2} defaultValue={cmsContent.seoMetaDescription || ""} className="w-full bg-[#121215] border border-white/15 rounded-sm p-2 text-white outline-none focus:border-[#E50914]" />
                               </div>
                               <div>
                                 <label className="block text-[8px] font-bold text-zinc-500 uppercase tracking-widest mb-1.5">Meta Keywords list (Comma separated)</label>
-                                <input type="text" name="keywords" defaultValue={cmsContent.keywords || "gym, hyderabad, strength training"} className="w-full bg-[#121215] border border-white/15 rounded-sm p-2 text-white outline-none focus:border-[#E50914]" />
+                                <input type="text" name="keywords" defaultValue={cmsContent.seoKeywords || "gym, hyderabad, strength training"} className="w-full bg-[#121215] border border-white/15 rounded-sm p-2 text-white outline-none focus:border-[#E50914]" />
                               </div>
                               <div>
                                 <label className="block text-[8px] font-bold text-zinc-500 uppercase tracking-widest mb-1.5">OpenGraph Share Image URL</label>
-                                <input type="text" name="ogImage" defaultValue={cmsContent.ogImage || ""} className="w-full bg-[#121215] border border-white/15 rounded-sm p-2 text-white outline-none focus:border-[#E50914]" />
+                                <input type="text" name="ogImage" defaultValue={cmsContent.seoOgImage || ""} className="w-full bg-[#121215] border border-white/15 rounded-sm p-2 text-white outline-none focus:border-[#E50914]" />
+                              </div>
+                              <div>
+                                <label className="block text-[8px] font-bold text-zinc-500 uppercase tracking-widest mb-1.5">Google Analytics 4 Measurement ID</label>
+                                <input type="text" name="googleAnalyticsId" defaultValue={cmsContent.seoGoogleAnalyticsId || ""} placeholder="e.g. G-XXXXXXXXXX (leave blank to disable)" className="w-full bg-[#121215] border border-white/15 rounded-sm p-2 text-white outline-none focus:border-[#E50914] placeholder-zinc-600" />
+                                <p className="text-[8px] text-zinc-600 mt-1">Enter your GA4 ID when ready to enable analytics tracking.</p>
                               </div>
                               <div className="pt-2">
                                 <button type="submit" className="bg-[#E50914] hover:bg-white text-white hover:text-black text-[9px] font-bold uppercase tracking-widest py-2 px-6 rounded-sm transition-all cursor-pointer">Save SEO Fields</button>
@@ -1522,8 +1539,23 @@ export default function AdminCMSModal({ isOpen, onClose, onContentUpdated, isAdm
                           <textarea rows={3} value={serviceForm.description || ""} onChange={(e) => setServiceForm({ ...serviceForm, description: e.target.value })} className="w-full bg-[#121215] border border-white/15 rounded-sm p-2 text-white" />
                         </div>
                         <div>
-                          <label className="block text-[8px] font-bold text-zinc-400 uppercase tracking-widest mb-1">Image URL Address</label>
-                          <input type="text" value={serviceForm.image_url || ""} onChange={(e) => setServiceForm({ ...serviceForm, image_url: e.target.value })} className="w-full bg-[#121215] border border-white/15 rounded-sm p-2 text-white" />
+                          <ImageUpload
+                            bucket="gym-images"
+                            folder="services"
+                            currentUrl={serviceForm.image_url || ""}
+                            label="Service Cover Image"
+                            onUpload={(url) => setServiceForm({ ...serviceForm, image_url: url })}
+                          />
+                        </div>
+                        <div>
+                          <label className="block text-[8px] font-bold text-zinc-400 uppercase tracking-widest mb-1">Schedule / Timing</label>
+                          <input type="text" placeholder="e.g. Mon–Sat: 6:00 AM – 9:00 PM" value={serviceForm.schedule || ""} onChange={(e) => setServiceForm({ ...serviceForm, schedule: e.target.value })} className="w-full bg-[#121215] border border-white/15 rounded-sm p-2 text-white" />
+                          <p className="text-[9px] text-zinc-500 mt-1">Shown as a badge in the service popup modal</p>
+                        </div>
+                        <div>
+                          <label className="block text-[8px] font-bold text-zinc-400 uppercase tracking-widest mb-1">Features / What's Included</label>
+                          <textarea rows={3} placeholder="Enter features separated by commas e.g. Power Cages,Plate-Loaded Machines,AC Floor" value={serviceForm.features || ""} onChange={(e) => setServiceForm({ ...serviceForm, features: e.target.value })} className="w-full bg-[#121215] border border-white/15 rounded-sm p-2 text-white text-xs" />
+                          <p className="text-[9px] text-zinc-500 mt-1">Comma-separated list — each item gets a ✓ checkmark in the popup</p>
                         </div>
                         <div className="pt-2 flex gap-4">
                           <button onClick={handleSaveServiceForm} className="bg-[#E50914] hover:bg-emerald-500 text-white text-[10px] font-bold uppercase py-2 px-5 rounded-sm transition-all cursor-pointer">Save Service</button>
@@ -1695,8 +1727,13 @@ export default function AdminCMSModal({ isOpen, onClose, onContentUpdated, isAdm
                             <input type="text" value={trainerForm.experience || "5+ Years"} onChange={(e) => setTrainerForm({ ...trainerForm, experience: e.target.value })} className="w-full bg-[#121215] border border-white/15 rounded-sm p-2 text-white" />
                           </div>
                           <div>
-                            <label className="block text-[8px] font-bold text-zinc-400 uppercase tracking-widest mb-1">Photo Image Link</label>
-                            <input type="text" value={trainerForm.photo_url || ""} onChange={(e) => setTrainerForm({ ...trainerForm, photo_url: e.target.value })} className="w-full bg-[#121215] border border-white/15 rounded-sm p-2 text-white" />
+                            <ImageUpload
+                              bucket="gym-images"
+                              folder="trainers"
+                              currentUrl={trainerForm.photo_url || ""}
+                              label="Trainer Photo"
+                              onUpload={(url) => setTrainerForm({ ...trainerForm, photo_url: url })}
+                            />
                           </div>
                         </div>
                         <div className="grid grid-cols-2 gap-4">
@@ -1780,8 +1817,13 @@ export default function AdminCMSModal({ isOpen, onClose, onContentUpdated, isAdm
                             <input type="number" min={1} max={5} value={testimonialForm.rating || 5} onChange={(e) => setTestimonialForm({ ...testimonialForm, rating: parseFloat(e.target.value) || 5 })} className="w-full bg-[#121215] border border-white/15 rounded-sm p-2 text-white" />
                           </div>
                           <div>
-                            <label className="block text-[8px] font-bold text-zinc-400 uppercase tracking-widest mb-1">Member Image URL (optional)</label>
-                            <input type="text" value={testimonialForm.member_photo_url || ""} onChange={(e) => setTestimonialForm({ ...testimonialForm, member_photo_url: e.target.value })} className="w-full bg-[#121215] border border-white/15 rounded-sm p-2 text-white" />
+                            <ImageUpload
+                              bucket="gym-images"
+                              folder="testimonials"
+                              currentUrl={testimonialForm.member_photo_url || ""}
+                              label="Member Photo (Optional)"
+                              onUpload={(url) => setTestimonialForm({ ...testimonialForm, member_photo_url: url })}
+                            />
                           </div>
                         </div>
                         <div>
@@ -1848,11 +1890,13 @@ export default function AdminCMSModal({ isOpen, onClose, onContentUpdated, isAdm
                           </div>
                           <div>
                             <label className="block text-[8px] font-bold text-zinc-400 uppercase tracking-widest mb-1">Category *</label>
-                            <select value={galleryForm.category || "Gym"} onChange={(e) => setGalleryForm({ ...galleryForm, category: e.target.value })} className="w-full bg-[#121215] border border-white/15 rounded-sm p-2 text-white cursor-pointer font-sans">
-                              <option value="Gym">Gym Floor</option>
-                              <option value="Equipment">USA Equipment</option>
-                              <option value="Transformation">Transformation</option>
-                              <option value="Events">Special Events</option>
+                            <select value={galleryForm.category || "Strength Area"} onChange={(e) => setGalleryForm({ ...galleryForm, category: e.target.value })} className="w-full bg-[#121215] border border-white/15 rounded-sm p-2 text-white cursor-pointer font-sans">
+                              <option value="Strength Area">Strength Area</option>
+                              <option value="Cardio Area">Cardio Area</option>
+                              <option value="Group Training">Group Training</option>
+                              <option value="Personal Training">Personal Training</option>
+                              <option value="Gym Equipment">Gym Equipment</option>
+                              <option value="Member Activities">Member Activities</option>
                             </select>
                           </div>
                         </div>
@@ -1860,9 +1904,14 @@ export default function AdminCMSModal({ isOpen, onClose, onContentUpdated, isAdm
                           <label className="block text-[8px] font-bold text-zinc-400 uppercase tracking-widest mb-1">Description</label>
                           <input type="text" value={galleryForm.description || ""} onChange={(e) => setGalleryForm({ ...galleryForm, description: e.target.value })} className="w-full bg-[#121215] border border-white/15 rounded-sm p-2 text-white" />
                         </div>
-                        <div>
-                          <label className="block text-[8px] font-bold text-zinc-400 uppercase tracking-widest mb-1">Image Photo URL Address *</label>
-                          <input type="text" value={galleryForm.photo_url || ""} onChange={(e) => setGalleryForm({ ...galleryForm, photo_url: e.target.value })} className="w-full bg-[#121215] border border-white/15 rounded-sm p-2 text-white" />
+                        <div className="col-span-2">
+                          <ImageUpload
+                            bucket="gym-images"
+                            folder="gallery"
+                            currentUrl={galleryForm.photo_url || ""}
+                            label="Gallery Photo"
+                            onUpload={(url) => setGalleryForm({ ...galleryForm, photo_url: url })}
+                          />
                         </div>
                         <div className="pt-2 flex gap-4">
                           <button onClick={handleSaveGalleryForm} className="bg-[#E50914] hover:bg-emerald-500 text-white text-[10px] font-bold uppercase py-2 px-5 rounded-sm transition-all cursor-pointer">Save Photo</button>

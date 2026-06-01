@@ -55,9 +55,18 @@ export default function AuthModal({ isOpen, onClose, onLoginSuccess }) {
 
     try {
       // 1. Supabase Auth Sign Up
+      const derivedRole = regEmail.toLowerCase().includes("admin") ? "ADMIN" : "MEMBER";
+      
       const { data: authData, error: authError } = await supabase.auth.signUp({
         email: regEmail.trim(),
         password: regPassword,
+        options: {
+          data: {
+            full_name: regFullName.trim(),
+            phone: regPhone.trim(),
+            role: derivedRole
+          }
+        }
       });
 
       if (authError) throw authError;
@@ -65,24 +74,10 @@ export default function AuthModal({ isOpen, onClose, onLoginSuccess }) {
       const user = authData.user;
       if (!user) throw new Error("Registration succeeded but no auth user profile returned.");
 
-      // Derive role based on email containing "admin" keyword
-      const derivedRole = regEmail.toLowerCase().includes("admin") ? "ADMIN" : "MEMBER";
+      // Role is already derived above
 
-      // 2. Insert corresponding profile row inside custom public.users table
-      const { error: profileError } = await supabase
-        .from("users")
-        .insert({
-          id: user.id,
-          full_name: regFullName.trim(),
-          email: regEmail.trim().toLowerCase(),
-          phone: regPhone.trim(),
-          role: derivedRole
-        });
-
-      if (profileError) {
-        // Attempt clean up of auth user if profile insert fails
-        console.error("Profile row creation failed:", profileError.message);
-      }
+      // Insert is now handled by Supabase Database Trigger automatically
+      // to avoid RLS/session race conditions on the frontend.
 
       const activeProfile = {
         email: regEmail.trim().toLowerCase(),
@@ -129,7 +124,10 @@ export default function AuthModal({ isOpen, onClose, onLoginSuccess }) {
         .eq("id", user.id)
         .single();
 
-      if (profileError) throw new Error("Authentication succeeded but failed to sync user role profile.");
+      if (profileError) {
+        console.error("Profile sync error details:", profileError);
+        throw new Error(`Profile sync failed: ${profileError.message || profileError.details || 'Row not found or RLS blocked'}`);
+      }
 
       const activeProfile = {
         email: profile.email,
