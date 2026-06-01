@@ -582,7 +582,7 @@ export default function App() {
               
               <button 
                 onClick={() => window.open('https://wa.me/911234567890', '_blank')}
-                className="border-2 border-green-500/50 hover:border-green-500 text-green-400 hover:bg-green-500/10 font-sans text-[11px] tracking-[0.2em] font-black px-8 py-4 uppercase transition-all cursor-pointer text-center"
+                className="border-2 border-white/50 hover:border-white text-white hover:bg-white/10 font-sans text-[11px] tracking-[0.2em] font-black px-8 py-4 uppercase transition-all cursor-pointer text-center"
               >
                 WHATSAPP
               </button>
@@ -626,8 +626,8 @@ export default function App() {
               </div>
               <div className="w-px h-8 bg-white/10" />
               <div className="flex flex-col text-center relative">
-                <span className="absolute -top-3 left-1/2 -translate-x-1/2 bg-yellow-500 text-black text-[7px] font-black px-1.5 py-0.5 rounded-sm tracking-widest uppercase whitespace-nowrap">Best Value</span>
-                <span className="text-yellow-500 text-[9px] font-bold tracking-[0.2em] uppercase pt-1">12 Months</span>
+                <span className="absolute -top-3 left-1/2 -translate-x-1/2 bg-white text-black text-[7px] font-black px-1.5 py-0.5 rounded-sm tracking-widest uppercase whitespace-nowrap">Best Value</span>
+                <span className="text-white text-[9px] font-bold tracking-[0.2em] uppercase pt-1">12 Months</span>
                 <span className="text-white font-display text-xl tracking-wide">₹10999</span>
               </div>
               <div className="w-px h-8 bg-white/10" />
