@@ -523,7 +523,7 @@ export default function App() {
       <section 
         className="relative min-h-screen flex flex-col justify-between overflow-hidden bg-black"
         style={{
-          backgroundImage: `url('/hero-bg3.png')`,
+          backgroundImage: `url('${pageContent.heroBgUrl || '/hero-bg3.png'}')`,
           backgroundPosition: 'center',
           backgroundSize: 'cover',
           backgroundRepeat: 'no-repeat'
@@ -542,26 +542,26 @@ export default function App() {
             <div className="flex items-center gap-3">
               <div className="w-8 h-[3px] bg-[#E50914]" />
               <span className="text-[#E50914] font-sans text-[11px] font-black uppercase tracking-[0.3em]">
-                2 FLOORS A/C GYM
+                {pageContent.heroTagline}
               </span>
             </div>
 
             {/* Main Heading */}
             <h1 className="font-display text-[4.5rem] sm:text-[6rem] md:text-[8rem] text-white font-black leading-[0.85] uppercase tracking-tight">
-              TRAIN HARD.
+              {pageContent.heroHeadingLine1}
+              {pageContent.heroHeadingHighlight && (
+                <span className="text-[#E50914]"> {pageContent.heroHeadingHighlight}</span>
+              )}
               <br />
-              <span className="text-[#E50914]">
-                TRANSFORM FASTER.
-              </span>
+              {pageContent.heroHeadingLine2}
+              {pageContent.heroHeadingHighlight2 && (
+                <span className="text-[#E50914]"> {pageContent.heroHeadingHighlight2}</span>
+              )}
             </h1>
-
-            <h3 className="text-white font-sans text-xs sm:text-sm font-bold uppercase tracking-[0.2em]">
-              Strength • Cardio • Functional Training
-            </h3>
 
             {/* Description */}
             <p className="text-zinc-300 text-sm font-sans font-medium leading-relaxed max-w-sm">
-              Professional equipment and expert trainers built for real transformation.
+              {pageContent.heroDescription}
             </p>
 
             {/* CTA Buttons */}
