@@ -881,13 +881,13 @@ export default function App() {
                 </div>
               </div>
             ) : currentUser && currentUser.status === "APPROVED" && !isRenewing ? (
-              <div className="col-span-1 md:col-span-3 bg-[#121215] border border-emerald-500/30 p-10 sm:p-14 rounded-sm text-center space-y-6 max-w-2xl mx-auto shadow-xl">
-                <div className="w-16 h-16 rounded-full bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center mx-auto animate-pulse">
-                  <CheckCircle2 className="w-7 h-7 text-emerald-400" />
+              <div className="col-span-1 md:col-span-3 bg-[#121215] border border-white/30 p-10 sm:p-14 rounded-sm text-center space-y-6 max-w-2xl mx-auto shadow-xl">
+                <div className="w-16 h-16 rounded-full bg-white/10 border border-white/30 flex items-center justify-center mx-auto animate-pulse">
+                  <CheckCircle2 className="w-7 h-7 text-white" />
                 </div>
                 <div className="space-y-2">
                   <h3 className="font-display text-2xl sm:text-3xl font-black text-white tracking-tight uppercase">
-                    Membership <span className="text-emerald-400">Approved</span>
+                    Membership <span className="text-white">Approved</span>
                   </h3>
                   <p className="text-zinc-400 text-sm leading-relaxed max-w-md mx-auto">
                     Please complete payment or gym verification to activate your membership.
@@ -977,7 +977,7 @@ export default function App() {
                     <span className="text-[10px] text-[#EF4444] font-bold uppercase tracking-widest block border-b border-white/5 pb-1">Update Personal Metrics</span>
                     
                     {profileSaveSuccess && (
-                      <div className="p-2.5 bg-emerald-950/40 text-emerald-400 border border-emerald-900/50 rounded-sm mb-3">
+                      <div className="p-2.5 bg-white/5 text-white border border-white/20 rounded-sm mb-3">
                         {profileSaveSuccess}
                       </div>
                     )}
@@ -1087,7 +1087,7 @@ export default function App() {
                             <span className="text-zinc-500 font-mono block text-[8px] mt-0.5">Submitted: {new Date(req.created_at).toLocaleDateString("en-IN")}</span>
                           </div>
                           <span className={`px-2 py-0.5 rounded-sm font-bold uppercase tracking-widest text-[8px] border ${
-                            req.status === "APPROVED" ? "bg-emerald-600/10 border-emerald-500/30 text-emerald-400" :
+                            req.status === "APPROVED" ? "bg-white/10 border-white/30 text-white" :
                             req.status === "CONTACTED" ? "bg-blue-600/10 border-blue-500/30 text-blue-400" :
                             req.status === "REJECTED" ? "bg-red-600/10 border-red-500/30 text-red-500" :
                             "bg-amber-600/10 border-amber-500/30 text-amber-400"

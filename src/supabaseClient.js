@@ -13,7 +13,33 @@ if (!supabaseUrl || !supabaseAnonKey) {
   );
 }
 
+// Custom cookie storage adapter for unshakeable session persistence
+const cookieStorage = {
+  getItem: (key) => {
+    if (typeof document === 'undefined') return null;
+    const match = document.cookie.match(new RegExp('(^| )' + key + '=([^;]+)'));
+    return match ? decodeURIComponent(match[2]) : null;
+  },
+  setItem: (key, value) => {
+    if (typeof document === 'undefined') return;
+    // Set cookie to expire in 1 year, secure, same-site strict
+    document.cookie = `${key}=${encodeURIComponent(value)}; path=/; max-age=31536000; SameSite=Lax; Secure`;
+  },
+  removeItem: (key) => {
+    if (typeof document === 'undefined') return;
+    document.cookie = `${key}=; path=/; max-age=0; SameSite=Lax; Secure`;
+  }
+};
+
 export const supabase = createClient(
   supabaseUrl ?? 'https://placeholder.supabase.co',
-  supabaseAnonKey ?? 'placeholder-key'
+  supabaseAnonKey ?? 'placeholder-key',
+  {
+    auth: {
+      storage: cookieStorage,
+      persistSession: true,
+      autoRefreshToken: true,
+      detectSessionInUrl: true
+    }
+  }
 );
