@@ -523,7 +523,7 @@ export default function App() {
       <section 
         className="relative min-h-screen flex flex-col justify-between overflow-hidden bg-black"
         style={{
-          backgroundImage: `url('${pageContent.heroBgUrl || '/hero-bg3.png'}')`,
+          backgroundImage: pageContent.heroBgUrl ? `url('${pageContent.heroBgUrl}')` : 'none',
           backgroundPosition: 'center',
           backgroundSize: 'cover',
           backgroundRepeat: 'no-repeat'
@@ -671,7 +671,11 @@ export default function App() {
       >
         <div className="flex justify-between items-end mb-16 border-b border-white/10 pb-4">
           <h2 className="font-display text-4xl sm:text-5xl md:text-6xl font-black text-white tracking-tighter uppercase">
-            FACILITY <span className="text-[#E50914] italic">HIGHLIGHTS</span>
+            {pageContent.aboutTitle ? (
+              pageContent.aboutTitle
+            ) : (
+              <>FACILITY <span className="text-[#E50914] italic">HIGHLIGHTS</span></>
+            )}
           </h2>
           <span className="text-[10px] text-[#EEEEF0]/60 font-sans tracking-[0.2em] uppercase hidden sm:block font-bold">
             AUTHENTIC QUALITY RACKS
@@ -693,8 +697,8 @@ export default function App() {
               <h3 className="font-display text-2xl sm:text-3xl font-black text-white tracking-tighter uppercase">
                 REAL LEADER USA <span className="text-[#E50914] italic">EQUIPMENT</span>
               </h3>
-              <p className="text-[#EEEEF0]/70 text-xs sm:text-sm max-w-md leading-relaxed">
-                Trusted worldwide for extreme durability and biomechanical ergonomic precision. Our floor features the latest professional series of selectorized and heavy plate-loaded gym machines.
+              <p className="text-[#EEEEF0]/70 text-xs sm:text-sm max-w-md leading-relaxed whitespace-pre-wrap">
+                {pageContent.aboutDescription || "Trusted worldwide for extreme durability and biomechanical ergonomic precision. Our floor features the latest professional series of selectorized and heavy plate-loaded gym machines."}
               </p>
             </div>
           </div>
@@ -1417,30 +1421,33 @@ export default function App() {
               </span>
             </div>
             
-            <p className="text-[#EEEEF0]/60 text-xs leading-relaxed font-sans font-medium">
-              Annojiguda, Hyderabad.<br />
-              NTPC X Road.
+            <p className="text-[#EEEEF0]/60 text-xs leading-relaxed font-sans font-medium whitespace-pre-wrap">
+              {pageContent.contactAddress}
             </p>
 
             <div className="flex gap-2.5 pt-1">
-              <a 
-                href={pageContent.socialInstagram || "https://www.instagram.com/infit_gym/"}
-                target="_blank" 
-                rel="noopener noreferrer"
-                title="Connect on Instagram"
-                className="w-10 h-10 border border-white/10 bg-[#0B0B0C] text-[#EEEEF0]/70 hover:border-[#EF4444] hover:text-[#EF4444] transition-all flex items-center justify-center rounded-sm"
-              >
-                <Instagram className="w-4 h-4" />
-              </a>
-              <a 
-                href="https://www.google.com/maps/dir/?api=1&destination=in.fit+GYM+Annojiguda+Hyderabad" 
-                target="_blank" 
-                rel="noopener noreferrer"
-                title="Google Maps Location"
-                className="w-10 h-10 border border-white/10 bg-[#0B0B0C] text-[#EEEEF0]/70 hover:border-[#EF4444] hover:text-[#EF4444] transition-all flex items-center justify-center rounded-sm"
-              >
-                <MapPin className="w-4 h-4" />
-              </a>
+              {pageContent.socialInstagram && (
+                <a 
+                  href={pageContent.socialInstagram}
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  title="Connect on Instagram"
+                  className="w-10 h-10 border border-white/10 bg-[#0B0B0C] text-[#EEEEF0]/70 hover:border-[#EF4444] hover:text-[#EF4444] transition-all flex items-center justify-center rounded-sm"
+                >
+                  <Instagram className="w-4 h-4" />
+                </a>
+              )}
+              {pageContent.contactMapUrl && (
+                <a 
+                  href={pageContent.contactMapUrl} 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  title="Google Maps Location"
+                  className="w-10 h-10 border border-white/10 bg-[#0B0B0C] text-[#EEEEF0]/70 hover:border-[#EF4444] hover:text-[#EF4444] transition-all flex items-center justify-center rounded-sm"
+                >
+                  <MapPin className="w-4 h-4" />
+                </a>
+              )}
             </div>
           </div>
 

@@ -75,7 +75,7 @@ export default function AdminCMSModal({ isOpen, onClose, onContentUpdated, isAdm
   const [testimonialForm, setTestimonialForm] = useState({});
 
   // Hero banner image URL (managed via ImageUpload)
-  const [heroBannerUrl, setHeroBannerUrl] = useState("");
+  const [heroBannerUrl, setHeroBannerUrl] = useState(null);
 
   // Sync session authentication role and database logs
   const syncStaffRole = async () => {
@@ -1241,7 +1241,7 @@ export default function AdminCMSModal({ isOpen, onClose, onContentUpdated, isAdm
                                 heading2: e.target.heading2.value,
                                 highlight2: e.target.highlight2.value,
                                 description: e.target.description.value,
-                                bgImageUrl: heroBannerUrl || cmsContent.heroBgUrl || "",
+                                bgImageUrl: heroBannerUrl !== null ? heroBannerUrl : (cmsContent.heroBgUrl || ""),
                                 ctaText: e.target.ctaText.value,
                                 ctaLink: e.target.ctaLink.value,
                                 memberCount: parseInt(e.target.memberCount.value) || 700,
