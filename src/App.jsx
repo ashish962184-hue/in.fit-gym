@@ -40,6 +40,9 @@ export default function App() {
   const [isAuthOpen, setIsAuthOpen] = useState(false);
   const [isAdminCmsOpen, setIsAdminCmsOpen] = useState(false);
 
+  // Global Loading State to prevent flash of default/stale content
+  const [isInitialLoad, setIsInitialLoad] = useState(true);
+
   // Dynamic live CMS parameters loaded from Supabase
   const [pageContent, setPageContent] = useState(DEFAULT_PAGE_CONTENT);
   const [plans, setPlans] = useState([]);
@@ -298,6 +301,8 @@ export default function App() {
       // 7. Classes list — no DB fallback (managed via Admin CMS)
     } catch (err) {
       console.error("CMS central database sync failure:", err.message);
+    } finally {
+      setIsInitialLoad(false);
     }
   };
 
@@ -501,6 +506,11 @@ export default function App() {
   const scrollToRef = (ref) => {
     ref.current?.scrollIntoView({ behavior: "smooth", block: "start" });
   };
+
+  // Prevent flash of old default content while Supabase loads data
+  if (isInitialLoad) {
+    return <div className="min-h-screen bg-black"></div>;
+  }
 
   return (
     <div className="min-h-screen bg-[#000000] text-[#EEEEF0] overflow-x-hidden selection:bg-[#E50914] selection:text-white font-sans pt-20">
