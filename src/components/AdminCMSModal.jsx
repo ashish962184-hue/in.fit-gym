@@ -176,11 +176,71 @@ export default function AdminCMSModal({ isOpen, onClose, onContentUpdated, isAdm
       let mergedContent = { ...DEFAULT_PAGE_CONTENT };
       if (settings && settings.length > 0) {
         settings.forEach((s) => {
-          if (s.key === "hero") mergedContent = { ...mergedContent, ...s.value };
-          if (s.key === "about") mergedContent = { ...mergedContent, ...s.value };
-          if (s.key === "contact") mergedContent = { ...mergedContent, ...s.value };
-          if (s.key === "social") mergedContent = { ...mergedContent, ...s.value };
-          if (s.key === "seo") mergedContent = { ...mergedContent, ...s.value };
+          if (s.key === "hero") {
+            const h = s.value;
+            mergedContent = {
+              ...mergedContent,
+              heroTagline:          h.tagline          ?? mergedContent.heroTagline,
+              heroHeadingLine1:     h.heading1         ?? mergedContent.heroHeadingLine1,
+              heroHeadingHighlight: h.highlight        ?? mergedContent.heroHeadingHighlight,
+              heroHeadingLine2:     h.heading2         ?? mergedContent.heroHeadingLine2,
+              heroHeadingHighlight2:h.highlight2       ?? mergedContent.heroHeadingHighlight2,
+              heroDescription:      h.description      ?? mergedContent.heroDescription,
+              heroBgUrl:            h.bgImageUrl       ?? mergedContent.heroBgUrl,
+              heroCtaText:          h.ctaText          ?? mergedContent.heroCtaText,
+              heroCtaLink:          h.ctaLink          ?? mergedContent.heroCtaLink,
+              heroMemberCount:      h.memberCount      ?? mergedContent.heroMemberCount,
+              heroTrainerCount:     h.trainerCount     ?? mergedContent.heroTrainerCount,
+              heroYearsExperience:  h.yearsExperience  ?? mergedContent.heroYearsExperience,
+              heroSatisfaction:     h.satisfaction     ?? mergedContent.heroSatisfaction,
+            };
+          }
+          if (s.key === "about") {
+            const a = s.value;
+            mergedContent = {
+              ...mergedContent,
+              aboutTitle:       a.title       ?? mergedContent.aboutTitle,
+              aboutDescription: a.description ?? mergedContent.aboutDescription,
+              aboutMission:     a.mission     ?? mergedContent.aboutMission,
+              aboutVision:      a.vision      ?? mergedContent.aboutVision,
+              aboutImages:      a.images      ?? mergedContent.aboutImages,
+            };
+          }
+          if (s.key === "contact") {
+            const c = s.value;
+            mergedContent = {
+              ...mergedContent,
+              contactPhone1:    c.phone1    ?? mergedContent.contactPhone1,
+              contactPhone2:    c.phone2    ?? mergedContent.contactPhone2,
+              contactWhatsapp:  c.whatsapp  ?? mergedContent.contactWhatsapp,
+              contactEmail:     c.email     ?? mergedContent.contactEmail,
+              contactAddress:   c.address   ?? mergedContent.contactAddress,
+              contactMapUrl:    c.mapUrl    ?? mergedContent.contactMapUrl,
+              contactHours:     c.hours     ?? mergedContent.contactHours,
+              contactEmergency: c.emergency ?? mergedContent.contactEmergency,
+            };
+          }
+          if (s.key === "social") {
+            const soc = s.value;
+            mergedContent = {
+              ...mergedContent,
+              socialInstagram: soc.instagram ?? mergedContent.socialInstagram,
+              socialFacebook:  soc.facebook  ?? mergedContent.socialFacebook,
+              socialYoutube:   soc.youtube   ?? mergedContent.socialYoutube,
+              socialLinkedin:  soc.linkedin  ?? mergedContent.socialLinkedin,
+            };
+          }
+          if (s.key === "seo") {
+            const seo = s.value;
+            mergedContent = {
+              ...mergedContent,
+              seoMetaTitle:          seo.metaTitle          ?? mergedContent.seoMetaTitle,
+              seoMetaDescription:    seo.metaDescription    ?? mergedContent.seoMetaDescription,
+              seoKeywords:           seo.keywords           ?? mergedContent.seoKeywords,
+              seoOgImage:            seo.ogImage            ?? mergedContent.seoOgImage,
+              seoGoogleAnalyticsId:  seo.googleAnalyticsId  ?? mergedContent.seoGoogleAnalyticsId,
+            };
+          }
         });
       }
       setCmsContent(mergedContent);
