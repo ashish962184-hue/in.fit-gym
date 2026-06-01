@@ -34,6 +34,11 @@ export default function AuthModal({ isOpen, onClose, onLoginSuccess }) {
     setAuthSuccess("");
   };
 
+  const handleClose = () => {
+    cleanForms();
+    onClose();
+  };
+
   const handleRegisterSubmit = async (e) => {
     e.preventDefault();
     setAuthError("");
@@ -178,7 +183,7 @@ export default function AuthModal({ isOpen, onClose, onLoginSuccess }) {
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 font-sans">
       {/* Backdrop */}
-      <div className="absolute inset-0 bg-black/45 backdrop-blur-[3px]" onClick={onClose} />
+      <div className="absolute inset-0 bg-black/45 backdrop-blur-[3px]" onClick={handleClose} />
 
       {/* Auth Panel Box */}
       <div className="relative w-full max-w-md bg-[#0B0B0C] border border-white/10 rounded-sm overflow-hidden shadow-2xl z-10 text-left">
@@ -198,7 +203,7 @@ export default function AuthModal({ isOpen, onClose, onLoginSuccess }) {
               {tab === "forgot_password" && "Athlete Recovery Terminal"}
             </h3>
           </div>
-          <button onClick={onClose} className="text-zinc-200/60 hover:text-[#EF4444] p-1.5 hover:bg-black/5 rounded-full cursor-pointer">
+          <button onClick={handleClose} className="text-zinc-200/60 hover:text-[#EF4444] p-1.5 hover:bg-black/5 rounded-full cursor-pointer">
             <X className="w-5 h-5" />
           </button>
         </div>
