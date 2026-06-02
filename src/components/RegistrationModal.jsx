@@ -199,7 +199,8 @@ export default function RegistrationModal({ isOpen, onClose, selectedPlan, allPl
 
       setStep(2);
     } catch (err) {
-      setFormErrors(err.message || "Failed to submit request. Please try again.");
+      console.error("Registration DB Error:", err);
+      setFormErrors("Failed to submit request. Please try again.");
     } finally {
       setLoading(false);
     }

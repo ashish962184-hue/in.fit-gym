@@ -114,7 +114,8 @@ export default function App() {
       setTimeout(() => setProfileSaveSuccess(""), 3000);
       setIsEditingProfile(false);
     } catch (err) {
-      alert("Failed to save profile: " + err.message);
+      console.error("Database Error:", err);
+      alert("Failed to save profile. Please try again later.");
     }
   };
 

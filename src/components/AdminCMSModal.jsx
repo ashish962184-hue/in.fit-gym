@@ -303,7 +303,8 @@ export default function AdminCMSModal({ isOpen, onClose, onContentUpdated, isAdm
       fetchSupabaseAdminData();
       onContentUpdated();
     } catch (err) {
-      alert("Failed to save setting: " + err.message);
+      console.error("Database Error:", err);
+      alert("Failed to save setting. Please check your connection and try again.");
     }
   };
 
@@ -347,7 +348,8 @@ export default function AdminCMSModal({ isOpen, onClose, onContentUpdated, isAdm
       fetchSupabaseAdminData();
       onContentUpdated();
     } catch (err) {
-      alert("Failed to save service: " + err.message);
+      console.error("Database Error:", err);
+      alert("Failed to save service. Please check your connection and try again.");
     }
   };
 
@@ -360,7 +362,8 @@ export default function AdminCMSModal({ isOpen, onClose, onContentUpdated, isAdm
         fetchSupabaseAdminData();
         onContentUpdated();
       } catch (err) {
-        alert("Failed to delete service: " + err.message);
+        console.error("Database Error:", err);
+      alert("Failed to delete service. Please check your connection and try again.");
       }
     }
   };
@@ -415,7 +418,8 @@ export default function AdminCMSModal({ isOpen, onClose, onContentUpdated, isAdm
       fetchSupabaseAdminData();
       onContentUpdated();
     } catch (err) {
-      alert("Failed to save plan: " + err.message);
+      console.error("Database Error:", err);
+      alert("Failed to save plan. Please check your connection and try again.");
     }
   };
 
@@ -428,7 +432,8 @@ export default function AdminCMSModal({ isOpen, onClose, onContentUpdated, isAdm
         fetchSupabaseAdminData();
         onContentUpdated();
       } catch (err) {
-        alert("Failed to delete plan: " + err.message);
+        console.error("Database Error:", err);
+      alert("Failed to delete plan. Please check your connection and try again.");
       }
     }
   };
@@ -480,7 +485,8 @@ export default function AdminCMSModal({ isOpen, onClose, onContentUpdated, isAdm
       fetchSupabaseAdminData();
       onContentUpdated();
     } catch (err) {
-      alert("Failed to save trainer: " + err.message);
+      console.error("Database Error:", err);
+      alert("Failed to save trainer. Please check your connection and try again.");
     }
   };
 
@@ -493,7 +499,8 @@ export default function AdminCMSModal({ isOpen, onClose, onContentUpdated, isAdm
         fetchSupabaseAdminData();
         onContentUpdated();
       } catch (err) {
-        alert("Failed to delete trainer: " + err.message);
+        console.error("Database Error:", err);
+      alert("Failed to delete trainer. Please check your connection and try again.");
       }
     }
   };
@@ -538,7 +545,8 @@ export default function AdminCMSModal({ isOpen, onClose, onContentUpdated, isAdm
       fetchSupabaseAdminData();
       onContentUpdated();
     } catch (err) {
-      alert("Failed to save testimonial: " + err.message);
+      console.error("Database Error:", err);
+      alert("Failed to save testimonial. Please check your connection and try again.");
     }
   };
 
@@ -551,7 +559,8 @@ export default function AdminCMSModal({ isOpen, onClose, onContentUpdated, isAdm
         fetchSupabaseAdminData();
         onContentUpdated();
       } catch (err) {
-        alert("Failed to delete testimonial: " + err.message);
+        console.error("Database Error:", err);
+      alert("Failed to delete testimonial. Please check your connection and try again.");
       }
     }
   };
@@ -595,7 +604,8 @@ export default function AdminCMSModal({ isOpen, onClose, onContentUpdated, isAdm
       fetchSupabaseAdminData();
       onContentUpdated();
     } catch (err) {
-      alert("Failed to save gallery: " + err.message);
+      console.error("Database Error:", err);
+      alert("Failed to save gallery. Please check your connection and try again.");
     }
   };
 
@@ -608,7 +618,8 @@ export default function AdminCMSModal({ isOpen, onClose, onContentUpdated, isAdm
         fetchSupabaseAdminData();
         onContentUpdated();
       } catch (err) {
-        alert("Failed to delete gallery item: " + err.message);
+        console.error("Database Error:", err);
+      alert("Failed to delete gallery item. Please check your connection and try again.");
       }
     }
   };
@@ -668,7 +679,8 @@ export default function AdminCMSModal({ isOpen, onClose, onContentUpdated, isAdm
       fetchSupabaseAdminData();
       onContentUpdated();
     } catch (err) {
-      alert("Failed to update status: " + err.message);
+      console.error("Database Error:", err);
+      alert("Failed to update status. Please check your connection and try again.");
     }
   };
 
@@ -681,7 +693,8 @@ export default function AdminCMSModal({ isOpen, onClose, onContentUpdated, isAdm
         fetchSupabaseAdminData();
         onContentUpdated();
       } catch (err) {
-        alert("Failed to delete request: " + err.message);
+        console.error("Database Error:", err);
+      alert("Failed to delete request. Please check your connection and try again.");
       }
     }
   };
@@ -697,7 +710,8 @@ export default function AdminCMSModal({ isOpen, onClose, onContentUpdated, isAdm
       handleTriggerNotification("Membership active state toggled.");
       fetchSupabaseAdminData();
     } catch (err) {
-      alert("Failed to toggle active state: " + err.message);
+      console.error("Database Error:", err);
+      alert("Failed to toggle active state. Please check your connection and try again.");
     }
   };
 
@@ -731,7 +745,8 @@ export default function AdminCMSModal({ isOpen, onClose, onContentUpdated, isAdm
       handleTriggerNotification("Athlete checked in successfully!");
       fetchSupabaseAdminData();
     } catch (err) {
-      alert("Attendance Check-In failed: " + err.message);
+      console.error("Database Error:", err);
+      alert("Attendance Check-In failed. Please check your connection and try again.");
     }
   };
 
@@ -748,7 +763,8 @@ export default function AdminCMSModal({ isOpen, onClose, onContentUpdated, isAdm
       handleTriggerNotification("Athlete checked out successfully!");
       fetchSupabaseAdminData();
     } catch (err) {
-      alert("Attendance Check-Out failed: " + err.message);
+      console.error("Database Error:", err);
+      alert("Attendance Check-Out failed. Please check your connection and try again.");
     }
   };
 
@@ -903,7 +919,8 @@ export default function AdminCMSModal({ isOpen, onClose, onContentUpdated, isAdm
         fetchSupabaseAdminData();
         onContentUpdated();
       } catch (err) {
-        alert("Import failed: " + err.message);
+        console.error("Database Error:", err);
+      alert("Import failed. Please check your connection and try again.");
       }
     };
     reader.readAsText(file);

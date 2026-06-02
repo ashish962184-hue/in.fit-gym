@@ -96,7 +96,8 @@ export default function AuthModal({ isOpen, onClose, onLoginSuccess }) {
         onClose();
       }, 1500);
     } catch (err) {
-      setAuthError(err.message || "An unexpected registration error occurred.");
+      console.error("Auth Error:", err);
+      setAuthError("An unexpected registration error occurred. Please try again.");
     } finally {
       setLoading(false);
     }
@@ -109,7 +110,6 @@ export default function AuthModal({ isOpen, onClose, onLoginSuccess }) {
     setLoading(true);
 
     try {
-      // 1. Supabase Sign In
       const { data: authData, error: authError } = await supabase.auth.signInWithPassword({
         email: loginEmail.trim(),
         password: loginPassword,
@@ -119,7 +119,6 @@ export default function AuthModal({ isOpen, onClose, onLoginSuccess }) {
 
       const user = authData.user;
 
-      // 2. Retrieve corresponding role profile row from public.users table
       const { data: profile, error: profileError } = await supabase
         .from("users")
         .select("*")
@@ -128,8 +127,7 @@ export default function AuthModal({ isOpen, onClose, onLoginSuccess }) {
 
       if (profileError) {
         console.error("Profile sync error details:", profileError);
-        await supabase.auth.signOut(); // FORCE LOGOUT TO PREVENT GHOST SESSION
-        // If the user was deleted from the public table but left behind in the auth system, show a generic login failure
+        await supabase.auth.signOut(); 
         throw new Error("Invalid login credentials. There is no active account with this email and password.");
       }
 
@@ -148,7 +146,8 @@ export default function AuthModal({ isOpen, onClose, onLoginSuccess }) {
         onClose();
       }, 1200);
     } catch (err) {
-      setAuthError(err.message || "Authentication credentials incorrect.");
+      console.error("Auth Login Error:", err);
+      setAuthError("Invalid login credentials or account does not exist.");
     } finally {
       setLoading(false);
     }
@@ -173,7 +172,8 @@ export default function AuthModal({ isOpen, onClose, onLoginSuccess }) {
         cleanForms();
       }, 2000);
     } catch (err) {
-      setAuthError(err.message || "Failed to trigger recovery reset.");
+      console.error("Auth Recovery Error:", err);
+      setAuthError("Failed to trigger recovery reset. Please try again later.");
     } finally {
       setLoading(false);
     }

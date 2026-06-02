@@ -81,9 +81,9 @@ export default function ImageUpload({
       if (err.message?.includes("row-level security")) {
         setError("Upload failed: You must be logged in as Admin to upload images.");
       } else if (err.message?.includes("Bucket not found")) {
-        setError('Upload failed: Storage bucket "gym-images" not found. Run db_patch.sql first.');
+        setError('Image storage is not initialized. Please run the database setup scripts.');
       } else {
-        setError("Upload failed: " + (err.message || "Unknown error"));
+        setError("Upload failed. Please check your network connection and try again.");
       }
     } finally {
       setUploading(false);
