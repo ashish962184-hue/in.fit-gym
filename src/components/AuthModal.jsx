@@ -128,6 +128,7 @@ export default function AuthModal({ isOpen, onClose, onLoginSuccess }) {
 
       if (profileError) {
         console.error("Profile sync error details:", profileError);
+        await supabase.auth.signOut(); // FORCE LOGOUT TO PREVENT GHOST SESSION
         throw new Error(`Profile sync failed: ${profileError.message || profileError.details || 'Row not found or RLS blocked'}`);
       }
 
