@@ -129,7 +129,8 @@ export default function AuthModal({ isOpen, onClose, onLoginSuccess }) {
       if (profileError) {
         console.error("Profile sync error details:", profileError);
         await supabase.auth.signOut(); // FORCE LOGOUT TO PREVENT GHOST SESSION
-        throw new Error(`Profile sync failed: ${profileError.message || profileError.details || 'Row not found or RLS blocked'}`);
+        // If the user was deleted from the public table but left behind in the auth system, show a generic login failure
+        throw new Error("Invalid login credentials. There is no active account with this email and password.");
       }
 
       const activeProfile = {
