@@ -59,9 +59,6 @@ export default function AuthModal({ isOpen, onClose, onLoginSuccess }) {
     }
 
     try {
-      // 1. Supabase Auth Sign Up
-      const derivedRole = regEmail.toLowerCase().includes("admin") ? "ADMIN" : "MEMBER";
-      
       const { data: authData, error: authError } = await supabase.auth.signUp({
         email: regEmail.trim(),
         password: regPassword,
@@ -69,7 +66,7 @@ export default function AuthModal({ isOpen, onClose, onLoginSuccess }) {
           data: {
             full_name: regFullName.trim(),
             phone: regPhone.trim(),
-            role: derivedRole
+            role: "MEMBER"
           }
         }
       });
